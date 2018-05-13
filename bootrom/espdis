@@ -131,7 +131,7 @@ class Dumper
 	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
 	@cur_addr = Array.new
 	@old_addr = Array.new
-	@map = Array.new @size, false
+	@map = Array.new @size, "D"
     end
     def one_inst ( addr )
 #        $(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
@@ -158,20 +158,23 @@ class Dumper
 	puts "Add: %08x" % addr
 	@new_addr << addr
     end
-    def claim ( index, size )
-	@map[index] = true
+    def claim ( index, size, type )
+	@map[index] = type
 	return if size == 1
-	@map[index+1] = true
+	@map[index+1] = type
 	return if size == 2
-	@map[index+2] = true
+	@map[index+2] = type
+    end
+    def fetch_long ( index )
+	bytes = @binary[index,4]
+	vals = bytes.unpack "L"
+	val = vals[0]
     end
     def get_l32r ( addr )
 	offset = addr - @base
-	claim offset, 4
-	bytes = @binary[offset,4]
-	vals = bytes.unpack "L"
+	claim offset, 4, "L"
 	#val = addr
-	val = vals[0]
+	val = fetch_long offset
 	return "0x%08x" % val
     end
     def range1 ( addr )
@@ -190,13 +193,13 @@ class Dumper
 	    # This indicates we have "slid" into a section we
 	    # already disassembled, usually because we followed a
 	    # branch prior to that section, so we can justend.
-	    if @map[index] == true
+	    if @map[index] == "I"
 		# print "Twice visiting: %08x\n" % addr
 		puts "*** END (Twice) ***"
 		break
 	    end
 
-	    claim index, i.size
+	    claim index, i.size, "I"
 
 	    add_addr i.target if i.is_jump
 	    add_addr i.target if i.is_branch
@@ -222,7 +225,7 @@ class Dumper
 		break unless t
 		t_hex = "%08x" % t
 		@old_addr << t
-		next if @map[t-@base]
+		next if @map[t-@base] != "D"
 		puts "Chase: " + t_hex + " (#{@cur_addr.size})"
 		range1 t
 	    }
@@ -231,12 +234,44 @@ class Dumper
 	    # We drop things that we had branches to, but were
 	    # in the range we continued to disassemble.
 	    @new_addr.each { |n|
-		if @map[n-@base]
+		if @map[n-@base] != "D"
 		    puts "Dropping: %08x" % n
 		    next
 		end
 		@cur_addr << n
 	    }
+	}
+    end
+    # The game here is to pull out contiguous blocks of the same type
+    def get_range ( index )
+	if index >= @size
+	    return "Q", 0
+	end
+	if @map[index] == "L"
+	    return "L", index + 4
+	end
+	t = @map[index]
+	loop {
+	    index = index + 1
+	    break if index >= @size
+	    break if @map[index] != t
+	}
+	return t, index
+    end
+    def pass2
+	index = 0
+	loop {
+	    type, nxt = get_range index
+	    break if type == "Q"
+	    addr = @base + index
+	    haddr = "%08x" % addr
+	    if type == "L"
+		hval = "%08x" % fetch_long(index)
+		print "#{haddr}:	" + hval + "	; l32r\n"
+	    else
+		print "#{haddr}:	" + type + "\n"
+	    end
+	    index = nxt
 	}
     end
 end
@@ -248,6 +283,9 @@ d = Dumper.new
 #exit
 
 d.pass1 0x40000400
+puts "End of Pass 1"
+d.pass2
+puts "DONE"
 
 # THE END
 
