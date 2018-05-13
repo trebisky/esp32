@@ -21,6 +21,9 @@ ESPTOOL = $(IDF_PATH)/components/esptool_py/esptool/esptool.py -p $(PORT)
 NOBJDUMP = xtensa-esp32-elf-objdump -D -b binary -mxtensa
 OBJDUMP = xtensa-esp32-elf-objdump -mxtensa -d -z 
 
+dis:
+	./espdis >espdis.out
+
 info:
 	$(ESPTOOL) read_mac
 	$(ESPTOOL) flash_id
