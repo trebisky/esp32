@@ -46,11 +46,15 @@ extra:
 
 # This works, but is brute force and has many out of sync sections.
 # Not only that, but the addresses are all at 0x0 not 0x40000000
-naive.dis:
-	$(OBJDUMP) esp32_rom0.bin >naive.dis
+#naive.dis:
+#	$(OBJDUMP) esp32_rom0.bin >naive.dis
 
-first.dis:
-	$(OBJDUMP) --start-address=0x40000400 rom0.elf >first.dis
+# This is better, at least the addresses are right
+# but it is still virtually useless.
+# We start at the ROM reset address so at least that
+# first part of the disassembly comes out right.
+naive.dis:
+	$(OBJDUMP) --start-address=0x40000400 esp32.elf >naive.dis
 
 esp32.elf:    wrap esp32.bin
 	./wrap esp32.bin esp32.elf
