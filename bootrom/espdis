@@ -1,0 +1,223 @@
+#!/bin/ruby
+
+# Tom Trebisky  5-12-2018
+
+# Anyone who realizes what is being done here will be appalled.
+# I am launching a process to run objdump for EACH and EVERY line
+# that needs to be disassembled.  Too bad.
+# If you don't like it, write your own disassembler !!  :-)
+# This is a "get 'er done" approach and enabled me to get most
+# of this written in an evening.  Besides that, it takes
+# less than 10 seconds to run on my 3.5 Ghz x86_64 system,
+# and that computer has nothing better to do.
+
+# I have discovered that rom1 follows after rom0 at
+# addresses 0x40060000 to 0x4006ffff
+
+# TODO:
+# 0 - put this on github
+# 1 - find out why my "Twice" messages don't run in a continuous
+#       flow thru areas where I am sure they must.  DONE
+#  Things involving setting ruby subarrays that I still don't understand.
+# 1.5 - avoid the Twice sections (should be easy enough)
+# 2 - deal with l32r nicely
+# 3 - generate an output in proper order
+#  (this will need to become a 2 pass thing of some kind)
+# 4 - dump the "gaps" in some nice way.
+# 5 - symbols from ld file
+# 6 - strings
+
+$elf_file = "rom.elf"
+$rom_size = 65536 * 7
+$rom_base = 0x40000000
+
+def error ( a, s )
+    print "Trouble at 0x%08x\n" % a
+    puts s
+    exit
+end
+
+# Information for a single instruction
+class Instr
+    attr_reader :addr
+    attr_reader :line
+    attr_reader :size
+    attr_reader :target
+    attr_reader :is_branch
+    attr_reader :is_call
+    attr_reader :is_jump
+    attr_reader :is_l32r
+    attr_reader :is_term
+
+    def initialize ( addr, stuff )
+	@is_branch = false
+	@is_call = false
+	@is_jump = false
+	@is_l32r = false
+	@is_term = false
+	@target = nil
+
+	@addr = addr
+
+	info = stuff.split "\n"
+#	puts stuff
+#	puts info.size
+	line = nil
+	match = Regexp.new "^%08x:" % addr
+	info.each { |l|
+	    line = l if match =~ l
+	}
+
+	error addr, stuff unless line
+
+	@line = line
+	w = line.split
+	if w.size < 3
+	    error addr, stuff
+	end
+	@size = w[1].size / 2
+	if @size < 1 or @size > 3
+	    error addr, stuff
+	end
+	op = w[2]
+	@is_term = true if op =~ /^ret/
+	@is_term = true if op =~ /^j/
+	@is_jump = true if op =~ /^j/
+	@is_jump = false if op =~ /^jx/
+	@is_branch = true if op =~ /^b/
+	@is_branch = false if op =~ /^break/
+	@is_call = true if op =~ /^call/
+	@is_call = false if op =~ /^callx/
+	@is_l32r = true if op =~ /^l32r/
+	if @is_jump
+	    #puts "Jump to #{w[3]}"
+	    @target = w[3]
+	end
+	if @is_call
+	    @target = w[3]
+	end
+	if @is_branch
+	    @target = w[-1]
+	end
+    end
+end
+
+class Dumper
+    def initialize
+	@elf = $elf_file
+	@size = $rom_size
+	@base = $rom_base
+
+	@limit = @base + @size -1
+	# This should be on the search path, if not prefix
+	# with something like /opt/esp32/xtensa-esp32-elf/bin
+#	@cmd = "xtensa-lx106-elf-objdump -mxtensa -d -z"
+	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
+	@cur_addr = Array.new
+	@old_addr = Array.new
+	@map = Array.new @size, false
+    end
+    def one_inst ( addr )
+#        $(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
+	start = "0x%08x" % addr
+	eaddr = addr + 3
+	stop = "0x%08x" % eaddr
+	range = "--start-address=#{start} --stop-address=#{stop}"
+	cmd = @cmd + " " + range + " #{@elf}"
+#	puts cmd
+	return Instr.new addr, `#{cmd}`
+    end
+    def add_addr ( target )
+	puts "Check add: " + target
+	error 0xdead, target if target !~ /^0x4/
+	addr = target.hex
+	puts "Maybe add: %08x" % addr
+	# Now Wow, now that we have all 7 * 64k
+	if addr > @limit
+	    puts "Wow, skipping: %08x" % addr
+	    return
+	end
+	return if @new_addr.include? addr
+	return if @old_addr.include? addr
+	puts "Yes add: %08x" % addr
+	@new_addr << addr
+    end
+    def claim ( index, size )
+	@map[index] = true
+	return if size == 1
+	@map[index+1] = true
+	return if size == 2
+	@map[index+2] = true
+    end
+    def chase ( addr )
+	loop {
+	    i = one_inst addr
+	    puts i.line
+	    index = addr - @base
+	    if @map[index] == true
+		print "Twice visiting: %08x\n" % addr
+	    end
+
+	    claim index, i.size
+
+	    add_addr i.target if i.is_jump
+	    add_addr i.target if i.is_branch
+	    add_addr i.target if i.is_call
+	    addr += i.size
+	    puts "*** END ***" if i.is_term
+	    break if i.is_term
+	    i = nil	# help garbage collection
+	}
+    end
+    def start ( addr )
+	@cur_addr << addr
+	pass = 0
+	loop {
+	    pass += 1
+	    break if @cur_addr.size < 1
+	    puts "Starting pass for %d items" % @cur_addr.size
+	    @new_addr = Array.new
+	    loop {
+		t = @cur_addr.shift
+		break unless t
+		t_hex = "%08x" % t
+		@old_addr << t
+		next if @map[t-@base]
+		puts "Chase: " + t_hex + " (#{@cur_addr.size})"
+		chase t
+	    }
+	    puts "!!! Pass #{pass} finished, %d waiting" % @new_addr.size
+
+	    # We drop things that we had branches to, but were
+	    # in the range we continued to disassemble.
+	    @new_addr.each { |n|
+		if @map[n-@base]
+		    puts "Dropping: %08x" % n
+		    next
+		end
+		@cur_addr << n
+	    }
+	}
+    end
+end
+
+d = Dumper.new
+
+#i = d.one_inst 0x40000400
+#puts i.line
+#exit
+
+d.start 0x40000400
+exit
+
+addr = 0x40000000
+eaddr = addr + 10000
+loop {
+    i = d.one_inst addr
+    puts i.line
+    addr += i.size
+    exit if addr >= eaddr
+}
+
+# THE END
+

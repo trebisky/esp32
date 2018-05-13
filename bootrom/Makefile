@@ -1,0 +1,65 @@
+# Makefile for ESP32 reverse engineering
+# Tom Trebisky  5-12-2018
+#
+#   currently on my system the following
+#   environment variable is set:
+# IDF_PATH=/opt/esp32/esp-idf
+
+all:
+	@echo "You need to be more specific"
+
+#PORT           = /dev/ttyUSB1
+PORT           = /dev/ttyUSB2
+
+#TOOL_PATH = /opt/esp-open-sdk/xtensa-lx106-elf/bin
+#TOOL_PATH = /opt/esp32/xtensa-esp32-elf/bin
+
+ESPTOOL = $(IDF_PATH)/components/esptool_py/esptool/esptool.py -p $(PORT)
+
+# This can be found on our search path
+#NOBJDUMP = xtensa-lx106-elf-objdump -D -b binary -mxtensa
+NOBJDUMP = xtensa-esp32-elf-objdump -D -b binary -mxtensa
+OBJDUMP = xtensa-esp32-elf-objdump -mxtensa -d -z 
+
+info:
+	$(ESPTOOL) read_mac
+	$(ESPTOOL) flash_id
+
+#ROM0_SIZE = 65536 * 5
+ROM0_SIZE = 393216
+ROM1_SIZE = 65536
+
+esp32_rom0.bin:
+	$(ESPTOOL) dump_mem 0x40000000 $(ROM0_SIZE) esp32_rom0.bin
+
+esp32_rom1.bin:
+	$(ESPTOOL) dump_mem 0x3ff90000 $(ROM1_SIZE) esp32_rom1.bin
+
+esp32.bin:
+	cat esp32_rom0.bin esp32_rom1.bin >esp32.bin
+
+extra:
+	$(ESPTOOL) dump_mem 0x40060000 65536 extra.bin
+
+# This works, but is brute force and has many out of sync sections.
+# Not only that, but the addresses are all at 0x0 not 0x40000000
+naive.dis:
+	$(OBJDUMP) esp32_rom0.bin >naive.dis
+
+first.dis:
+	$(OBJDUMP) --start-address=0x40000400 rom0.elf >first.dis
+
+zzz.dis:
+	$(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
+
+rom.elf:    wrap esp32.bin
+	./wrap esp32.bin rom.elf
+
+wrap:	wrap.c
+	cc -o wrap wrap.c
+
+# from "thing"
+both:
+	$(ESPTOOL) dump_mem 0x40000000 $(ROM0_SIZE) xesp32_rom0.bin
+	$(ESPTOOL) dump_mem 0x3ff90000 $(ROM1_SIZE) xesp32_rom1.bin
+
