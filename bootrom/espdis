@@ -13,21 +13,24 @@
 
 # I have discovered that rom1 follows after rom0 at
 # addresses 0x40060000 to 0x4006ffff
+# So we actually have 7 * 64k of ROM to deal with.
+#    458752 bytes
 
 # TODO:
-# 0 - put this on github
 # 1 - find out why my "Twice" messages don't run in a continuous
 #       flow thru areas where I am sure they must.  DONE
 #  Things involving setting ruby subarrays that I still don't understand.
-# 1.5 - avoid the Twice sections (should be easy enough)
 # 2 - deal with l32r nicely
 # 3 - generate an output in proper order
 #  (this will need to become a 2 pass thing of some kind)
 # 4 - dump the "gaps" in some nice way.
 # 5 - symbols from ld file
 # 6 - strings
+# 7 - add call table and generate "sub_xxx" sort of labels
+#   for all call targets not in the ld file.
 
-$elf_file = "rom.elf"
+$bin_file = "esp32.bin"
+$elf_file = "esp32.elf"
 $rom_size = 65536 * 7
 $rom_base = 0x40000000
 
@@ -84,6 +87,7 @@ class Instr
 	@is_term = true if op =~ /^j/
 	@is_jump = true if op =~ /^j/
 	@is_jump = false if op =~ /^jx/
+	@is_branch = true if op =~ /^loopnez/
 	@is_branch = true if op =~ /^b/
 	@is_branch = false if op =~ /^break/
 	@is_call = true if op =~ /^call/
@@ -99,6 +103,9 @@ class Instr
 	if @is_branch
 	    @target = w[-1]
 	end
+	if @is_l32r
+	    @target = w[-1]
+	end
     end
 end
 
@@ -107,6 +114,15 @@ class Dumper
 	@elf = $elf_file
 	@size = $rom_size
 	@base = $rom_base
+
+	# We need this to fetch stuff for l32r cleanup
+	file = File.open $bin_file, "rb"
+	@binary = file.read
+	file.close
+	if @binary.size != $rom_size
+	    puts "Something is wrong with binary file"
+	    exit
+	end
 
 	@limit = @base + @size -1
 	# This should be on the search path, if not prefix
@@ -128,18 +144,18 @@ class Dumper
 	return Instr.new addr, `#{cmd}`
     end
     def add_addr ( target )
-	puts "Check add: " + target
+	#puts "Check add: " + target
 	error 0xdead, target if target !~ /^0x4/
 	addr = target.hex
-	puts "Maybe add: %08x" % addr
-	# Now Wow, now that we have all 7 * 64k
+	#puts "Maybe add: %08x" % addr
+	# Never see Wow, now that we have all 7 * 64k
 	if addr > @limit
 	    puts "Wow, skipping: %08x" % addr
 	    return
 	end
 	return if @new_addr.include? addr
 	return if @old_addr.include? addr
-	puts "Yes add: %08x" % addr
+	puts "Add: %08x" % addr
 	@new_addr << addr
     end
     def claim ( index, size )
@@ -149,13 +165,35 @@ class Dumper
 	return if size == 2
 	@map[index+2] = true
     end
-    def chase ( addr )
+    def get_l32r ( addr )
+	offset = addr - @base
+	claim offset, 4
+	bytes = @binary[offset,4]
+	vals = bytes.unpack "L"
+	#val = addr
+	val = vals[0]
+	return "0x%08x" % val
+    end
+    def range1 ( addr )
 	loop {
 	    i = one_inst addr
-	    puts i.line
+
+	    if i.is_l32r
+		val = get_l32r ( i.target.hex )
+		puts i.line + "\t; ( " + val + " )"
+	    else
+		puts i.line
+	    end
+
 	    index = addr - @base
+
+	    # This indicates we have "slid" into a section we
+	    # already disassembled, usually because we followed a
+	    # branch prior to that section, so we can justend.
 	    if @map[index] == true
-		print "Twice visiting: %08x\n" % addr
+		# print "Twice visiting: %08x\n" % addr
+		puts "*** END (Twice) ***"
+		break
 	    end
 
 	    claim index, i.size
@@ -164,12 +202,14 @@ class Dumper
 	    add_addr i.target if i.is_branch
 	    add_addr i.target if i.is_call
 	    addr += i.size
-	    puts "*** END ***" if i.is_term
-	    break if i.is_term
-	    i = nil	# help garbage collection
+	    if i.is_term
+		puts "*** END ***"
+		break
+	    end
+	    i = nil	# help garbage collection ??
 	}
     end
-    def start ( addr )
+    def pass1 ( addr )
 	@cur_addr << addr
 	pass = 0
 	loop {
@@ -184,7 +224,7 @@ class Dumper
 		@old_addr << t
 		next if @map[t-@base]
 		puts "Chase: " + t_hex + " (#{@cur_addr.size})"
-		chase t
+		range1 t
 	    }
 	    puts "!!! Pass #{pass} finished, %d waiting" % @new_addr.size
 
@@ -207,17 +247,7 @@ d = Dumper.new
 #puts i.line
 #exit
 
-d.start 0x40000400
-exit
-
-addr = 0x40000000
-eaddr = addr + 10000
-loop {
-    i = d.one_inst addr
-    puts i.line
-    addr += i.size
-    exit if addr >= eaddr
-}
+d.pass1 0x40000400
 
 # THE END
 

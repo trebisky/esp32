@@ -49,11 +49,8 @@ naive.dis:
 first.dis:
 	$(OBJDUMP) --start-address=0x40000400 rom0.elf >first.dis
 
-zzz.dis:
-	$(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
-
-rom.elf:    wrap esp32.bin
-	./wrap esp32.bin rom.elf
+esp32.elf:    wrap esp32.bin
+	./wrap esp32.bin esp32.elf
 
 wrap:	wrap.c
 	cc -o wrap wrap.c
