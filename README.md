@@ -1,2 +1,3 @@
-# esp32
-ESP32 projects
+Here are my ESP32 projects
+
+bootrom - tools to disassemble the bootrom
