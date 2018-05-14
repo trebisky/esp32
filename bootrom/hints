@@ -1,0 +1,7 @@
+# Hints file for espdis
+# This is the first byte after a call that is never
+# expecting to return.  Marking it as data forces
+# the instruction disassembly to finish
+data 0x4000055d
+# The following is the vector table
+#data4 0x40000000:0x400003ff

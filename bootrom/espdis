@@ -136,21 +136,61 @@ end
 # The purpose of this is to hide the map and the way we represent it
 # We also hide indexing, all external access is via addresses
 class Map
+
     def initialize ( base, size )
 	@base = base
 	@size = size
+	@limit = base + size - 1
 	@map = Array.new size, "X"
+    end
+
+    def good_addr addr
+	return false if addr < @base
+	return false if addr > @limit
+	return true
+    end
+    def claim ( index, size, type )
+	size.times {
+	    @map[index] = type
+	    index += 1
+	}
+    end
+
+    def one_hint line
+	words = line.split
+	cmd = words[0].downcase
+	# mark a single byte
+	if cmd == "data1"
+	    addr = words[1].hex
+	    if good_addr addr
+		@map[addr-@base] = "D"
+	    end
+	end
+	# mark a range
+	if cmd == "data4"
+	    a = words[1].split ":"
+	    a1 = a[0].hex
+	    a2 = a[1].hex
+	    if a2 >= a1 and good_addr a1 and good_addr a2
+		claim a1-@base, a2-a1+1, "4"
+		#puts "D " + a1.hex + " " + a2.hex
+	    end
+	end
+    end
+
+    def load_hints
 	if File.exist? $hintfile
 	    f = File.open $hintfile
 	    f.each { |l|
-		puts "Hint: " + l
+		next if l =~ /^#/
+		next if l =~ /^$/
+		#puts "Hint: " + l
+		one_hint l
 	    }
 	    f.close
 	end
-	# after Call to 0x40000704 we will never return from.
-	# XXX belongs in hints file
-	@map[0x55d] = "D"
     end
+
     def show_map
 	addr = @base
 	i = 0
@@ -171,12 +211,6 @@ class Map
 	    rv += 1 if m != "X"
 	}
 	rv
-    end
-    def claim ( index, size, type )
-	size.times {
-	    @map[index] = type
-	    index += 1
-	}
     end
     def claim_l32r ( addr )
 	index = addr - @base
@@ -320,6 +354,7 @@ class Dumper
 	@old_addr = Array.new
 
 	@map = Map.new $rom_base, $rom_size
+	@map.load_hints
 	@image = Image.new
 	@call = Calls.new
     end
@@ -486,6 +521,13 @@ class Dumper
 	    if type == "L"
 		hval = @image.fetch_long(addr).hex
 		print "#{addr.hex}:	" + hval + "	; l32r\n"
+	    elsif type == "4"
+		loop {
+		    hval = @image.fetch_long(addr).hex
+		    print "#{addr.hex}:	" + hval + "\n"
+		    addr += 4
+		    break if addr >= xaddr
+		}
 	    elsif type == "I"
 		loop {
 		    naddr = range2 addr
