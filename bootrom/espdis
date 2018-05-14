@@ -7,9 +7,11 @@
 # that needs to be disassembled.  Too bad.
 # If you don't like it, write your own disassembler !!  :-)
 # This is a "get 'er done" approach and enabled me to get most
-# of this written in an evening.  Besides that, it takes
-# less than 10 seconds to run on my 3.5 Ghz x86_64 system,
-# and that computer has nothing better to do.
+# of this written in an evening.
+#
+# It takes just under 20 seconds now, with two passes,
+#  on my 3.5 Ghz x86_64 system,
+# and anway, that computer has nothing better to do.
 
 # I have discovered that rom1 follows after rom0 at
 # addresses 0x40060000 to 0x4006ffff
@@ -21,28 +23,44 @@
 # (approximately 4 percent!)
 
 # TODO:
+# 0 - implement Map class and cleanup
+# 0.1 finish .hex and .xhex cleanup
 # 1 - find out why my "Twice" messages don't run in a continuous
 #       flow thru areas where I am sure they must.  DONE
 #  Things involving setting ruby subarrays that I still don't understand.
-# 2 - deal with l32r nicely
-# 3 - generate an output in proper order
-#  (this will need to become a 2 pass thing of some kind)
+# 2 - deal with l32r nicely. DONE
+# 3 - generate an output in proper order via pass2. DONE
 # 4 - dump the "gaps" in some nice way.
 # 5 - symbols from ld file
 # 6 - strings
 # 7 - add call table and generate "sub_xxx" sort of labels
-#   for all call targets not in the ld file.
+#     for all call targets not in the ld file.
+# 8 arrange for hints file
 
 $bin_file = "esp32.bin"
 $elf_file = "esp32.elf"
+
 $rom_base = 0x40000000
 $rom_size = 65536 * 7
 
+$hintfile = "hints"
+
+# Augment this with some convenience methods
+class Integer
+    def hex
+	"%08x" % self
+    end
+    def xhex
+	"0x%08x" % self
+    end
+end
+
 def error ( a, s )
-    print "Trouble at 0x%08x\n" % a
+    puts "Trouble at " + a.xhex
     puts s
     exit
 end
+
 
 # Information for a single instruction
 class Instr
@@ -70,7 +88,7 @@ class Instr
 #	puts stuff
 #	puts info.size
 	line = nil
-	match = Regexp.new "^%08x:" % addr
+	match = Regexp.new "^" + addr.hex + ":"
 	info.each { |l|
 	    line = l if match =~ l
 	}
@@ -99,10 +117,10 @@ class Instr
 	@is_l32r = true if op =~ /^l32r/
 	if @is_jump
 	    #puts "Jump to #{w[3]}"
-	    @target = w[3]
+	    @target = w[-1]
 	end
 	if @is_call
-	    @target = w[3]
+	    @target = w[-1]
 	end
 	if @is_branch
 	    @target = w[-1]
@@ -113,14 +131,44 @@ class Instr
     end
 end
 
+class Map
+    def initialize
+	@map = Array.new size, "X"
+	if File.exist? $hintfile
+	    f = File.open $hintfile
+	    f.each { |l|
+		puts "Hint: " + l
+	    }
+	    close f
+	end
+	# after Call to 0x40000704 we will never return from.
+	# XXX belongs in hints file
+	@map[0x55d] = "D"
+    end
+end
+
 class Dumper
+    def Dumper.map ( size )
+	map = Array.new size, "X"
+	if File.exist? $hintfile
+	    f = File.open $hintfile
+	    f.each { |l|
+		puts "Hint: " + l
+	    }
+	    close f
+	end
+	# after Call to 0x40000704 we will never return from.
+	# XXX belongs in hints file
+	map[0x55d] = "D"
+	return map
+    end
     def initialize
 	@elf = $elf_file
 	@size = $rom_size
 	@base = $rom_base
 
-	@show_pass1 = true
-	@debug_pass1 = true
+	@show_pass1 = false
+	@debug_pass1 = false
 
 	# We need this to fetch stuff for l32r cleanup
 	file = File.open $bin_file, "rb"
@@ -138,14 +186,12 @@ class Dumper
 	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
 	@cur_addr = Array.new
 	@old_addr = Array.new
-	@map = Array.new @size, "X"
+	@map = Dumper.map $rom_size
     end
     def one_inst ( addr )
 #        $(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
-	start = "0x%08x" % addr
 	eaddr = addr + 3
-	stop = "0x%08x" % eaddr
-	range = "--start-address=#{start} --stop-address=#{stop}"
+	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
 	cmd = @cmd + " " + range + " #{@elf}"
 #	puts cmd
 	return Instr.new addr, `#{cmd}`
@@ -154,15 +200,15 @@ class Dumper
 	#puts "Check add: " + target
 	error 0xdead, target if target !~ /^0x4/
 	addr = target.hex
-	#puts "Maybe add: %08x" % addr
+	#puts "Maybe add: " + addr.hex
 	# Never see Wow, now that we have all 7 * 64k
 	if addr > @limit
-	    puts "Wow, skipping: %08x" % addr
+	    puts "Wow, skipping: " + addr.hex
 	    return
 	end
 	return if @new_addr.include? addr
 	return if @old_addr.include? addr
-	puts "Add: %08x" % addr if @debug_pass1
+	puts "Add: " + addr.hex if @debug_pass1
 	@new_addr << addr
     end
 
@@ -180,7 +226,7 @@ class Dumper
 
     def get_l32r ( addr )
 	val = fetch_long addr - @base
-	return "0x%08x" % val
+	return val.xhex
     end
 
     def print_inst ( i )
@@ -194,6 +240,9 @@ class Dumper
 
     def range1 ( addr )
 	loop {
+	    index = addr - @base
+	    break unless @map[index] == "X"
+
 	    i = one_inst addr
 
 	    print_inst i if @show_pass1
@@ -208,7 +257,7 @@ class Dumper
 	    # already disassembled, usually because we followed a
 	    # branch prior to that section, so we can justend.
 	    if @map[index] == "I"
-		# print "Twice visiting: %08x\n" % addr
+		# puts "Twice visiting: " + addr.hex
 		puts "*** END (Twice) ***" if @debug_pass1
 		break
 	    end
@@ -237,10 +286,9 @@ class Dumper
 	    loop {
 		t = @cur_addr.shift
 		break unless t
-		t_hex = "%08x" % t
 		@old_addr << t
 		next if @map[t-@base] != "X"
-		puts "Chase: " + t_hex + " (#{@cur_addr.size})" if @debug_pass1
+		puts "Chase: " + t.hex + " (#{@cur_addr.size})" if @debug_pass1
 		range1 t
 	    }
 	    puts "!!! Pass #{pass} finished, %d waiting" % @new_addr.size if @debug_pass1
@@ -249,7 +297,7 @@ class Dumper
 	    # in the range we continued to disassemble.
 	    @new_addr.each { |n|
 		if @map[n-@base] != "X"
-		    puts "Dropping: %08x" % n if @debug_pass1
+		    puts "Dropping: " + n.hex if @debug_pass1
 		    next
 		end
 		@cur_addr << n
@@ -278,8 +326,18 @@ class Dumper
     # until it terminates.
     def range2 ( addr )
 	loop {
+	    # This test avoids runon disassembly that
+	    # goes outside of regions already delimited
+	    # in pass 1. Now sort of belt and suspenders,
+	    # but we have seen it happen in cases where
+	    # only a hint would set things right.
+	    index = addr - @base
+	    if @map[index] != "I" and @map[index] != "X"
+		break
+	    end
 	    i = one_inst addr
 	    print_inst i
+	    puts "" if i.is_term
 
 	    addr += i.size
 	    if i.is_term
@@ -296,31 +354,26 @@ class Dumper
 	    type, nxt = get_range index
 	    break if type == "Q"
 	    addr = @base + index
-	    addr_hex = "%08x" % addr
 	    xaddr = @base + nxt
-	    xaddr_hex = "%08x" % xaddr
 	    eaddr = xaddr - 1
-	    eaddr_hex = "%08x" % eaddr
 	    
-	    puts "Pass2 #{addr_hex} #{xaddr_hex} #{type}"
+	    #puts "Pass2 #{addr.hex} #{xaddr.hex} #{type}"
 
 	    # Handle a l32r
 	    if type == "L"
-		hval = "%08x" % fetch_long(index)
-		print "#{addr_hex}:	" + hval + "	; l32r\n"
+		hval = fetch_long(index).hex
+		print "#{addr.hex}:	" + hval + "	; l32r\n"
 	    elsif type == "I"
 		loop {
-		    addr_hex = "%08x" % addr
 		    naddr = range2 addr
-		    nhex = "%08x" % naddr
-		    puts "Range2 #{addr_hex} #{nhex}"
+		    #puts "Range2 #{addr.hex} #{naddr.hex}"
 		    break if naddr >= xaddr
-		    #print "I ended prematurely: #{nhex} #{xaddr_hex}\n"
+		    #print "I ended prematurely: #{naddr.hex} #{xaddr.hex}\n"
 
 		    addr = naddr
 		}
 	    else
-		print "#{addr_hex} to #{eaddr_hex}  --------- Unknown territory !!!\n"
+		print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
 	    end
 	    index = nxt
 	}
@@ -330,8 +383,7 @@ class Dumper
 	i = 0
 	loop {
 	    break unless @map[i]
-	    addr_hex = "%08x" % addr
-	    print "MAP #{addr_hex}: "
+	    print "MAP #{addr.hex}: "
 	    16.times {
 		print " " + @map[i] 
 		i += 1
@@ -345,15 +397,17 @@ class Dumper
 	@map.each { |m|
 	    count += 1 if m != "X"
 	}
-	puts "disassembled #{count} bytes of #{@size}"
+	puts "; disassembled #{count} bytes of #{@size}"
     end
 end
 
 d = Dumper.new
+#d.show_map
+#exit
 
 d.pass1 0x40000400
 puts "End of Pass 1"
-d.show_map
+#d.show_map
 d.pass2
 d.summary
 
