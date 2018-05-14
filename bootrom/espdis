@@ -165,23 +165,21 @@ class Dumper
 	puts "Add: %08x" % addr if @debug_pass1
 	@new_addr << addr
     end
+
     def claim ( index, size, type )
-	@map[index] = type
-	return if size == 1
-	@map[index+1] = type
-	return if size == 2
-	@map[index+2] = type
+	size.times {
+	    @map[index] = type
+	    index += 1
+	}
     end
     def fetch_long ( index )
 	bytes = @binary[index,4]
 	vals = bytes.unpack "L"
 	val = vals[0]
     end
+
     def get_l32r ( addr )
-	offset = addr - @base
-	claim offset, 4, "L"
-	#val = addr
-	val = fetch_long offset
+	val = fetch_long addr - @base
 	return "0x%08x" % val
     end
 
@@ -199,6 +197,10 @@ class Dumper
 	    i = one_inst addr
 
 	    print_inst i if @show_pass1
+
+	    if i.is_l32r
+		claim (i.target.hex - @base), 4, "L"
+	    end
 
 	    index = addr - @base
 
@@ -254,7 +256,8 @@ class Dumper
 	    }
 	}
     end
-    # The game here is to pull out contiguous blocks of the same type
+
+    # The game here is to collect contiguous blocks of the same type
     def get_range ( index )
 	if index >= @size
 	    return "Q", 0
@@ -294,8 +297,11 @@ class Dumper
 	    break if type == "Q"
 	    addr = @base + index
 	    xaddr = @base + nxt
+	    eaddr = xaddr - 1
 	    addr_hex = "%08x" % addr
 	    xaddr_hex = "%08x" % xaddr
+	    eaddr_hex = "%08x" % eaddr
+
 	    # Handle a l32r
 	    if type == "L"
 		hval = "%08x" % fetch_long(index)
@@ -310,9 +316,17 @@ class Dumper
 		    addr = naddr
 		}
 	    else
-		print "#{addr_hex} to #{xaddr_hex}  --------- Unknown territory !!!\n"
+		print "#{addr_hex} to #{eaddr_hex}  --------- Unknown territory !!!\n"
 	    end
 	    index = nxt
+	}
+    end
+    def show_map
+	addr = @base
+	@map.each { |m|
+	    addr_hex = "%08x" % addr
+	    print "MAP #{addr_hex} = #{m}\n"
+	    addr += 1
 	}
     end
     def summary
@@ -332,9 +346,10 @@ d = Dumper.new
 
 d.pass1 0x40000400
 puts "End of Pass 1"
+#d.show_map
 d.pass2
 d.summary
-puts "DONE"
+#puts "DONE"
 
 # THE END
 
