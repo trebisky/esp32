@@ -2,4 +2,5 @@ naive.dis
 *.bin
 *.elf
 *.out
+*.odx
 wrap

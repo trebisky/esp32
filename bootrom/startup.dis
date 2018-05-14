@@ -15,6 +15,8 @@
 ; to other parts of the ROM.
 ;
 ; 5-13-2018  Tom Trebisky
+;
+;  The output below still has bugs and issues -- beware !!
 
 40000000 to 400003ff  --------- Unknown territory !!!
 40000400:	061300        	j	0x40000450

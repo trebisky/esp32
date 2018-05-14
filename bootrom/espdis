@@ -119,8 +119,8 @@ class Dumper
 	@size = $rom_size
 	@base = $rom_base
 
-	@show_pass1 = false
-	@debug_pass1 = false
+	@show_pass1 = true
+	@debug_pass1 = true
 
 	# We need this to fetch stuff for l32r cleanup
 	file = File.open $bin_file, "rb"
@@ -296,11 +296,13 @@ class Dumper
 	    type, nxt = get_range index
 	    break if type == "Q"
 	    addr = @base + index
-	    xaddr = @base + nxt
-	    eaddr = xaddr - 1
 	    addr_hex = "%08x" % addr
+	    xaddr = @base + nxt
 	    xaddr_hex = "%08x" % xaddr
+	    eaddr = xaddr - 1
 	    eaddr_hex = "%08x" % eaddr
+	    
+	    puts "Pass2 #{addr_hex} #{xaddr_hex} #{type}"
 
 	    # Handle a l32r
 	    if type == "L"
@@ -308,9 +310,11 @@ class Dumper
 		print "#{addr_hex}:	" + hval + "	; l32r\n"
 	    elsif type == "I"
 		loop {
+		    addr_hex = "%08x" % addr
 		    naddr = range2 addr
-		    break if naddr >= xaddr
 		    nhex = "%08x" % naddr
+		    puts "Range2 #{addr_hex} #{nhex}"
+		    break if naddr >= xaddr
 		    #print "I ended prematurely: #{nhex} #{xaddr_hex}\n"
 
 		    addr = naddr
@@ -323,10 +327,17 @@ class Dumper
     end
     def show_map
 	addr = @base
-	@map.each { |m|
+	i = 0
+	loop {
+	    break unless @map[i]
 	    addr_hex = "%08x" % addr
-	    print "MAP #{addr_hex} = #{m}\n"
-	    addr += 1
+	    print "MAP #{addr_hex}: "
+	    16.times {
+		print " " + @map[i] 
+		i += 1
+	    }
+	    print "\n"
+	    addr += 16
 	}
     end
     def summary
@@ -340,15 +351,12 @@ end
 
 d = Dumper.new
 
-#i = d.one_inst 0x40000400
-#puts i.line
-#exit
-
 d.pass1 0x40000400
 puts "End of Pass 1"
-#d.show_map
+d.show_map
 d.pass2
 d.summary
+
 #puts "DONE"
 
 # THE END
