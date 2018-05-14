@@ -22,7 +22,7 @@ NOBJDUMP = xtensa-esp32-elf-objdump -D -b binary -mxtensa
 OBJDUMP = xtensa-esp32-elf-objdump -mxtensa -d -z 
 
 dis:
-	./espdis >espdis.out
+	time ./espdis >espdis.out
 
 info:
 	$(ESPTOOL) read_mac

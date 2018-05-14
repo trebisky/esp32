@@ -18,10 +18,11 @@
 ;
 ;  The output below may still have bugs and issues -- beware !!
 
-40000000 to 400003ff  --------- Unknown territory !!!
+40000000:3ff			unknown	; (not disassembled)
+
 40000400:	061300        	j	0x40000450
 
-40000403 to 40000403  --------- Unknown territory !!!
+40000403:	00
 40000404:	0000abab	; l32r
 40000408:	3ff00038	; l32r
 4000040c:	7fffffff	; l32r
@@ -38,7 +39,7 @@
 40000438:	3ffe0648	; l32r
 4000043c:	40000c68	; l32r
 40000440:	3ffe064c	; l32r
-40000444 to 4000044f  --------- Unknown territory !!!
+40000444:	000000000000000000000000
 40000450:	02a000        	movi	a0, 0
 40000453:	00e413        	wsr.intenable	a0
 40000456:	20eb03        	rsr.prid	a2
@@ -69,7 +70,7 @@
 4000049b:	506610        	and	a6, a6, a5
 4000049e:	460800        	j	0x400004c3
 
-400004a1 to 400004af  --------- Unknown territory !!!
+400004a1:	000000000000000000000000000000
 400004b0:	406350        	witlb	a4, a3
 400004b3:	002000        	isync
 400004b6:	3df0      	nop.n
@@ -132,8 +133,8 @@
 40000554:	51bbff        	l32r	a5, 0x40000440	; ( 0x3ffe064c )
 40000557:	426500        	s32i	a4, a5, 0
 4000055a:	851a00        	call0	0x40000704
-4000055d to 4000055d  --------- Unknown territory !!!
-4000055e to 4000055f  --------- Unknown territory !!!
+4000055d:	00
+4000055e:	0000
 40000560:	3ffe3f20	; l32r
 40000564:	00040020	; l32r
 40000568:	4000d5d0	; l32r
@@ -144,17 +145,17 @@
 4000057c:	40000de8	; l32r
 40000580:	3ffe0548	; l32r
 40000584:	3ffe0448	; l32r
-40000588 to 40000597  --------- Unknown territory !!!
+40000588:	230005000700008005000000000000c0
 40000598:	3ffe0650	; l32r
 4000059c:	80000000	; l32r
 400005a0:	3ffe0658	; l32r
-400005a4 to 4000062b  --------- Unknown territory !!!
+400005a4:62b			unknown	; (not disassembled)
 4000062c:	00001000	; l32r
-40000630 to 40000637  --------- Unknown territory !!!
+40000630:	ff00000000ff0000
 40000638:	00ff0000	; l32r
-4000063c to 400006e3  --------- Unknown territory !!!
+4000063c:6e3			unknown	; (not disassembled)
 400006e4:	7ff00000	; l32r
-400006e8 to 400006fb  --------- Unknown territory !!!
+400006e8:6fb			unknown	; (not disassembled)
 400006fc:	3ff9c2b4	; l32r
 40000700:	4000c01c	; l32r
 40000704:	0c00      	movi.n	a0, 0
@@ -174,7 +175,7 @@
 40000729:	37120b        	beq	a2, a3, 0x40000738
 4000072c:	460100        	j	0x40000735
 
-4000072f to 40000730  --------- Unknown territory !!!
+4000072f:	0000
 40000731:	0904      	s32i.n	a0, a4, 0
 40000733:	4b44      	addi.n	a4, a4, 4
 40000735:	5734f8        	bltu	a4, a5, 0x40000731
@@ -186,7 +187,7 @@
 40000745:	f04100        	break	1, 15
 40000748:	06fdff        	j	0x40000740
 
-4000074b to 4000074b  --------- Unknown territory !!!
+4000074b:	00
 4000074c:	364100        	entry	a1, 32
 4000074f:	3cf8      	movi.n	a8, 63
 40000751:	27b803        	bgeu	a8, a2, 0x40000758
@@ -216,30 +217,30 @@
 40000788:	917bff        	l32r	a9, 0x40000574	; ( 0x4000bfd4 )
 4000078b:	c6f7ff        	j	0x4000076e
 
-4000078e to 40002f83  --------- Unknown territory !!!
+4000078e:2f83			unknown	; (not disassembled)
 40002f84:	dfffffff	; l32r
-40002f88 to 40003513  --------- Unknown territory !!!
+40002f88:3513			unknown	; (not disassembled)
 40003514:	00800000	; l32r
-40003518 to 400035c7  --------- Unknown territory !!!
+40003518:35c7			unknown	; (not disassembled)
 400035c8:	f0000000	; l32r
-400035cc to 40003793  --------- Unknown territory !!!
+400035cc:3793			unknown	; (not disassembled)
 40003794:	00002000	; l32r
-40003798 to 40003b67  --------- Unknown territory !!!
+40003798:3b67			unknown	; (not disassembled)
 40003b68:	40000000	; l32r
-40003b6c to 40003bcf  --------- Unknown territory !!!
+40003b6c:3bcf			unknown	; (not disassembled)
 40003bd0:	10000000	; l32r
-40003bd4 to 400040ab  --------- Unknown territory !!!
+40003bd4:40ab			unknown	; (not disassembled)
 400040ac:	08000000	; l32r
-400040b0 to 40004b23  --------- Unknown territory !!!
+400040b0:4b23			unknown	; (not disassembled)
 40004b24:	bfffffff	; l32r
-40004b28 to 40005cdb  --------- Unknown territory !!!
+40004b28:5cdb			unknown	; (not disassembled)
 40005cdc:	cccccccd	; l32r
-40005ce0 to 4000666b  --------- Unknown territory !!!
+40005ce0:666b			unknown	; (not disassembled)
 4000666c:	3ffe03f8	; l32r
 40006670:	3ffe03f4	; l32r
-40006674 to 40006683  --------- Unknown territory !!!
+40006674:	36410081fdff290881fdff39081df000
 40006684:	3ffe01f4	; l32r
-40006688 to 400066b7  --------- Unknown territory !!!
+40006688:66b7			unknown	; (not disassembled)
 400066b8:	3ffe01f0	; l32r
 400066bc:	364100        	entry	a1, 32
 400066bf:	31feff        	l32r	a3, 0x400066b8	; ( 0x3ffe01f0 )
@@ -289,7 +290,7 @@
 40006734:	250a00        	call8	0x400067d8
 40006737:	c6e1ff        	j	0x400066c2
 
-4000673a to 400067ab  --------- Unknown territory !!!
+4000673a:67ab			unknown	; (not disassembled)
 400067ac:	3ffe03fc	; l32r
 400067b0:	364100        	entry	a1, 32
 400067b3:	806200        	rsil	a8, 2
@@ -299,7 +300,7 @@
 400067bd:	9908      	s32i.n	a9, a8, 0
 400067bf:	1df0      	retw.n
 
-400067c1 to 400067c3  --------- Unknown territory !!!
+400067c1:	000000
 400067c4:	364100        	entry	a1, 32
 400067c7:	91f9ff        	l32r	a9, 0x400067ac	; ( 0x3ffe03fc )
 400067ca:	8809      	l32i.n	a8, a9, 0
@@ -309,7 +310,7 @@
 400067d2:	806000        	rsil	a8, 0
 400067d5:	1df0      	retw.n
 
-400067d7 to 400067d7  --------- Unknown territory !!!
+400067d7:	00
 400067d8:	364100        	entry	a1, 32
 400067db:	81f4ff        	l32r	a8, 0x400067ac	; ( 0x3ffe03fc )
 400067de:	9808      	l32i.n	a9, a8, 0
@@ -318,7 +319,7 @@
 400067e4:	007000        	waiti	0
 400067e7:	1df0      	retw.n
 
-400067e9 to 400067eb  --------- Unknown territory !!!
+400067e9:	000000
 400067ec:	364100        	entry	a1, 32
 400067ef:	ad02      	mov.n	a10, a2
 400067f1:	bd03      	mov.n	a11, a3
@@ -326,25 +327,25 @@
 400067f5:	e57305        	call8	0x4000bf34
 400067f8:	1df0      	retw.n
 
-400067fa to 400067fb  --------- Unknown territory !!!
+400067fa:	0000
 400067fc:	364100        	entry	a1, 32
 400067ff:	ad02      	mov.n	a10, a2
 40006801:	a57a05        	call8	0x4000bfac
 40006804:	1df0      	retw.n
 
-40006806 to 40006807  --------- Unknown territory !!!
+40006806:	0000
 40006808:	364100        	entry	a1, 32
 4000680b:	ad02      	mov.n	a10, a2
 4000680d:	a57705        	call8	0x4000bf88
 40006810:	1df0      	retw.n
 
-40006812 to 40006877  --------- Unknown territory !!!
+40006812:6877			unknown	; (not disassembled)
 40006878:	3ffe0400	; l32r
-4000687c to 40006887  --------- Unknown territory !!!
+4000687c:	36410081feff29081df00000
 40006888:	3ffe0404	; l32r
-4000688c to 40006897  --------- Unknown territory !!!
+4000688c:	36410081feff29081df00000
 40006898:	3ff00038	; l32r
-4000689c to 400068ab  --------- Unknown territory !!!
+4000689c:	36410081feffc0200029081df0000000
 400068ac:	3f400000	; l32r
 400068b0:	ffff0000	; l32r
 400068b4:	3ff9e865	; l32r
@@ -388,7 +389,7 @@
 4000691e:	3902      	s32i.n	a3, a2, 0
 40006920:	1df0      	retw.n
 
-40006922 to 40006923  --------- Unknown territory !!!
+40006922:	0000
 40006924:	3ff44038	; l32r
 40006928:	3ff9e880	; l32r
 4000692c:	3ff9e8a1	; l32r
@@ -433,7 +434,7 @@
 400069a3:	8a71      	add.n	a7, a1, a8
 400069a5:	c60100        	j	0x400069b0
 
-400069a8 to 400069a8  --------- Unknown territory !!!
+400069a8:	00
 400069a9:	82c240        	addi	a8, a2, 64
 400069ac:	8a71      	add.n	a7, a1, a8
 400069ae:	3d04      	mov.n	a3, a4
@@ -545,7 +546,7 @@
 40006ac8:	7046c0        	sub	a4, a6, a7
 40006acb:	060100        	j	0x40006ad3
 
-40006ace to 40006acf  --------- Unknown territory !!!
+40006ace:	0000
 40006ad0:	4046c0        	sub	a4, a6, a4
 40006ad3:	4a41      	add.n	a4, a1, a4
 40006ad5:	920409        	l8ui	a9, a4, 9
@@ -582,7 +583,7 @@
 40006b31:	2a5b      	add.n	a5, a11, a2
 40006b33:	061900        	j	0x40006b9b
 
-40006b36 to 40006b37  --------- Unknown territory !!!
+40006b36:	0000
 40006b38:	20a710        	and	a10, a7, a2
 40006b3b:	a71319        	beq	a3, a10, 0x40006b58
 40006b3e:	a0d7c0        	sub	a13, a7, a10
@@ -752,13 +753,13 @@
 40006cec:	e725ed        	blt	a5, a14, 0x40006cdd
 40006cef:	46bd00        	j	0x40006fe8
 
-40006cf2 to 40006cf3  --------- Unknown territory !!!
+40006cf2:	0000
 40006cf4:	164e2f        	beqz	a14, 0x40006fec
 40006cf7:	e07241        	srli	a7, a14, 2
 40006cfa:	5d02      	mov.n	a5, a2
 40006cfc:	060a00        	j	0x40006d28
 
-40006cff to 40006cff  --------- Unknown territory !!!
+40006cff:	00
 40006d00:	c20500        	l8ui	a12, a5, 0
 40006d03:	b20501        	l8ui	a11, a5, 1
 40006d06:	f20502        	l8ui	a15, a5, 2
@@ -780,7 +781,7 @@
 40006d30:	7a76      	add.n	a7, a6, a7
 40006d32:	86ad00        	j	0x40006fec
 
-40006d35 to 40006d36  --------- Unknown territory !!!
+40006d35:	0000
 40006d37:	0c0e      	movi.n	a14, 0
 40006d39:	e26112        	s32i	a14, a1, 72
 40006d3c:	6d0e      	mov.n	a6, a14
@@ -876,7 +877,7 @@
 40006e2a:	8c7a      	beqz.n	a10, 0x40006e35
 40006e2c:	466900        	j	0x40006fd5
 
-40006e2f to 40006e2f  --------- Unknown territory !!!
+40006e2f:	00
 40006e30:	3089c0        	sub	a8, a9, a3
 40006e33:	8a81      	add.n	a8, a1, a8
 40006e35:	92c910        	addi	a9, a9, 16
@@ -896,7 +897,7 @@
 40006e57:	da22      	add.n	a2, a2, a13
 40006e59:	060e00        	j	0x40006e95
 
-40006e5c to 40006e5d  --------- Unknown territory !!!
+40006e5c:	0000
 40006e5e:	bc3d      	beqz.n	a13, 0x40006e95
 40006e60:	d0a241        	srli	a10, a13, 2
 40006e63:	6d02      	mov.n	a6, a2
@@ -932,7 +933,7 @@
 40006eb4:	568410        	bnez	a4, 0x40006fc0
 40006eb7:	464300        	j	0x40006fc8
 
-40006eba to 40006ebc  --------- Unknown territory !!!
+40006eba:	000000
 40006ebd:	a1a1fe        	l32r	a10, 0x40006944	; ( 0x3ff9e8fa )
 40006ec0:	bd04      	mov.n	a11, a4
 40006ec2:	25e900        	call8	0x40007d54
@@ -968,7 +969,7 @@
 40006f16:	505074        	extui	a5, a5, 0, 8
 40006f19:	c62200        	j	0x40006fa8
 
-40006f1c to 40006f1c  --------- Unknown territory !!!
+40006f1c:	00
 40006f1d:	a18afe        	l32r	a10, 0x40006948	; ( 0x3ff9e913 )
 40006f20:	d0cd20        	or	a12, a13, a13
 40006f23:	bd05      	mov.n	a11, a5
@@ -1004,7 +1005,7 @@
 40006f70:	8a81      	add.n	a8, a1, a8
 40006f72:	860200        	j	0x40006f80
 
-40006f75 to 40006f76  --------- Unknown territory !!!
+40006f75:	0000
 40006f77:	22a388        	movi	a2, 0x388
 40006f7a:	226114        	s32i	a2, a1, 80
 40006f7d:	861600        	j	0x40006fdb
@@ -1032,7 +1033,7 @@
 40006fb8:	562acd        	bnez	a10, 0x40006c8e
 40006fbb:	86b8ff        	j	0x40006ea1
 
-40006fbe to 40006fbf  --------- Unknown territory !!!
+40006fbe:	0000
 40006fc0:	322119        	l32i	a3, a1, 100
 40006fc3:	2803      	l32i.n	a2, a3, 0
 40006fc5:	e00200        	callx8	a2
@@ -1060,7 +1061,7 @@
 40006ff8:	0c05      	movi.n	a5, 0
 40006ffa:	464eff        	j	0x40006d37
 
-40006ffd to 40006fff  --------- Unknown territory !!!
+40006ffd:	000000
 40007000:	3ff00044	; l32r
 40007004:	3ff0005c	; l32r
 40007008:	3ff10000	; l32r
@@ -1274,7 +1275,7 @@
 4000722f:	2d09      	mov.n	a2, a9
 40007231:	861100        	j	0x4000727b
 
-40007234 to 40007234  --------- Unknown territory !!!
+40007234:	00
 40007235:	d2a422        	movi	a13, 0x422
 40007238:	99f1      	s32i.n	a9, a1, 60
 4000723a:	e567ff        	call8	0x400068b8
@@ -1375,7 +1376,7 @@
 40007333:	822110        	l32i	a8, a1, 64
 40007336:	069000        	j	0x4000757a
 
-40007339 to 40007339  --------- Unknown territory !!!
+40007339:	00
 4000733a:	a2a010        	movi	a10, 16
 4000733d:	209ac0        	sub	a9, a10, a2
 40007340:	a17efd        	l32r	a10, 0x40006938	; ( 0x3ff9e8c4 )
@@ -1399,7 +1400,7 @@
 4000736d:	9d0e      	mov.n	a9, a14
 4000736f:	861600        	j	0x400073cd
 
-40007372 to 40007372  --------- Unknown territory !!!
+40007372:	00
 40007373:	0c02      	movi.n	a2, 0
 40007375:	860300        	j	0x40007387
 
@@ -1508,7 +1509,7 @@
 40007470:	4a33      	add.n	a3, a3, a4
 40007472:	860d00        	j	0x400074ac
 
-40007475 to 40007475  --------- Unknown territory !!!
+40007475:	00
 40007476:	bc24      	beqz.n	a4, 0x400074ac
 40007478:	40a241        	srli	a10, a4, 2
 4000747b:	8d03      	mov.n	a8, a3
@@ -1540,7 +1541,7 @@
 
 400074bf:	c62f00        	j	0x40007582
 
-400074c2 to 400074c4  --------- Unknown territory !!!
+400074c2:	000000
 400074c5:	a11ffd        	l32r	a10, 0x40006944	; ( 0x3ff9e8fa )
 400074c8:	bd06      	mov.n	a11, a6
 400074ca:	a58800        	call8	0x40007d54
@@ -1577,7 +1578,7 @@
 40007521:	202074        	extui	a2, a2, 0, 8
 40007524:	461100        	j	0x4000756d
 
-40007527 to 40007528  --------- Unknown territory !!!
+40007527:	0000
 40007529:	a107fd        	l32r	a10, 0x40006948	; ( 0x3ff9e913 )
 4000752c:	dd08      	mov.n	a13, a8
 4000752e:	bd02      	mov.n	a11, a2
@@ -1641,7 +1642,7 @@
 400075bd:	657900        	call8	0x40007d54
 400075c0:	06d7fe        	j	0x40007120
 
-400075c3 to 400075c4  --------- Unknown territory !!!
+400075c3:	0000
 400075c5:	0c0a      	movi.n	a10, 0
 400075c7:	254f02        	call8	0x40009ab8
 400075ca:	0c0a      	movi.n	a10, 0
@@ -1687,7 +1688,7 @@
 4000762d:	e00300        	callx8	a3
 40007630:	1df0      	retw.n
 
-40007632 to 40007633  --------- Unknown territory !!!
+40007632:	0000
 40007634:	9a74      	add.n	a7, a4, a9
 40007636:	9a33      	add.n	a3, a3, a9
 40007638:	9048c0        	sub	a4, a8, a9
@@ -1743,7 +1744,7 @@
 400076e2:	1672ff        	beqz	a2, 0x400076dd
 400076e5:	c64101        	j	0x40007bf0
 
-400076e8 to 400076e8  --------- Unknown territory !!!
+400076e8:	00
 400076e9:	2145fe        	l32r	a2, 0x40007000	; ( 0x3ff00044 )
 400076ec:	0c63      	movi.n	a3, 6
 400076ee:	c02000        	memw
@@ -1788,7 +1789,7 @@
 40007758:	e55c00        	call8	0x40007d28
 4000775b:	860b00        	j	0x4000778d
 
-4000775e to 40007760  --------- Unknown territory !!!
+4000775e:	000000
 40007761:	21c7ff        	l32r	a2, 0x40007680	; ( 0x3ff480b0 )
 40007764:	c02000        	memw
 40007767:	2802      	l32i.n	a2, a2, 0
@@ -1830,7 +1831,7 @@
 400077c4:	663a04        	bnei	a10, 3, 0x400077cc
 400077c7:	c60b00        	j	0x400077fa
 
-400077ca to 400077cb  --------- Unknown territory !!!
+400077ca:	0000
 400077cc:	c02000        	memw
 400077cf:	a802      	l32i.n	a10, a2, 0
 400077d1:	80aa10        	and	a10, a10, a8
@@ -1843,7 +1844,7 @@
 400077e1:	661a03        	bnei	a10, 1, 0x400077e8
 400077e4:	860400        	j	0x400077fa
 
-400077e7 to 400077e7  --------- Unknown territory !!!
+400077e7:	00
 400077e8:	c02000        	memw
 400077eb:	422200        	l32i	a4, a2, 0
 400077ee:	22a00d        	movi	a2, 13
@@ -2021,7 +2022,7 @@
 400079c7:	2904      	s32i.n	a2, a4, 0
 400079c9:	063000        	j	0x40007a8d
 
-400079cc to 400079cc  --------- Unknown territory !!!
+400079cc:	00
 400079cd:	c02000        	memw
 400079d0:	922800        	l32i	a9, a8, 0
 400079d3:	0cf8      	movi.n	a8, 15
@@ -2082,7 +2083,7 @@
 40007a65:	252801        	call8	0x40008ce8
 40007a68:	460800        	j	0x40007a8d
 
-40007a6b to 40007a6d  --------- Unknown territory !!!
+40007a6b:	000000
 40007a6e:	2110ff        	l32r	a2, 0x400076b0	; ( 0x3ff49068 )
 40007a71:	4110ff        	l32r	a4, 0x400076b4	; ( 0xffff8fff )
 40007a74:	c02000        	memw
@@ -2204,7 +2205,7 @@
 40007ba4:	a5dd52        	call8	0x4005a980
 40007ba7:	861200        	j	0x40007bf5
 
-40007baa to 40007bac  --------- Unknown territory !!!
+40007baa:	000000
 40007bad:	21c2fe        	l32r	a2, 0x400076b8	; ( 0x3ff5a018 )
 40007bb0:	c02000        	memw
 40007bb3:	c22200        	l32i	a12, a2, 0
@@ -2218,14 +2219,14 @@
 40007bca:	ac7a      	beqz.n	a10, 0x40007bf5
 40007bcc:	06f5ff        	j	0x40007ba4
 
-40007bcf to 40007bd0  --------- Unknown territory !!!
+40007bcf:	0000
 40007bd1:	a1acfe        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
 40007bd4:	b1adfe        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
 40007bd7:	c2a17f        	movi	a12, 0x17f
 40007bda:	a51700        	call8	0x40007d54
 40007bdd:	06ffff        	j	0x40007bdd
 
-40007be0 to 40007be0  --------- Unknown territory !!!
+40007be0:	00
 40007be1:	a1a8fe        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
 40007be4:	b1a9fe        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
 40007be7:	c2a186        	movi	a12, 0x186
@@ -2272,7 +2273,7 @@
 40007c4b:	0c02      	movi.n	a2, 0
 40007c4d:	1df0      	retw.n
 
-40007c4f to 40007c4f  --------- Unknown territory !!!
+40007c4f:	00
 40007c50:	3ffae014	; l32r
 40007c54:	3ffae010	; l32r
 40007c58:	364100        	entry	a1, 32
@@ -2289,7 +2290,7 @@
 40007c75:	e00800        	callx8	a8
 40007c78:	1df0      	retw.n
 
-40007c7a to 40007c7b  --------- Unknown territory !!!
+40007c7a:	0000
 40007c7c:	36a100        	entry	a1, 80
 40007c7f:	8d04      	mov.n	a8, a4
 40007c81:	4d06      	mov.n	a4, a6
@@ -2303,7 +2304,7 @@
 40007c93:	3d09      	mov.n	a3, a9
 40007c95:	c61200        	j	0x40007ce4
 
-40007c98 to 40007c98  --------- Unknown territory !!!
+40007c98:	00
 40007c99:	1b71      	addi.n	a7, a1, 1
 40007c9b:	506f31        	srai	a6, a5, 31
 40007c9e:	e2c7ff        	addi	a14, a7, -1
@@ -2333,7 +2334,7 @@
 40007cd5:	565afc        	bnez	a10, 0x40007c9e
 40007cd8:	c6ecff        	j	0x40007c8f
 
-40007cdb to 40007cdb  --------- Unknown territory !!!
+40007cdb:	00
 40007cdc:	520300        	l8ui	a5, a3, 0
 40007cdf:	524200        	s8i	a5, a2, 0
 40007ce2:	1b22      	addi.n	a2, a2, 1
@@ -2345,7 +2346,7 @@
 40007cf0:	324800        	s8i	a3, a8, 0
 40007cf3:	1df0      	retw.n
 
-40007cf5 to 40007d23  --------- Unknown territory !!!
+40007cf5:7d23			unknown	; (not disassembled)
 40007d24:	40007cf8	; l32r
 40007d28:	364100        	entry	a1, 32
 40007d2b:	91feff        	l32r	a9, 0x40007d24	; ( 0x40007cf8 )
@@ -2353,7 +2354,7 @@
 40007d31:	9908      	s32i.n	a9, a8, 0
 40007d33:	1df0      	retw.n
 
-40007d35 to 40007d43  --------- Unknown territory !!!
+40007d35:	00000036410081c6ff29081df00000
 40007d44:	3ff9ee3f	; l32r
 40007d48:	3ff9ee46	; l32r
 40007d4c:	3ff9c316	; l32r
@@ -2412,7 +2413,7 @@
 40007dce:	0c9b      	movi.n	a11, 9
 40007dd0:	c60200        	j	0x40007ddf
 
-40007dd3 to 40007dd3  --------- Unknown territory !!!
+40007dd3:	00
 40007dd4:	7077a0        	addx4	a7, a7, a7
 40007dd7:	820600        	l8ui	a8, a6, 0
 40007dda:	907790        	addx2	a7, a7, a9
@@ -2464,7 +2465,7 @@
 
 40007e4c:	060600        	j	0x40007e68
 
-40007e4f to 40007e4f  --------- Unknown territory !!!
+40007e4f:	00
 40007e50:	a2a075        	movi	a10, 117
 40007e53:	a71811        	beq	a8, a10, 0x40007e68
 40007e56:	a2a078        	movi	a10, 120
@@ -2515,7 +2516,7 @@
 40007ec2:	0c16      	movi.n	a6, 1
 40007ec4:	860900        	j	0x40007eee
 
-40007ec7 to 40007ec9  --------- Unknown territory !!!
+40007ec7:	000000
 40007eca:	4b94      	addi.n	a9, a4, 4
 40007ecc:	1c8b      	movi.n	a11, 24
 40007ece:	a2c130        	addi	a10, a1, 48
@@ -2591,7 +2592,7 @@
 
 40007f77:	860b00        	j	0x40007fa9
 
-40007f7a to 40007f7b  --------- Unknown territory !!!
+40007f7a:	0000
 40007f7c:	92a075        	movi	a9, 117
 40007f7f:	971826        	beq	a8, a9, 0x40007fa9
 40007f82:	92a078        	movi	a9, 120
@@ -2624,7 +2625,7 @@
 
 40007fc4:	060600        	j	0x40007fe0
 
-40007fc7 to 40007fc7  --------- Unknown territory !!!
+40007fc7:	00
 40007fc8:	92a075        	movi	a9, 117
 40007fcb:	971811        	beq	a8, a9, 0x40007fe0
 40007fce:	92a078        	movi	a9, 120
@@ -2658,7 +2659,7 @@
 4000800f:	e150ff        	l32r	a14, 0x40007d50	; ( 0x3ff9c305 )
 40008012:	c6f9ff        	j	0x40007ffd
 
-40008015 to 40008015  --------- Unknown territory !!!
+40008015:	00
 40008016:	4b84      	addi.n	a8, a4, 4
 40008018:	1c89      	movi.n	a9, 24
 4000801a:	52c130        	addi	a5, a1, 48
@@ -2711,7 +2712,7 @@
 4000808d:	a5bcff        	call8	0x40007c58
 40008090:	c60000        	j	0x40008097
 
-40008093 to 40008093  --------- Unknown territory !!!
+40008093:	00
 40008094:	126116        	s32i	a1, a1, 88
 40008097:	5077c0        	sub	a7, a7, a5
 4000809a:	8ca6      	beqz.n	a6, 0x400080a8
@@ -2795,11 +2796,11 @@
 40008153:	2d03      	mov.n	a2, a3
 40008155:	1df0      	retw.n
 
-40008157 to 40008157  --------- Unknown territory !!!
+40008157:	00
 40008158:	5619d1        	bnez	a9, 0x40007e6d
 4000815b:	464fff        	j	0x40007e9c
 
-4000815e to 4000815f  --------- Unknown territory !!!
+4000815e:	0000
 40008160:	3ff48100	; l32r
 40008164:	fff001ff	; l32r
 40008168:	800fffff	; l32r
@@ -2840,7 +2841,7 @@
 400081ca:	2802      	l32i.n	a2, a2, 0
 400081cc:	1df0      	retw.n
 
-400081ce to 400081cf  --------- Unknown territory !!!
+400081ce:	0000
 400081d0:	3ff48034	; l32r
 400081d4:	364100        	entry	a1, 32
 400081d7:	81feff        	l32r	a8, 0x400081d0	; ( 0x3ff48034 )
@@ -2850,15 +2851,15 @@
 400081e1:	202054        	extui	a2, a2, 0, 6
 400081e4:	1df0      	retw.n
 
-400081e6 to 400081e7  --------- Unknown territory !!!
+400081e6:	0000
 400081e8:	c02000        	memw
 400081eb:	2808      	l32i.n	a2, a8, 0
 400081ed:	202654        	extui	a2, a2, 6, 6
 400081f0:	1df0      	retw.n
 
-400081f2 to 40008203  --------- Unknown territory !!!
+400081f2:8203			unknown	; (not disassembled)
 40008204:	3ff480bc	; l32r
-40008208 to 40008217  --------- Unknown territory !!!
+40008208:	36410065f6ff81fdffc02000a9081df0
 40008218:	3ff480b8	; l32r
 4000821c:	364100        	entry	a1, 32
 4000821f:	91feff        	l32r	a9, 0x40008218	; ( 0x3ff480b8 )
@@ -2878,7 +2879,7 @@
 40008243:	8903      	s32i.n	a8, a3, 0
 40008245:	1df0      	retw.n
 
-40008247 to 40008247  --------- Unknown territory !!!
+40008247:	00
 40008248:	3ff48000	; l32r
 4000824c:	364100        	entry	a1, 32
 4000824f:	81feff        	l32r	a8, 0x40008248	; ( 0x3ff48000 )
@@ -2890,7 +2891,7 @@
 40008260:	9908      	s32i.n	a9, a8, 0
 40008262:	1df0      	retw.n
 
-40008264 to 4000852f  --------- Unknown territory !!!
+40008264:852f			unknown	; (not disassembled)
 40008530:	3ffe01e0	; l32r
 40008534:	364100        	entry	a1, 32
 40008537:	a5b103        	call8	0x4000c050
@@ -2903,9 +2904,9 @@
 4000854a:	273af6        	bltu	a10, a2, 0x40008544
 4000854d:	1df0      	retw.n
 
-4000854f to 40008567  --------- Unknown territory !!!
+4000854f:8567			unknown	; (not disassembled)
 40008568:	3ff5f06c	; l32r
-4000856c to 4000857b  --------- Unknown territory !!!
+4000856c:	36410021feffc0200028022027411df0
 4000857c:	018cba80	; l32r
 40008580:	3ff480b4	; l32r
 40008584:	0000ffff	; l32r
@@ -2948,7 +2949,7 @@
 400085ef:	8909      	s32i.n	a8, a9, 0
 400085f1:	1df0      	retw.n
 
-400085f3 to 4000864b  --------- Unknown territory !!!
+400085f3:864b			unknown	; (not disassembled)
 4000864c:	3ff5a014	; l32r
 40008650:	000fffff	; l32r
 40008654:	3ff5a00c	; l32r
@@ -3020,7 +3021,7 @@
 40008706:	0c02      	movi.n	a2, 0
 40008708:	1df0      	retw.n
 
-4000870a to 4000870b  --------- Unknown territory !!!
+4000870a:	0000
 4000870c:	3ff5a010	; l32r
 40008710:	364100        	entry	a1, 32
 40008713:	21feff        	l32r	a2, 0x4000870c	; ( 0x3ff5a010 )
@@ -3123,10 +3124,10 @@
 40008816:	4903      	s32i.n	a4, a3, 0
 40008818:	1df0      	retw.n
 
-4000881a to 40008cdb  --------- Unknown territory !!!
+4000881a:8cdb			unknown	; (not disassembled)
 40008cdc:	3ffc4000	; l32r
 40008ce0:	3ff9bec4	; l32r
-40008ce4 to 40008ce7  --------- Unknown territory !!!
+40008ce4:	5800fe3f
 40008ce8:	36c100        	entry	a1, 96
 40008ceb:	518ffe        	l32r	a5, 0x40008728	; ( 0x3ffe0050 )
 40008cee:	72a001        	movi	a7, 1
@@ -3155,7 +3156,7 @@
 40008d27:	0c12      	movi.n	a2, 1
 40008d29:	1df0      	retw.n
 
-40008d2b to 40008d2b  --------- Unknown territory !!!
+40008d2b:	00
 40008d2c:	720200        	l8ui	a7, a2, 0
 40008d2f:	8c17      	beqz.n	a7, 0x40008d34
 40008d31:	465700        	j	0x40008e92
@@ -3172,7 +3173,7 @@
 40008d4b:	7807      	l32i.n	a7, a7, 0
 40008d4d:	a00700        	jx	a7
 
-40008d50 to 40008e91  --------- Unknown territory !!!
+40008d50:8e91			unknown	; (not disassembled)
 40008e92:	0c57      	movi.n	a7, 5
 40008e94:	7981      	s32i.n	a7, a1, 32
 40008e96:	0c1a      	movi.n	a10, 1
@@ -3246,7 +3247,7 @@
 40008f42:	1df0      	retw.n
 
 40008f44:	00003ff4	; l32r
-40008f48 to 40008fb7  --------- Unknown territory !!!
+40008f48:8fb7			unknown	; (not disassembled)
 40008fb8:	0001c200	; l32r
 40008fbc:	3ffe009c	; l32r
 40008fc0:	3ff40010	; l32r
@@ -3289,7 +3290,7 @@
 40009023:	a57cfd        	call8	0x400067ec
 40009026:	1df0      	retw.n
 
-40009028 to 40009033  --------- Unknown territory !!!
+40009028:	36410081bdfd2248191df000
 40009034:	364100        	entry	a1, 32
 40009037:	81bafd        	l32r	a8, 0x40008720	; ( 0x3ffe019c )
 4000903a:	202074        	extui	a2, a2, 0, 8
@@ -3316,7 +3317,7 @@
 40009070:	42a07f        	movi	a4, 127
 40009073:	860200        	j	0x40009081
 
-40009076 to 40009077  --------- Unknown territory !!!
+40009076:	0000
 40009078:	564304        	bnez	a3, 0x400090c0
 4000907b:	a2a3e8        	movi	a10, 0x3e8
 4000907e:	654bff        	call8	0x40008534
@@ -3344,7 +3345,7 @@
 400090bb:	3a22      	add.n	a2, a2, a3
 400090bd:	1df0      	retw.n
 
-400090bf to 400090bf  --------- Unknown territory !!!
+400090bf:	00
 400090c0:	0c02      	movi.n	a2, 0
 400090c2:	1df0      	retw.n
 
@@ -3377,7 +3378,7 @@
 4000910f:	3988      	s32i.n	a3, a8, 32
 40009111:	1df0      	retw.n
 
-40009113 to 40009113  --------- Unknown territory !!!
+40009113:	00
 40009114:	3ff49088	; l32r
 40009118:	04060000	; l32r
 4000911c:	3ff0018c	; l32r
@@ -3394,7 +3395,7 @@
 40009139:	25da00        	call8	0x40009edc
 4000913c:	060c00        	j	0x40009170
 
-4000913f to 40009140  --------- Unknown territory !!!
+4000913f:	0000
 40009141:	a2a003        	movi	a10, 3
 40009144:	e53301        	call8	0x4000a484
 40009147:	a2a001        	movi	a10, 1
@@ -3469,7 +3470,7 @@
 400091fc:	4902      	s32i.n	a4, a2, 0
 400091fe:	1df0      	retw.n
 
-40009200 to 4000922b  --------- Unknown territory !!!
+40009200:922b			unknown	; (not disassembled)
 4000922c:	364100        	entry	a1, 32
 4000922f:	209074        	extui	a9, a2, 0, 8
 40009232:	213bfd        	l32r	a2, 0x40008720	; ( 0x3ffe019c )
@@ -3499,7 +3500,7 @@
 40009271:	8789f7        	bany	a9, a8, 0x4000926c
 40009274:	1df0      	retw.n
 
-40009276 to 40009277  --------- Unknown territory !!!
+40009276:	0000
 40009278:	364100        	entry	a1, 32
 4000927b:	3132ff        	l32r	a3, 0x40008f44	; ( 0x00003ff4 )
 4000927e:	20a074        	extui	a10, a2, 0, 8
@@ -3517,7 +3518,7 @@
 4000929e:	4788f7        	bany	a8, a4, 0x40009299
 400092a1:	1df0      	retw.n
 
-400092a3 to 4000933f  --------- Unknown territory !!!
+400092a3:933f			unknown	; (not disassembled)
 40009340:	364100        	entry	a1, 32
 40009343:	a2a0c0        	movi	a10, 192
 40009346:	65eeff        	call8	0x4000922c
@@ -3536,7 +3537,7 @@
 40009366:	a2a0dc        	movi	a10, 220
 40009369:	860100        	j	0x40009373
 
-4000936c to 4000936c  --------- Unknown territory !!!
+4000936c:	00
 4000936d:	e5ebff        	call8	0x4000922c
 40009370:	a2a0dd        	movi	a10, 221
 40009373:	a5ebff        	call8	0x4000922c
@@ -3546,7 +3547,7 @@
 4000937e:	e5eaff        	call8	0x4000922c
 40009381:	1df0      	retw.n
 
-40009383 to 40009383  --------- Unknown territory !!!
+40009383:	00
 40009384:	364100        	entry	a1, 32
 40009387:	20a220        	or	a10, a2, a2
 4000938a:	30b0f4        	extui	a11, a3, 0, 16
@@ -3574,7 +3575,7 @@
 400093ba:	0c12      	movi.n	a2, 1
 400093bc:	1df0      	retw.n
 
-400093be to 400093bf  --------- Unknown territory !!!
+400093be:	0000
 400093c0:	366100        	entry	a1, 48
 400093c3:	0c19      	movi.n	a9, 1
 400093c5:	202074        	extui	a2, a2, 0, 8
@@ -3614,7 +3615,7 @@
 4000941d:	224918        	s8i	a2, a9, 24
 40009420:	1df0      	retw.n
 
-40009422 to 40009423  --------- Unknown territory !!!
+40009422:	0000
 40009424:	368100        	entry	a1, 64
 40009427:	0c05      	movi.n	a5, 0
 40009429:	524100        	s8i	a5, a1, 0
@@ -3628,7 +3629,7 @@
 4000943e:	662947        	bnei	a9, 2, 0x40009489
 40009441:	460800        	j	0x40009466
 
-40009444 to 40009444  --------- Unknown territory !!!
+40009444:	00
 40009445:	ad05      	mov.n	a10, a5
 40009447:	bd01      	mov.n	a11, a1
 40009449:	a5f4ff        	call8	0x40009394
@@ -3638,7 +3639,7 @@
 40009455:	0c06      	movi.n	a6, 0
 40009457:	860b00        	j	0x40009489
 
-4000945a to 4000945b  --------- Unknown territory !!!
+4000945a:	0000
 4000945c:	c79909        	bne	a9, a12, 0x40009469
 4000945f:	0c3a      	movi.n	a10, 3
 40009461:	a9c7      	s32i.n	a10, a7, 48
@@ -3657,7 +3658,7 @@
 40009482:	0c02      	movi.n	a2, 0
 40009484:	1df0      	retw.n
 
-40009486 to 40009488  --------- Unknown territory !!!
+40009486:	000000
 40009489:	72a0c0        	movi	a7, 192
 4000948c:	ad05      	mov.n	a10, a5
 4000948e:	10b120        	or	a11, a1, a1
@@ -3694,7 +3695,7 @@
 400094d9:	261af5        	beqi	a10, 1, 0x400094d2
 400094dc:	c60700        	j	0x400094ff
 
-400094df to 400094e0  --------- Unknown territory !!!
+400094df:	0000
 400094e1:	918ffc        	l32r	a9, 0x40008720	; ( 0x3ffe019c )
 400094e4:	a8c9      	l32i.n	a10, a9, 48
 400094e6:	663a10        	bnei	a10, 3, 0x400094fa
@@ -3718,7 +3719,7 @@
 40009511:	92afc0        	movi	a9, -64
 40009514:	060100        	j	0x4000951c
 
-40009517 to 40009518  --------- Unknown territory !!!
+40009517:	0000
 40009519:	92afdb        	movi	a9, -37
 4000951c:	924100        	s8i	a9, a1, 0
 4000951f:	8c54      	beqz.n	a4, 0x40009528
@@ -3753,7 +3754,7 @@
 4000955e:	a02883        	moveqz	a2, a8, a10
 40009561:	1df0      	retw.n
 
-40009563 to 40009597  --------- Unknown territory !!!
+40009563:9597			unknown	; (not disassembled)
 40009598:	364100        	entry	a1, 32
 4000959b:	2161fc        	l32r	a2, 0x40008720	; ( 0x3ffe019c )
 4000959e:	1df0      	retw.n
@@ -3799,7 +3800,7 @@
 4000960e:	1c0a      	movi.n	a10, 16
 40009610:	060100        	j	0x40009618
 
-40009613 to 40009613  --------- Unknown territory !!!
+40009613:	00
 40009614:	0c19      	movi.n	a9, 1
 40009616:	0cfa      	movi.n	a10, 15
 40009618:	b1ebff        	l32r	a11, 0x400095c4	; ( 0x3f3fffff )
@@ -3821,7 +3822,7 @@
 40009641:	404091        	srl	a4, a4
 40009644:	c64000        	j	0x4000974b
 
-40009647 to 40009647  --------- Unknown territory !!!
+40009647:	00
 40009648:	31e1ff        	l32r	a3, 0x400095cc	; ( 0x400cffff )
 4000964b:	473302        	bltu	a3, a4, 0x40009651
 4000964e:	066500        	j	0x400097e6
@@ -3854,7 +3855,7 @@
 40009694:	32a080        	movi	a3, 128
 40009697:	862b00        	j	0x40009749
 
-4000969a to 4000969b  --------- Unknown territory !!!
+4000969a:	0000
 4000969c:	31cfff        	l32r	a3, 0x400095d8	; ( 0x407fffff )
 4000969f:	473302        	bltu	a3, a4, 0x400096a5
 400096a2:	065000        	j	0x400097e6
@@ -3949,7 +3950,7 @@
 40009785:	203593        	movnez	a3, a5, a2
 40009788:	860300        	j	0x4000979a
 
-4000978b to 4000978b  --------- Unknown territory !!!
+4000978b:	00
 4000978c:	4a56      	add.n	a5, a6, a4
 4000978e:	aad6      	add.n	a13, a6, a10
 40009790:	3055a0        	addx4	a5, a5, a3
@@ -3982,7 +3983,7 @@
 400097d6:	9903      	s32i.n	a9, a3, 0
 400097d8:	060300        	j	0x400097e8
 
-400097db to 400097db  --------- Unknown territory !!!
+400097db:	00
 400097dc:	0c18      	movi.n	a8, 1
 400097de:	860100        	j	0x400097e8
 
@@ -3993,7 +3994,7 @@
 400097e8:	2d08      	mov.n	a2, a8
 400097ea:	1df0      	retw.n
 
-400097ec to 40009943  --------- Unknown territory !!!
+400097ec:9943			unknown	; (not disassembled)
 40009944:	3ff00040	; l32r
 40009948:	3ff00058	; l32r
 4000994c:	3ff43050	; l32r
@@ -4076,7 +4077,7 @@
 40009a0e:	8902      	s32i.n	a8, a2, 0
 40009a10:	1df0      	retw.n
 
-40009a12 to 40009a13  --------- Unknown territory !!!
+40009a12:	0000
 40009a14:	364100        	entry	a1, 32
 40009a17:	6cf9      	movi.n	a9, -17
 40009a19:	ecb2      	bnez.n	a2, 0x40009a48
@@ -4098,7 +4099,7 @@
 40009a41:	970af7        	bnone	a10, a9, 0x40009a3c
 40009a44:	460a00        	j	0x40009a71
 
-40009a47 to 40009a47  --------- Unknown territory !!!
+40009a47:	00
 40009a48:	81c0ff        	l32r	a8, 0x40009948	; ( 0x3ff00058 )
 40009a4b:	c02000        	memw
 40009a4e:	a808      	l32i.n	a10, a8, 0
@@ -4123,7 +4124,7 @@
 40009a7e:	9908      	s32i.n	a9, a8, 0
 40009a80:	1df0      	retw.n
 
-40009a82 to 40009a83  --------- Unknown territory !!!
+40009a82:	0000
 40009a84:	364100        	entry	a1, 32
 40009a87:	81b1ff        	l32r	a8, 0x4000994c	; ( 0x3ff43050 )
 40009a8a:	0c19      	movi.n	a9, 1
@@ -4143,7 +4144,7 @@
 40009aaf:	8909      	s32i.n	a8, a9, 0
 40009ab1:	1df0      	retw.n
 
-40009ab3 to 40009ab3  --------- Unknown territory !!!
+40009ab3:	00
 40009ab4:	3ff430f8	; l32r
 40009ab8:	364100        	entry	a1, 32
 40009abb:	81a2ff        	l32r	a8, 0x40009944	; ( 0x3ff00040 )
@@ -4182,11 +4183,11 @@
 40009b10:	9908      	s32i.n	a9, a8, 0
 40009b12:	1df0      	retw.n
 
-40009b14 to 40009b1b  --------- Unknown territory !!!
+40009b14:	0840f43f0c40f43f
 40009b1c:	3ff44024	; l32r
-40009b20 to 40009b53  --------- Unknown territory !!!
+40009b20:9b53			unknown	; (not disassembled)
 40009b54:	3ff44030	; l32r
-40009b58 to 40009ed7  --------- Unknown territory !!!
+40009b58:9ed7			unknown	; (not disassembled)
 40009ed8:	0ffd104c	; l32r
 40009edc:	364100        	entry	a1, 32
 40009edf:	81feff        	l32r	a8, 0x40009ed8	; ( 0x0ffd104c )
@@ -4205,7 +4206,7 @@
 40009f03:	8909      	s32i.n	a8, a9, 0
 40009f05:	1df0      	retw.n
 
-40009f07 to 40009f07  --------- Unknown territory !!!
+40009f07:	00
 40009f08:	0ffd114c	; l32r
 40009f0c:	364100        	entry	a1, 32
 40009f0f:	2c78      	movi.n	a8, 39
@@ -4237,7 +4238,7 @@
 40009f52:	1df0      	retw.n
 
 40009f54:	3ff9bf3c	; l32r
-40009f58 to 40009fdb  --------- Unknown territory !!!
+40009f58:9fdb			unknown	; (not disassembled)
 40009fdc:	364100        	entry	a1, 32
 40009fdf:	202074        	extui	a2, a2, 0, 8
 40009fe2:	2c78      	movi.n	a8, 39
@@ -4249,12 +4250,12 @@
 40009ff0:	2802      	l32i.n	a2, a2, 0
 40009ff2:	a00200        	jx	a2
 
-40009ff5 to 4000a0df  --------- Unknown territory !!!
+40009ff5:a0df			unknown	; (not disassembled)
 4000a0e0:	1df0      	retw.n
 
-4000a0e2 to 4000a0e3  --------- Unknown territory !!!
+4000a0e2:	0000
 4000a0e4:	3ff9bfdc	; l32r
-4000a0e8 to 4000a11b  --------- Unknown territory !!!
+4000a0e8:a11b			unknown	; (not disassembled)
 4000a11c:	364100        	entry	a1, 32
 4000a11f:	202074        	extui	a2, a2, 0, 8
 4000a122:	2c18      	movi.n	a8, 33
@@ -4267,10 +4268,10 @@
 4000a133:	2802      	l32i.n	a2, a2, 0
 4000a135:	a00200        	jx	a2
 
-4000a138 to 4000a223  --------- Unknown territory !!!
+4000a138:a223			unknown	; (not disassembled)
 4000a224:	1df0      	retw.n
 
-4000a226 to 4000a227  --------- Unknown territory !!!
+4000a226:	0000
 4000a228:	3ff9c064	; l32r
 4000a22c:	364100        	entry	a1, 32
 4000a22f:	202074        	extui	a2, a2, 0, 8
@@ -4283,14 +4284,14 @@
 4000a240:	2802      	l32i.n	a2, a2, 0
 4000a242:	a00200        	jx	a2
 
-4000a245 to 4000a33f  --------- Unknown territory !!!
+4000a245:a33f			unknown	; (not disassembled)
 4000a340:	1df0      	retw.n
 
-4000a342 to 4000a45f  --------- Unknown territory !!!
+4000a342:a45f			unknown	; (not disassembled)
 4000a460:	3ff9c174	; l32r
-4000a464 to 4000a46b  --------- Unknown territory !!!
+4000a464:	c880f43f7484f43f
 4000a46c:	ffffbfff	; l32r
-4000a470 to 4000a483  --------- Unknown territory !!!
+4000a470:a483			unknown	; (not disassembled)
 4000a484:	364100        	entry	a1, 32
 4000a487:	202074        	extui	a2, a2, 0, 8
 4000a48a:	2c78      	movi.n	a8, 39
@@ -4302,10 +4303,10 @@
 4000a498:	8808      	l32i.n	a8, a8, 0
 4000a49a:	a00800        	jx	a8
 
-4000a49d to 4000a72b  --------- Unknown territory !!!
+4000a49d:a72b			unknown	; (not disassembled)
 4000a72c:	1df0      	retw.n
 
-4000a72e to 4000a83b  --------- Unknown territory !!!
+4000a72e:a83b			unknown	; (not disassembled)
 4000a83c:	3ff9eebe	; l32r
 4000a840:	3ff9eec5	; l32r
 4000a844:	aaaaaaab	; l32r
@@ -4322,7 +4323,7 @@
 4000a866:	3df0      	nop.n
 4000a868:	86feff        	j	0x4000a866
 
-4000a86b to 4000a86c  --------- Unknown territory !!!
+4000a86b:	0000
 4000a86d:	408014        	extui	a8, a4, 0, 2
 4000a870:	9c18      	beqz.n	a8, 0x4000a885
 4000a872:	a1f2ff        	l32r	a10, 0x4000a83c	; ( 0x3ff9eebe )
@@ -4332,7 +4333,7 @@
 4000a87d:	3df0      	nop.n
 4000a87f:	86feff        	j	0x4000a87d
 
-4000a882 to 4000a884  --------- Unknown territory !!!
+4000a882:	000000
 4000a885:	91efff        	l32r	a9, 0x4000a844	; ( 0xaaaaaaab )
 4000a888:	6055c2        	quou	a5, a5, a6
 4000a88b:	9033a2        	muluh	a3, a3, a9
@@ -4346,7 +4347,7 @@
 4000a8a1:	3df0      	nop.n
 4000a8a3:	86feff        	j	0x4000a8a1
 
-4000a8a6 to 4000a8a8  --------- Unknown territory !!!
+4000a8a6:	000000
 4000a8a9:	a1e8ff        	l32r	a10, 0x4000a84c	; ( 0xff000fff )
 4000a8ac:	d19ee8        	l32r	a13, 0x40004b24	; ( 0xbfffffff )
 4000a8af:	e1b5e1        	l32r	a14, 0x40002f84	; ( 0xdfffffff )
@@ -4412,20 +4413,20 @@
 4000a941:	2903      	s32i.n	a2, a3, 0
 4000a943:	1df0      	retw.n
 
-4000a945 to 4000aa0b  --------- Unknown territory !!!
+4000a945:aa0b			unknown	; (not disassembled)
 4000aa0c:	3ff58060	; l32r
 4000aa10:	3ffae650	; l32r
-4000aa14 to 4000aa1b  --------- Unknown territory !!!
+4000aa14:	beeef93fceeef93f
 4000aa1c:	3ffae65c	; l32r
-4000aa20 to 4000ab97  --------- Unknown territory !!!
+4000aa20:ab97			unknown	; (not disassembled)
 4000ab98:	3ffae664	; l32r
-4000ab9c to 4000ae2b  --------- Unknown territory !!!
+4000ab9c:ae2b			unknown	; (not disassembled)
 4000ae2c:	364100        	entry	a1, 32
 4000ae2f:	81fbfe        	l32r	a8, 0x4000aa1c	; ( 0x3ffae65c )
 4000ae32:	28b8      	l32i.n	a2, a8, 44
 4000ae34:	1df0      	retw.n
 
-4000ae36 to 4000ae37  --------- Unknown territory !!!
+4000ae36:	0000
 4000ae38:	4000ac78	; l32r
 4000ae3c:	4000b184	; l32r
 4000ae40:	4000a9a8	; l32r
@@ -4482,11 +4483,11 @@
 4000aecc:	49b3      	s32i.n	a4, a3, 44
 4000aece:	1df0      	retw.n
 
-4000aed0 to 4000b553  --------- Unknown territory !!!
+4000aed0:b553			unknown	; (not disassembled)
 4000b554:	3ffae3b8	; l32r
-4000b558 to 4000b55b  --------- Unknown territory !!!
+4000b558:	00000204
 4000b55c:	3ff58010	; l32r
-4000b560 to 4000b63b  --------- Unknown territory !!!
+4000b560:b63b			unknown	; (not disassembled)
 4000b63c:	3ff0012c	; l32r
 4000b640:	4000b568	; l32r
 4000b644:	3ff5800c	; l32r
@@ -4514,7 +4515,7 @@
 4000b681:	6518fb        	call8	0x40006808
 4000b684:	1df0      	retw.n
 
-4000b686 to 4000b893  --------- Unknown territory !!!
+4000b686:b893			unknown	; (not disassembled)
 4000b894:	3ff58074	; l32r
 4000b898:	fffff0c0	; l32r
 4000b89c:	364100        	entry	a1, 32
@@ -4529,7 +4530,7 @@
 4000b8b6:	9908      	s32i.n	a9, a8, 0
 4000b8b8:	1df0      	retw.n
 
-4000b8ba to 4000b8bb  --------- Unknown territory !!!
+4000b8ba:	0000
 4000b8bc:	3ff000d0	; l32r
 4000b8c0:	3ff4b004	; l32r
 4000b8c4:	01110033	; l32r
@@ -4597,7 +4598,7 @@
 4000b981:	51d0ff        	l32r	a5, 0x4000b8c4	; ( 0x01110033 )
 4000b984:	c60200        	j	0x4000b993
 
-4000b987 to 4000b987  --------- Unknown territory !!!
+4000b987:	00
 4000b988:	c02000        	memw
 4000b98b:	5803      	l32i.n	a5, a3, 0
 4000b98d:	606510        	and	a6, a5, a6
@@ -4723,7 +4724,7 @@
 4000bacd:	5903      	s32i.n	a5, a3, 0
 4000bacf:	1df0      	retw.n
 
-4000bad1 to 4000bf33  --------- Unknown territory !!!
+4000bad1:bf33			unknown	; (not disassembled)
 4000bf34:	364100        	entry	a1, 32
 4000bf37:	1cf8      	movi.n	a8, 31
 4000bf39:	273834        	bltu	a8, a2, 0x4000bf71
@@ -4741,7 +4742,7 @@
 4000bf58:	31ead1        	l32r	a3, 0x40000700	; ( 0x4000c01c )
 4000bf5b:	060200        	j	0x4000bf67
 
-4000bf5e to 4000bf5f  --------- Unknown territory !!!
+4000bf5e:	0000
 4000bf60:	31e8d1        	l32r	a3, 0x40000700	; ( 0x4000c01c )
 4000bf63:	2918      	s32i.n	a2, a8, 4
 4000bf65:	3908      	s32i.n	a3, a8, 0
@@ -4753,7 +4754,7 @@
 4000bf71:	0c02      	movi.n	a2, 0
 4000bf73:	1df0      	retw.n
 
-4000bf75 to 4000bf87  --------- Unknown territory !!!
+4000bf75:bf87			unknown	; (not disassembled)
 4000bf88:	362100        	entry	a1, 16
 4000bf8b:	4183d1        	l32r	a4, 0x40000598	; ( 0x3ffe0650 )
 4000bf8e:	706600        	rsil	a7, 6
@@ -4768,7 +4769,7 @@
 4000bfa6:	2d03      	mov.n	a2, a3
 4000bfa8:	1df0      	retw.n
 
-4000bfaa to 4000bfab  --------- Unknown territory !!!
+4000bfaa:	0000
 4000bfac:	362100        	entry	a1, 16
 4000bfaf:	417ad1        	l32r	a4, 0x40000598	; ( 0x3ffe0650 )
 4000bfb2:	706600        	rsil	a7, 6
@@ -4784,12 +4785,12 @@
 4000bfcd:	2d03      	mov.n	a2, a3
 4000bfcf:	1df0      	retw.n
 
-4000bfd1 to 4000c04f  --------- Unknown territory !!!
+4000bfd1:c04f			unknown	; (not disassembled)
 4000c050:	362100        	entry	a1, 16
 4000c053:	20ea03        	rsr.ccount	a2
 4000c056:	1df0      	retw.n
 
-4000c058 to 4000c288  --------- Unknown territory !!!
+4000c058:c288			unknown	; (not disassembled)
 4000c289:	769409        	loopnez	a4, 0x4000c296
 4000c28c:	620300        	l8ui	a6, a3, 0
 4000c28f:	1b33      	addi.n	a3, a3, 1
@@ -4814,7 +4815,7 @@
 4000c2c0:	2b55      	addi.n	a5, a5, 2
 4000c2c2:	860300        	j	0x4000c2d4
 
-4000c2c5 to 4000c2c7  --------- Unknown territory !!!
+4000c2c5:	000000
 4000c2c8:	362100        	entry	a1, 16
 4000c2cb:	205220        	or	a5, a2, a2
 4000c2ce:	07e2c6        	bbsi	a2, 0, 0x4000c298
@@ -4860,7 +4861,7 @@
 4000c32a:	07e402        	bbsi	a4, 0, 0x4000c330
 4000c32d:	1df0      	retw.n
 
-4000c32f to 4000c32f  --------- Unknown territory !!!
+4000c32f:	00
 4000c330:	620300        	l8ui	a6, a3, 0
 4000c333:	624500        	s8i	a6, a5, 0
 4000c336:	1df0      	retw.n
@@ -4907,7 +4908,7 @@
 4000c399:	07e418        	bbsi	a4, 0, 0x4000c3b5
 4000c39c:	1df0      	retw.n
 
-4000c39e to 4000c39f  --------- Unknown territory !!!
+4000c39e:	0000
 4000c3a0:	620300        	l8ui	a6, a3, 0
 4000c3a3:	720301        	l8ui	a7, a3, 1
 4000c3a6:	2b33      	addi.n	a3, a3, 2
@@ -4921,13 +4922,13 @@
 4000c3b8:	624500        	s8i	a6, a5, 0
 4000c3bb:	1df0      	retw.n
 
-4000c3bd to 4000c424  --------- Unknown territory !!!
+4000c3bd:c424			unknown	; (not disassembled)
 4000c425:	769404        	loopnez	a4, 0x4000c42d
 4000c428:	324500        	s8i	a3, a5, 0
 4000c42b:	1b55      	addi.n	a5, a5, 1
 4000c42d:	1df0      	retw.n
 
-4000c42f to 4000c42f  --------- Unknown territory !!!
+4000c42f:	00
 4000c430:	b684f1        	bltui	a4, 8, 0x4000c425
 4000c433:	324500        	s8i	a3, a5, 0
 4000c436:	1b55      	addi.n	a5, a5, 1
@@ -4939,7 +4940,7 @@
 4000c445:	42c4fe        	addi	a4, a4, -2
 4000c448:	860600        	j	0x4000c466
 
-4000c44b to 4000c44b  --------- Unknown territory !!!
+4000c44b:	00
 4000c44c:	362100        	entry	a1, 16
 4000c44f:	303074        	extui	a3, a3, 0, 8
 4000c452:	807311        	slli	a7, a3, 8
@@ -4970,7 +4971,7 @@
 4000c493:	324500        	s8i	a3, a5, 0
 4000c496:	1df0      	retw.n
 
-4000c498 to 4000cff7  --------- Unknown territory !!!
+4000c498:cff7			unknown	; (not disassembled)
 4000cff8:	364100        	entry	a1, 32
 4000cffb:	ad05      	mov.n	a10, a5
 4000cffd:	8d04      	mov.n	a8, a4
@@ -5009,7 +5010,7 @@
 4000d058:	8a55      	add.n	a5, a5, a8
 4000d05a:	860000        	j	0x4000d060
 
-4000d05d to 4000d05d  --------- Unknown territory !!!
+4000d05d:	00
 4000d05e:	9d0a      	mov.n	a9, a10
 4000d060:	2025c0        	sub	a2, a5, a2
 4000d063:	4052e2        	remu	a5, a2, a4
@@ -5030,7 +5031,7 @@
 4000d08e:	0c03      	movi.n	a3, 0
 4000d090:	067a00        	j	0x4000d27c
 
-4000d093 to 4000d094  --------- Unknown territory !!!
+4000d093:	0000
 4000d095:	cc34      	bnez.n	a4, 0x4000d09c
 4000d097:	0c18      	movi.n	a8, 1
 4000d099:	4088c2        	quou	a8, a8, a4
@@ -5042,7 +5043,7 @@
 4000d0aa:	0c13      	movi.n	a3, 1
 4000d0ac:	462300        	j	0x4000d13d
 
-4000d0af to 4000d0af  --------- Unknown territory !!!
+4000d0af:	00
 4000d0b0:	2c0a      	movi.n	a10, 32
 4000d0b2:	50aac0        	sub	a10, a10, a5
 4000d0b5:	001540        	ssl	a5
@@ -5073,7 +5074,7 @@
 4000d0fe:	8acc      	add.n	a12, a12, a8
 4000d100:	060100        	j	0x4000d108
 
-4000d103 to 4000d105  --------- Unknown territory !!!
+4000d103:	000000
 4000d106:	dd02      	mov.n	a13, a2
 4000d108:	e0ccc0        	sub	a12, a12, a14
 4000d10b:	409ce2        	remu	a9, a12, a4
@@ -5110,7 +5111,7 @@
 4000d15f:	8a55      	add.n	a5, a5, a8
 4000d161:	c60000        	j	0x4000d168
 
-4000d164 to 4000d165  --------- Unknown territory !!!
+4000d164:	0000
 4000d166:	9d0c      	mov.n	a9, a12
 4000d168:	2025c0        	sub	a2, a5, a2
 4000d16b:	4052e2        	remu	a5, a2, a4
@@ -5146,7 +5147,7 @@
 4000d1ba:	0c03      	movi.n	a3, 0
 4000d1bc:	062f00        	j	0x4000d27c
 
-4000d1bf to 4000d1bf  --------- Unknown territory !!!
+4000d1bf:	00
 4000d1c0:	2c0a      	movi.n	a10, 32
 4000d1c2:	80aac0        	sub	a10, a10, a8
 4000d1c5:	000a40        	ssr	a10
@@ -5180,7 +5181,7 @@
 4000d217:	5aaa      	add.n	a10, a10, a5
 4000d219:	c60000        	j	0x4000d220
 
-4000d21c to 4000d21d  --------- Unknown territory !!!
+4000d21c:	0000
 4000d21e:	bd03      	mov.n	a11, a3
 4000d220:	d0aac0        	sub	a10, a10, a13
 4000d223:	903ae2        	remu	a3, a10, a9
@@ -5221,7 +5222,7 @@
 4000d27a:	2d03      	mov.n	a2, a3
 4000d27c:	1df0      	retw.n
 
-4000d27e to 4000d27f  --------- Unknown territory !!!
+4000d27e:	0000
 4000d280:	364100        	entry	a1, 32
 4000d283:	8d04      	mov.n	a8, a4
 4000d285:	209220        	or	a9, a2, a2
@@ -5265,7 +5266,7 @@
 
 4000d2f4:	063100        	j	0x4000d3bc
 
-4000d2f7 to 4000d2f8  --------- Unknown territory !!!
+4000d2f7:	0000
 4000d2f9:	cc34      	bnez.n	a4, 0x4000d300
 4000d2fb:	0c18      	movi.n	a8, 1
 4000d2fd:	4088c2        	quou	a8, a8, a4
@@ -5344,7 +5345,7 @@
 4000d3d1:	0c03      	movi.n	a3, 0
 4000d3d3:	864400        	j	0x4000d4e9
 
-4000d3d6 to 4000d3d7  --------- Unknown territory !!!
+4000d3d6:	0000
 4000d3d8:	57b302        	bgeu	a3, a5, 0x4000d3de
 4000d3db:	864200        	j	0x4000d4e9
 
@@ -5449,29 +5450,29 @@
 4000d4e6:	303091        	srl	a3, a3
 4000d4e9:	1df0      	retw.n
 
-4000d4eb to 4002f5d3  --------- Unknown territory !!!
+4000d4eb:2f5d3			unknown	; (not disassembled)
 4002f5d4:	00001000	; l32r
-4002f5d8 to 4002fa87  --------- Unknown territory !!!
+4002f5d8:2fa87			unknown	; (not disassembled)
 4002fa88:	03ffffff	; l32r
-4002fa8c to 4003ae43  --------- Unknown territory !!!
+4002fa8c:3ae43			unknown	; (not disassembled)
 4003ae44:	08000000	; l32r
-4003ae48 to 4003bf17  --------- Unknown territory !!!
+4003ae48:3bf17			unknown	; (not disassembled)
 4003bf18:	f7ffffff	; l32r
-4003bf1c to 4003c6ff  --------- Unknown territory !!!
+4003bf1c:3c6ff			unknown	; (not disassembled)
 4003c700:	40000000	; l32r
-4003c704 to 4004d2e3  --------- Unknown territory !!!
+4003c704:4d2e3			unknown	; (not disassembled)
 4004d2e4:	00040000	; l32r
-4004d2e8 to 4004e493  --------- Unknown territory !!!
+4004d2e8:4e493			unknown	; (not disassembled)
 4004e494:	80000000	; l32r
-4004e498 to 40051347  --------- Unknown territory !!!
+4004e498:51347			unknown	; (not disassembled)
 40051348:	04000000	; l32r
-4005134c to 4005579f  --------- Unknown territory !!!
+4005134c:5579f			unknown	; (not disassembled)
 400557a0:	7fffffff	; l32r
-400557a4 to 400561bf  --------- Unknown territory !!!
+400557a4:561bf			unknown	; (not disassembled)
 400561c0:	00400000	; l32r
-400561c4 to 400561eb  --------- Unknown territory !!!
+400561c4:561eb			unknown	; (not disassembled)
 400561ec:	ff000000	; l32r
-400561f0 to 4005a953  --------- Unknown territory !!!
+400561f0:5a953			unknown	; (not disassembled)
 4005a954:	40090000	; l32r
 4005a958:	3ffd2000	; l32r
 4005a95c:	4005acf0	; l32r
@@ -5520,10 +5521,10 @@
 4005a9de:	e00200        	callx8	a2
 4005a9e1:	1df0      	retw.n
 
-4005a9e3 to 4005c073  --------- Unknown territory !!!
+4005a9e3:5c073			unknown	; (not disassembled)
 4005c074:	3ff0001c	; l32r
 4005c078:	3ff00020	; l32r
-4005c07c to 4005ca2b  --------- Unknown territory !!!
+4005c07c:5ca2b			unknown	; (not disassembled)
 4005ca2c:	3ff041d4	; l32r
 4005ca30:	3ff041c0	; l32r
 4005ca34:	364100        	entry	a1, 32
@@ -5555,7 +5556,7 @@
 4005ca79:	2618f7        	beqi	a8, 1, 0x4005ca74
 4005ca7c:	1df0      	retw.n
 
-4005ca7e to 4005ca7f  --------- Unknown territory !!!
+4005ca7e:	0000
 4005ca80:	3ff041d0	; l32r
 4005ca84:	364100        	entry	a1, 32
 4005ca87:	81feff        	l32r	a8, 0x4005ca80	; ( 0x3ff041d0 )
@@ -5582,7 +5583,7 @@
 4005cabe:	9908      	s32i.n	a9, a8, 0
 4005cac0:	1df0      	retw.n
 
-4005cac2 to 4005cac3  --------- Unknown territory !!!
+4005cac2:	0000
 4005cac4:	3ff04080	; l32r
 4005cac8:	3ff041c4	; l32r
 4005cacc:	c00fbf80	; l32r
@@ -5613,7 +5614,7 @@
 4005cb0a:	2612f7        	beqi	a2, 1, 0x4005cb05
 4005cb0d:	1df0      	retw.n
 
-4005cb0f to 4005cb0f  --------- Unknown territory !!!
+4005cb0f:	00
 4005cb10:	3ff041c8	; l32r
 4005cb14:	364100        	entry	a1, 32
 4005cb17:	81feff        	l32r	a8, 0x4005cb10	; ( 0x3ff041c8 )
@@ -5626,7 +5627,7 @@
 4005cb29:	2618f7        	beqi	a8, 1, 0x4005cb24
 4005cb2c:	1df0      	retw.n
 
-4005cb2e to 4005cb2f  --------- Unknown territory !!!
+4005cb2e:	0000
 4005cb30:	3ff04140	; l32r
 4005cb34:	c00fbec0	; l32r
 4005cb38:	3ff04180	; l32r
@@ -5655,7 +5656,7 @@
 4005cb77:	2802      	l32i.n	a2, a2, 0
 4005cb79:	1df0      	retw.n
 
-4005cb7b to 4005cbc7  --------- Unknown territory !!!
+4005cb7b:5cbc7			unknown	; (not disassembled)
 4005cbc8:	3ff5a018	; l32r
 4005cbcc:	364100        	entry	a1, 32
 4005cbcf:	208074        	extui	a8, a2, 0, 8
@@ -5680,7 +5681,7 @@
 4005cbfe:	0c12      	movi.n	a2, 1
 4005cc00:	1df0      	retw.n
 
-4005cc02 to 4005cc03  --------- Unknown territory !!!
+4005cc02:	0000
 4005cc04:	364100        	entry	a1, 32
 4005cc07:	e5f0ff        	call8	0x4005cb14
 4005cc0a:	20a220        	or	a10, a2, a2
@@ -5689,9 +5690,9 @@
 4005cc12:	25e7ff        	call8	0x4005ca84
 4005cc15:	1df0      	retw.n
 
-4005cc17 to 4005ef03  --------- Unknown territory !!!
+4005cc17:5ef03			unknown	; (not disassembled)
 4005ef04:	ffff0000	; l32r
-4005ef08 to 40061b5b  --------- Unknown territory !!!
+4005ef08:61b5b			unknown	; (not disassembled)
 40061b5c:	01002000	; l32r
 40061b60:	3ff4301c	; l32r
 40061b64:	70000000	; l32r
@@ -5748,7 +5749,7 @@
 40061bfc:	92a0eb        	movi	a9, 235
 40061bff:	865f00        	j	0x40061d81
 
-40061c02 to 40061c03  --------- Unknown territory !!!
+40061c02:	0000
 40061c04:	d7e202        	bbsi	a2, 13, 0x40061c0a
 40061c07:	463b00        	j	0x40061cf8
 
@@ -5813,7 +5814,7 @@
 40061ca5:	92a0bb        	movi	a9, 187
 40061ca8:	463500        	j	0x40061d81
 
-40061cab to 40061cab  --------- Unknown territory !!!
+40061cab:	00
 40061cac:	7b99      	addi.n	a9, a9, 7
 40061cae:	909074        	extui	a9, a9, 0, 8
 40061cb1:	e76220        	bbci	a2, 14, 0x40061cd5
@@ -5843,7 +5844,7 @@
 40061cf1:	0cb9      	movi.n	a9, 11
 40061cf3:	862200        	j	0x40061d81
 
-40061cf6 to 40061cf7  --------- Unknown territory !!!
+40061cf6:	0000
 40061cf8:	c02000        	memw
 40061cfb:	2808      	l32i.n	a2, a8, 0
 40061cfd:	a0a210        	and	a10, a2, a10
@@ -5901,7 +5902,7 @@
 40061d87:	8902      	s32i.n	a8, a2, 0
 40061d89:	1df0      	retw.n
 
-40061d8b to 40061d8b  --------- Unknown territory !!!
+40061d8b:	00
 40061d8c:	3ffae293	; l32r
 40061d90:	364100        	entry	a1, 32
 40061d93:	81feff        	l32r	a8, 0x40061d8c	; ( 0x3ffae293 )
@@ -5915,7 +5916,7 @@
 40061da9:	0c23      	movi.n	a3, 2
 40061dab:	c60200        	j	0x40061dba
 
-40061dae to 40061daf  --------- Unknown territory !!!
+40061dae:	0000
 40061db0:	662304        	bnei	a3, 2, 0x40061db8
 40061db3:	0c13      	movi.n	a3, 1
 40061db5:	460000        	j	0x40061dba
@@ -5924,11 +5925,11 @@
 40061dba:	324200        	s8i	a3, a2, 0
 40061dbd:	1df0      	retw.n
 
-40061dbf to 40061dbf  --------- Unknown territory !!!
+40061dbf:	00
 40061dc0:	924200        	s8i	a9, a2, 0
 40061dc3:	1df0      	retw.n
 
-40061dc5 to 40061dc7  --------- Unknown territory !!!
+40061dc5:	000000
 40061dc8:	3ff49054	; l32r
 40061dcc:	ffff8fff	; l32r
 40061dd0:	3ff49058	; l32r
@@ -5949,7 +5950,7 @@
 40061dfd:	21f4ff        	l32r	a2, 0x40061dd0	; ( 0x3ff49058 )
 40061e00:	c60700        	j	0x40061e23
 
-40061e03 to 40061e03  --------- Unknown territory !!!
+40061e03:	00
 40061e04:	66132e        	bnei	a3, 1, 0x40061e36
 40061e07:	21f3ff        	l32r	a2, 0x40061dd4	; ( 0x3ff49040 )
 40061e0a:	81f0ff        	l32r	a8, 0x40061dcc	; ( 0xffff8fff )
@@ -5969,7 +5970,7 @@
 40061e31:	3902      	s32i.n	a3, a2, 0
 40061e33:	1df0      	retw.n
 
-40061e35 to 40061e35  --------- Unknown territory !!!
+40061e35:	00
 40061e36:	20a220        	or	a10, a2, a2
 40061e39:	a564a8        	call8	0x4000a484
 40061e3c:	ad02      	mov.n	a10, a2
@@ -6029,7 +6030,7 @@
 40061ec5:	303855        	extui	a3, a3, 24, 6
 40061ec8:	c60700        	j	0x40061eeb
 
-40061ecb to 40061ecb  --------- Unknown territory !!!
+40061ecb:	00
 40061ecc:	0ca4      	movi.n	a4, 10
 40061ece:	0c93      	movi.n	a3, 9
 40061ed0:	0cb7      	movi.n	a7, 11
@@ -6038,7 +6039,7 @@
 40061ed6:	0c6a      	movi.n	a10, 6
 40061ed8:	c60300        	j	0x40061eeb
 
-40061edb to 40061edb  --------- Unknown territory !!!
+40061edb:	00
 40061edc:	42a002        	movi	a4, 2
 40061edf:	32a004        	movi	a3, 4
 40061ee2:	72a00f        	movi	a7, 15
@@ -6088,7 +6089,7 @@
 40061f59:	251ca8        	call8	0x4000a11c
 40061f5c:	1df0      	retw.n
 
-40061f5e to 40061f5f  --------- Unknown territory !!!
+40061f5e:	0000
 40061f60:	3ff49060	; l32r
 40061f64:	3ff49064	; l32r
 40061f68:	3ff49068	; l32r
@@ -6304,7 +6305,7 @@
 40062186:	65e5a7        	call8	0x40009fdc
 40062189:	1df0      	retw.n
 
-4006218b to 4006218b  --------- Unknown territory !!!
+4006218b:	00
 4006218c:	3ff42008	; l32r
 40062190:	3ff4201c	; l32r
 40062194:	3ff42020	; l32r
@@ -6343,7 +6344,7 @@
 400621f5:	9908      	s32i.n	a9, a8, 0
 400621f7:	060400        	j	0x4006220b
 
-400621fa to 400621fb  --------- Unknown territory !!!
+400621fa:	0000
 400621fc:	f1eaff        	l32r	a15, 0x400621a4	; ( 0xb0000000 )
 400621ff:	0baa      	addi.n	a10, a10, -1
 40062201:	c02000        	memw
@@ -6386,7 +6387,7 @@
 40062262:	2d08      	mov.n	a2, a8
 40062264:	1df0      	retw.n
 
-40062266 to 40062267  --------- Unknown territory !!!
+40062266:	0000
 40062268:	3ff42010	; l32r
 4006226c:	364100        	entry	a1, 32
 4006226f:	8140fe        	l32r	a8, 0x40061b70	; ( 0x3ffae290 )
@@ -6420,7 +6421,7 @@
 400622b3:	0c02      	movi.n	a2, 0
 400622b5:	1df0      	retw.n
 
-400622b7 to 400622b7  --------- Unknown territory !!!
+400622b7:	00
 400622b8:	3ff420f8	; l32r
 400622bc:	3ff430f8	; l32r
 400622c0:	366100        	entry	a1, 48
@@ -6441,7 +6442,7 @@
 400622ea:	a02383        	moveqz	a2, a3, a10
 400622ed:	1df0      	retw.n
 
-400622ef to 400622ef  --------- Unknown territory !!!
+400622ef:	00
 400622f0:	364100        	entry	a1, 32
 400622f3:	ad02      	mov.n	a10, a2
 400622f5:	a5fcff        	call8	0x400622c0
@@ -6461,7 +6462,7 @@
 4006231a:	2d03      	mov.n	a2, a3
 4006231c:	1df0      	retw.n
 
-4006231e to 4006231f  --------- Unknown territory !!!
+4006231e:	0000
 40062320:	366100        	entry	a1, 48
 40062323:	0c03      	movi.n	a3, 0
 40062325:	ad02      	mov.n	a10, a2
@@ -6485,12 +6486,12 @@
 40062352:	0c02      	movi.n	a2, 0
 40062354:	1df0      	retw.n
 
-40062356 to 40062357  --------- Unknown territory !!!
+40062356:	0000
 40062358:	3ff42004	; l32r
 4006235c:	c00bdf80	; l32r
-40062360 to 40062363  --------- Unknown territory !!!
+40062360:	a020f43f
 40062364:	0ffd0820	; l32r
-40062368 to 40062443  --------- Unknown territory !!!
+40062368:62443			unknown	; (not disassembled)
 40062444:	3ffae270	; l32r
 40062448:	364100        	entry	a1, 32
 4006244b:	a1feff        	l32r	a10, 0x40062444	; ( 0x3ffae270 )
@@ -6504,7 +6505,7 @@
 4006245f:	2d0a      	mov.n	a2, a10
 40062461:	1df0      	retw.n
 
-40062463 to 40062463  --------- Unknown territory !!!
+40062463:	00
 40062464:	3ff42028	; l32r
 40062468:	88000000	; l32r
 4006246c:	366100        	entry	a1, 48
@@ -6545,7 +6546,7 @@
 400624c1:	7d06      	mov.n	a7, a6
 400624c3:	060500        	j	0x400624db
 
-400624c6 to 400624c8  --------- Unknown territory !!!
+400624c6:	000000
 400624c9:	b62702        	bltui	a7, 2, 0x400624cf
 400624cc:	867a00        	j	0x400626ba
 
@@ -6604,7 +6605,7 @@
 40062555:	5674ff        	bnez	a4, 0x40062550
 40062558:	464b00        	j	0x40062689
 
-4006255b to 4006255b  --------- Unknown territory !!!
+4006255b:	00
 4006255c:	c110ff        	l32r	a12, 0x4006219c	; ( 0x3ff4202c )
 4006255f:	d0d311        	slli	a13, a3, 3
 40062562:	0bdd      	addi.n	a13, a13, -1
@@ -6619,7 +6620,7 @@
 40062579:	5909      	s32i.n	a5, a9, 0
 4006257b:	060800        	j	0x4006259f
 
-4006257e to 4006257f  --------- Unknown territory !!!
+4006257e:	0000
 40062580:	c109ff        	l32r	a12, 0x400621a4	; ( 0xb0000000 )
 40062583:	0b55      	addi.n	a5, a5, -1
 40062585:	c02000        	memw
@@ -6746,9 +6747,9 @@
 400626ba:	1df0      	retw.n
 
 400626bc:	3ff43034	; l32r
-400626c0 to 400626db  --------- Unknown territory !!!
+400626c0:626db			unknown	; (not disassembled)
 400626dc:	0fffffff	; l32r
-400626e0 to 40062933  --------- Unknown territory !!!
+400626e0:62933			unknown	; (not disassembled)
 40062934:	fe6f9fff	; l32r
 40062938:	3ff43008	; l32r
 4006293c:	3ff9bf24	; l32r
@@ -6847,7 +6848,7 @@
 40062a39:	0c02      	movi.n	a2, 0
 40062a3b:	1df0      	retw.n
 
-40062a3d to 40062a3f  --------- Unknown territory !!!
+40062a3d:	000000
 40062a40:	3ff42018	; l32r
 40062a44:	00003043	; l32r
 40062a48:	3ff43018	; l32r
@@ -6950,7 +6951,7 @@
 40062b59:	a5deff        	call8	0x40062944
 40062b5c:	1df0      	retw.n
 
-40062b5e to 40062b5f  --------- Unknown territory !!!
+40062b5e:	0000
 40062b60:	3ff9bf0c	; l32r
 40062b64:	364100        	entry	a1, 32
 40062b67:	a137fe        	l32r	a10, 0x40062444	; ( 0x3ffae270 )
@@ -6988,7 +6989,7 @@
 40062bbd:	0c02      	movi.n	a2, 0
 40062bbf:	1df0      	retw.n
 
-40062bc1 to 40062bc3  --------- Unknown territory !!!
+40062bc1:	000000
 40062bc4:	0003ff43	; l32r
 40062bc8:	364100        	entry	a1, 32
 40062bcb:	a11efe        	l32r	a10, 0x40062444	; ( 0x3ffae270 )
@@ -7019,7 +7020,7 @@
 40062c0f:	0c02      	movi.n	a2, 0
 40062c11:	1df0      	retw.n
 
-40062c13 to 40062ebb  --------- Unknown territory !!!
+40062c13:62ebb			unknown	; (not disassembled)
 40062ebc:	700000eb	; l32r
 40062ec0:	700000bb	; l32r
 40062ec4:	7000006b	; l32r
@@ -7175,7 +7176,7 @@
 40063054:	606820        	or	a6, a8, a6
 40063057:	c61e00        	j	0x400630d6
 
-4006305a to 4006305b  --------- Unknown territory !!!
+4006305a:	0000
 4006305c:	c02000        	memw
 4006305f:	6805      	l32i.n	a6, a5, 0
 40063061:	909610        	and	a9, a6, a9
@@ -7239,7 +7240,7 @@
 400630f8:	c12dfc        	l32r	a12, 0x400621ac	; ( 0x3ff42000 )
 400630fb:	862700        	j	0x4006319d
 
-400630fe to 40063100  --------- Unknown territory !!!
+400630fe:	000000
 40063101:	805211        	slli	a5, a2, 8
 40063104:	47ad41        	bge	a13, a4, 0x40063149
 40063107:	c02000        	memw
@@ -7283,13 +7284,13 @@
 4006316a:	cc22      	bnez.n	a2, 0x40063170
 4006316c:	860000        	j	0x40063172
 
-4006316f to 4006316f  --------- Unknown territory !!!
+4006316f:	00
 40063170:	1b44      	addi.n	a4, a4, 1
 40063172:	404074        	extui	a4, a4, 0, 8
 40063175:	0c02      	movi.n	a2, 0
 40063177:	460600        	j	0x40063194
 
-4006317a to 4006317b  --------- Unknown territory !!!
+4006317a:	0000
 4006317c:	617afc        	l32r	a6, 0x40062364	; ( 0x0ffd0820 )
 4006317f:	8177fc        	l32r	a8, 0x4006235c	; ( 0xc00bdf80 )
 40063182:	6a52      	add.n	a5, a2, a6
@@ -7311,6 +7312,6 @@
 400631a5:	2d05      	mov.n	a2, a5
 400631a7:	1df0      	retw.n
 
-400631a9 to 4006ffff  --------- Unknown territory !!!
+400631a9:6ffff			unknown	; (not disassembled)
 
 ; disassembled 18275 bytes of 458752

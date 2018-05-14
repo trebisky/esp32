@@ -23,8 +23,6 @@
 # (approximately 4 percent!)
 
 # TODO:
-# 0 - implement Map class and cleanup
-# 0.1 finish .hex and .xhex cleanup
 # 1 - find out why my "Twice" messages don't run in a continuous
 #       flow thru areas where I am sure they must.  DONE
 #  Things involving setting ruby subarrays that I still don't understand.
@@ -105,6 +103,7 @@ class Instr
 	    error addr, stuff
 	end
 	op = w[2]
+
 	@is_term = true if op =~ /^ret/
 	@is_term = true if op =~ /^j/
 	@is_jump = true if op =~ /^j/
@@ -115,8 +114,8 @@ class Instr
 	@is_call = true if op =~ /^call/
 	@is_call = false if op =~ /^callx/
 	@is_l32r = true if op =~ /^l32r/
+
 	if @is_jump
-	    #puts "Jump to #{w[3]}"
 	    @target = w[-1]
 	end
 	if @is_call
@@ -224,21 +223,40 @@ class Map
     end
 end
 
+# We need this to fetch stuff for l32r cleanup
+# also to dump binary stuff for short regions
+class Image
+    def initialize
+	@base = $rom_base
+	#@size = $rom_size
+
+	file = File.open $bin_file, "rb"
+	@im = file.read
+	file.close
+	if @im.size != $rom_size
+	    puts "Something is wrong with binary file"
+	    exit
+	end
+    end
+    def fetch_long ( addr )
+	index = addr - @base
+	bytes = @im[index,4]
+	vals = bytes.unpack "L"
+	val = vals[0]
+    end
+    def fetch_hex ( addr, count )
+	index = addr - @base
+	bytes = @im[index,count]
+	vals = bytes.unpack "C*"
+	rv = ""
+	vals.each { |v|
+	    rv = rv + "%02x" % v
+	}
+	return rv
+    end
+end
+
 class Dumper
-#    def Dumper.map ( size )
-#	map = Array.new size, "X"
-#	if File.exist? $hintfile
-#	    f = File.open $hintfile
-#	    f.each { |l|
-#		puts "Hint: " + l
-#	    }
-#	    close f
-#	end
-#	# after Call to 0x40000704 we will never return from.
-#	# XXX belongs in hints file
-#	map[0x55d] = "D"
-#	return map
-#    end
     def initialize
 	@elf = $elf_file
 	@size = $rom_size
@@ -247,33 +265,24 @@ class Dumper
 	@show_pass1 = false
 	@debug_pass1 = false
 	@debug_pass2 = false
-
-	# We need this to fetch stuff for l32r cleanup
-	file = File.open $bin_file, "rb"
-	@binary = file.read
-	file.close
-	if @binary.size != $rom_size
-	    puts "Something is wrong with binary file"
-	    exit
-	end
-
 	@limit = @base + @size -1
+
 	# This should be on the search path, if not prefix
 	# with something like /opt/esp32/xtensa-esp32-elf/bin
 #	@cmd = "xtensa-lx106-elf-objdump -mxtensa -d -z"
 	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
+
 	@cur_addr = Array.new
 	@old_addr = Array.new
+
 	@map = Map.new $rom_base, $rom_size
-	## @map = Dumper.map $rom_size
+	@image = Image.new
     end
     def one_inst ( addr )
-#        $(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
 	eaddr = addr + 3
 	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
 	cmd = @cmd + " " + range + " #{@elf}"
-#	puts cmd
-	return Instr.new addr, `#{cmd}`
+	return Instr.new addr, `#{cmd}`	; note backticks here
     end
     def add_addr ( target )
 	#puts "Check add: " + target
@@ -281,6 +290,8 @@ class Dumper
 	addr = target.hex
 	#puts "Maybe add: " + addr.hex
 	# Never see Wow, now that we have all 7 * 64k
+	# but this is what tipped us off to the address map
+	# in the reference manual being wrong.
 	if addr > @limit
 	    puts "Wow, skipping: " + addr.hex
 	    return
@@ -291,22 +302,9 @@ class Dumper
 	@new_addr << addr
     end
 
-#    def claim ( index, size, type )
-#	size.times {
-#	    @map[index] = type
-#	    index += 1
-#	}
-#    end
-    def fetch_long ( addr )
-	index = addr - @base
-	bytes = @binary[index,4]
-	vals = bytes.unpack "L"
-	val = vals[0]
-    end
-
     def print_inst ( i )
 	    if i.is_l32r
-		val = fetch_long ( i.target.hex )
+		val = @image.fetch_long ( i.target.hex )
 		puts i.line + "\t; ( " + val.xhex + " )"
 	    else
 		puts i.line
@@ -315,8 +313,6 @@ class Dumper
 
     def range1 ( addr )
 	loop {
-	    #index = addr - @base
-	    #break unless @map[index] == "X"
 	    break unless @map.is_avail addr
 
 	    i = one_inst addr
@@ -327,8 +323,6 @@ class Dumper
 		@map.claim_l32r i.target.hex
 	    end
 
-	    #index = addr - @base
-
 	    # This indicates we have "slid" into a section we
 	    # already disassembled, usually because we followed a
 	    # branch prior to that section, so we can justend.
@@ -338,7 +332,6 @@ class Dumper
 		break
 	    end
 
-	    #claim index, i.size, "I"
 	    @map.claim_instr addr, i.size
 
 	    add_addr i.target if i.is_jump
@@ -364,7 +357,6 @@ class Dumper
 		t = @cur_addr.shift
 		break unless t
 		@old_addr << t
-		#next if @map[t-@base] != "X"
 		next unless @map.is_avail t
 		puts "Chase: " + t.hex + " (#{@cur_addr.size})" if @debug_pass1
 		range1 t
@@ -374,7 +366,6 @@ class Dumper
 	    # We drop things that we saved as potential targets,
 	    # but apparently continued on to disassemble
 	    @new_addr.each { |n|
-		#if @map[n-@base] != "X"
 		unless @map.is_avail n
 		    puts "Dropping: " + n.hex if @debug_pass1
 		    next
@@ -384,22 +375,6 @@ class Dumper
 	}
     end
 
-    # The game here is to collect contiguous blocks of the same type
-    def get_range_OLD ( index )
-	if index >= @size
-	    return "Q", 0
-	end
-	if @map[index] == "L"
-	    return "L", index + 4
-	end
-	t = @map[index]
-	loop {
-	    index = index + 1
-	    break if index >= @size
-	    break if @map[index] != t
-	}
-	return t, index
-    end
 
     # Just display, following a linear thread of execution
     # until it terminates.
@@ -410,8 +385,6 @@ class Dumper
 	    # in pass 1. Now sort of belt and suspenders,
 	    # but we have seen it happen in cases where
 	    # only a hint would set things right.
-	    #index = addr - @base
-	    #if @map[index] != "I" and @map[index] != "X"
 	    break unless @map.is_ok addr
 	    i = one_inst addr
 	    print_inst i
@@ -436,7 +409,7 @@ class Dumper
 
 	    # Handle a l32r
 	    if type == "L"
-		hval = fetch_long(addr).hex
+		hval = @image.fetch_long(addr).hex
 		print "#{addr.hex}:	" + hval + "	; l32r\n"
 	    elsif type == "I"
 		loop {
@@ -448,47 +421,29 @@ class Dumper
 		    addr = naddr
 		}
 	    else
-		eaddr = xaddr - 1
-		print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
+		len = xaddr - addr;
+		if ( len > 16 )
+		    #eaddr = xaddr - 1
+		    #print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
+		    eaddr = xaddr - 1 - @base
+		    eaddr_hex = "%x" % eaddr
+		    puts "#{addr.hex}:#{eaddr_hex}\t\t\tunknown\t; (not disassembled)"
+		else
+		    print "#{addr.hex}:\t"
+		    print @image.fetch_hex addr, len
+		    print "\n"
+		end
 	    end
 	    addr = xaddr
 	}
     end
-    def pass2_OLD
-	index = 0
-	loop {
-	    type, nxt = get_range index
-	    break if type == "Q"
-	    addr = @base + index
-	    xaddr = @base + nxt
-	    eaddr = xaddr - 1
-	    
-	    #puts "Pass2 #{addr.hex} #{xaddr.hex} #{type}"
 
-	    # Handle a l32r
-	    if type == "L"
-		hval = fetch_long(addr).hex
-		print "#{addr.hex}:	" + hval + "	; l32r\n"
-	    elsif type == "I"
-		loop {
-		    naddr = range2 addr
-		    #puts "Range2 #{addr.hex} #{naddr.hex}"
-		    break if naddr >= xaddr
-		    #print "I ended prematurely: #{naddr.hex} #{xaddr.hex}\n"
-
-		    addr = naddr
-		}
-	    else
-		print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
-	    end
-	    index = nxt
-	}
-    end
     def show_map
 	@map.show_map
     end
     def summary
 	count = @map.get_count;
+	puts ""
 	puts "; disassembled #{count} bytes of #{@size}"
     end
 end
