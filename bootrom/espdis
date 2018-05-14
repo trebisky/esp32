@@ -131,8 +131,12 @@ class Instr
     end
 end
 
+# The purpose of this is to hide the map and the way we represent it
+# We also hide indexing, all external access is via addresses
 class Map
-    def initialize
+    def initialize ( base, size )
+	@base = base
+	@size = size
 	@map = Array.new size, "X"
 	if File.exist? $hintfile
 	    f = File.open $hintfile
@@ -145,23 +149,96 @@ class Map
 	# XXX belongs in hints file
 	@map[0x55d] = "D"
     end
+    def show_map
+	addr = @base
+	i = 0
+	loop {
+	    break unless @map[i]
+	    print "MAP #{addr.hex}: "
+	    16.times {
+		print " " + @map[i] 
+		i += 1
+	    }
+	    print "\n"
+	    addr += 16
+	}
+    end
+    def get_count
+	rv = 0;
+	@map.each { |m|
+	    rv += 1 if m != "X"
+	}
+	rv
+    end
+    def claim ( index, size, type )
+	size.times {
+	    @map[index] = type
+	    index += 1
+	}
+    end
+    def claim_l32r ( addr )
+	index = addr - @base
+	claim index, 4, "L"
+    end
+    def claim_instr ( addr, size )
+	index = addr - @base
+	claim index, size, "I"
+    end
+
+    def is_avail ( addr )
+	return @map[addr-@base] == "X"
+    end
+    # sort of hackish sloppy version of the above
+    def is_ok ( addr )
+	index = addr - @base
+	return true if @map[index] == "X"
+	return true if @map[index] == "I"
+	return false
+    end
+    def is_instr ( addr )
+	return @map[addr-@base] == "I"
+    end
+    def is_l32r ( addr )
+	return @map[addr-@base] == "L"
+    end
+
+    # This is the heart of Pass 2
+    # Use the map to delimit sections to
+    # disassemble in different ways.
+    # XXX - Does not hide codes
+    def get_range ( addr )
+	index = addr - @base
+	if index >= @size
+	    return "Q", 0
+	end
+	if @map[index] == "L"
+	    return "L", addr + 4
+	end
+	t = @map[index]
+	loop {
+	    index = index + 1
+	    break if index >= @size
+	    break if @map[index] != t
+	}
+	return t, @base + index
+    end
 end
 
 class Dumper
-    def Dumper.map ( size )
-	map = Array.new size, "X"
-	if File.exist? $hintfile
-	    f = File.open $hintfile
-	    f.each { |l|
-		puts "Hint: " + l
-	    }
-	    close f
-	end
-	# after Call to 0x40000704 we will never return from.
-	# XXX belongs in hints file
-	map[0x55d] = "D"
-	return map
-    end
+#    def Dumper.map ( size )
+#	map = Array.new size, "X"
+#	if File.exist? $hintfile
+#	    f = File.open $hintfile
+#	    f.each { |l|
+#		puts "Hint: " + l
+#	    }
+#	    close f
+#	end
+#	# after Call to 0x40000704 we will never return from.
+#	# XXX belongs in hints file
+#	map[0x55d] = "D"
+#	return map
+#    end
     def initialize
 	@elf = $elf_file
 	@size = $rom_size
@@ -169,6 +246,7 @@ class Dumper
 
 	@show_pass1 = false
 	@debug_pass1 = false
+	@debug_pass2 = false
 
 	# We need this to fetch stuff for l32r cleanup
 	file = File.open $bin_file, "rb"
@@ -186,7 +264,8 @@ class Dumper
 	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
 	@cur_addr = Array.new
 	@old_addr = Array.new
-	@map = Dumper.map $rom_size
+	@map = Map.new $rom_base, $rom_size
+	## @map = Dumper.map $rom_size
     end
     def one_inst ( addr )
 #        $(OBJDUMP) --start-address=0x40000000 --stop-address=0x400003ff rom0.elf >zzz.dis
@@ -212,27 +291,23 @@ class Dumper
 	@new_addr << addr
     end
 
-    def claim ( index, size, type )
-	size.times {
-	    @map[index] = type
-	    index += 1
-	}
-    end
-    def fetch_long ( index )
+#    def claim ( index, size, type )
+#	size.times {
+#	    @map[index] = type
+#	    index += 1
+#	}
+#    end
+    def fetch_long ( addr )
+	index = addr - @base
 	bytes = @binary[index,4]
 	vals = bytes.unpack "L"
 	val = vals[0]
     end
 
-    def get_l32r ( addr )
-	val = fetch_long addr - @base
-	return val.xhex
-    end
-
     def print_inst ( i )
 	    if i.is_l32r
-		val = get_l32r ( i.target.hex )
-		puts i.line + "\t; ( " + val + " )"
+		val = fetch_long ( i.target.hex )
+		puts i.line + "\t; ( " + val.xhex + " )"
 	    else
 		puts i.line
 	    end
@@ -240,29 +315,31 @@ class Dumper
 
     def range1 ( addr )
 	loop {
-	    index = addr - @base
-	    break unless @map[index] == "X"
+	    #index = addr - @base
+	    #break unless @map[index] == "X"
+	    break unless @map.is_avail addr
 
 	    i = one_inst addr
 
 	    print_inst i if @show_pass1
 
 	    if i.is_l32r
-		claim (i.target.hex - @base), 4, "L"
+		@map.claim_l32r i.target.hex
 	    end
 
-	    index = addr - @base
+	    #index = addr - @base
 
 	    # This indicates we have "slid" into a section we
 	    # already disassembled, usually because we followed a
 	    # branch prior to that section, so we can justend.
-	    if @map[index] == "I"
+	    if @map.is_instr addr
 		# puts "Twice visiting: " + addr.hex
 		puts "*** END (Twice) ***" if @debug_pass1
 		break
 	    end
 
-	    claim index, i.size, "I"
+	    #claim index, i.size, "I"
+	    @map.claim_instr addr, i.size
 
 	    add_addr i.target if i.is_jump
 	    add_addr i.target if i.is_branch
@@ -287,16 +364,18 @@ class Dumper
 		t = @cur_addr.shift
 		break unless t
 		@old_addr << t
-		next if @map[t-@base] != "X"
+		#next if @map[t-@base] != "X"
+		next unless @map.is_avail t
 		puts "Chase: " + t.hex + " (#{@cur_addr.size})" if @debug_pass1
 		range1 t
 	    }
 	    puts "!!! Pass #{pass} finished, %d waiting" % @new_addr.size if @debug_pass1
 
-	    # We drop things that we had branches to, but were
-	    # in the range we continued to disassemble.
+	    # We drop things that we saved as potential targets,
+	    # but apparently continued on to disassemble
 	    @new_addr.each { |n|
-		if @map[n-@base] != "X"
+		#if @map[n-@base] != "X"
+		unless @map.is_avail n
 		    puts "Dropping: " + n.hex if @debug_pass1
 		    next
 		end
@@ -306,7 +385,7 @@ class Dumper
     end
 
     # The game here is to collect contiguous blocks of the same type
-    def get_range ( index )
+    def get_range_OLD ( index )
 	if index >= @size
 	    return "Q", 0
 	end
@@ -331,10 +410,9 @@ class Dumper
 	    # in pass 1. Now sort of belt and suspenders,
 	    # but we have seen it happen in cases where
 	    # only a hint would set things right.
-	    index = addr - @base
-	    if @map[index] != "I" and @map[index] != "X"
-		break
-	    end
+	    #index = addr - @base
+	    #if @map[index] != "I" and @map[index] != "X"
+	    break unless @map.is_ok addr
 	    i = one_inst addr
 	    print_inst i
 	    puts "" if i.is_term
@@ -349,6 +427,34 @@ class Dumper
 	return addr
     end
     def pass2
+	addr = @base
+	loop {
+	    type, xaddr = @map.get_range addr
+	    break if type == "Q"
+	    
+	    puts "Pass2 #{addr.hex} #{xaddr.hex} #{type}" if @debug_pass2
+
+	    # Handle a l32r
+	    if type == "L"
+		hval = fetch_long(addr).hex
+		print "#{addr.hex}:	" + hval + "	; l32r\n"
+	    elsif type == "I"
+		loop {
+		    naddr = range2 addr
+		    puts "Range2 #{addr.hex} #{naddr.hex}" if @debug_pass2
+		    break if naddr >= xaddr
+		    puts "I ended prematurely: #{naddr.hex} #{xaddr.hex}" if @debug_pass2
+
+		    addr = naddr
+		}
+	    else
+		eaddr = xaddr - 1
+		print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
+	    end
+	    addr = xaddr
+	}
+    end
+    def pass2_OLD
 	index = 0
 	loop {
 	    type, nxt = get_range index
@@ -361,7 +467,7 @@ class Dumper
 
 	    # Handle a l32r
 	    if type == "L"
-		hval = fetch_long(index).hex
+		hval = fetch_long(addr).hex
 		print "#{addr.hex}:	" + hval + "	; l32r\n"
 	    elsif type == "I"
 		loop {
@@ -379,24 +485,10 @@ class Dumper
 	}
     end
     def show_map
-	addr = @base
-	i = 0
-	loop {
-	    break unless @map[i]
-	    print "MAP #{addr.hex}: "
-	    16.times {
-		print " " + @map[i] 
-		i += 1
-	    }
-	    print "\n"
-	    addr += 16
-	}
+	@map.show_map
     end
     def summary
-	count = 0;
-	@map.each { |m|
-	    count += 1 if m != "X"
-	}
+	count = @map.get_count;
 	puts "; disassembled #{count} bytes of #{@size}"
     end
 end
