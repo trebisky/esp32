@@ -15,6 +15,7 @@ PORT           = /dev/ttyUSB2
 #TOOL_PATH = /opt/esp32/xtensa-esp32-elf/bin
 
 ESPTOOL = $(IDF_PATH)/components/esptool_py/esptool/esptool.py -p $(PORT)
+ESPSYMS = $(IDF_PATH)/components/esp32/ld/esp32.rom.ld
 
 # This can be found on our search path
 #NOBJDUMP = xtensa-lx106-elf-objdump -D -b binary -mxtensa
@@ -27,6 +28,10 @@ dis:
 info:
 	$(ESPTOOL) read_mac
 	$(ESPTOOL) flash_id
+
+# Fetch a local copy for us -- and rename it
+syms:	$(ESPSYMS)
+	cp $(ESPSYMS) syms
 
 #ROM0_SIZE = 65536 * 5
 ROM0_SIZE = 393216

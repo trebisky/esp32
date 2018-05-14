@@ -42,6 +42,7 @@ $rom_base = 0x40000000
 $rom_size = 65536 * 7
 
 $hintfile = "hints"
+$symfile = "syms"
 
 # Augment this with some convenience methods
 class Integer
@@ -68,6 +69,7 @@ class Instr
     attr_reader :target
     attr_reader :is_branch
     attr_reader :is_call
+    attr_reader :is_call8
     attr_reader :is_jump
     attr_reader :is_l32r
     attr_reader :is_term
@@ -111,6 +113,7 @@ class Instr
 	@is_branch = true if op =~ /^loopnez/
 	@is_branch = true if op =~ /^b/
 	@is_branch = false if op =~ /^break/
+	@is_call8 = true if op =~ /^call8/
 	@is_call = true if op =~ /^call/
 	@is_call = false if op =~ /^callx/
 	@is_l32r = true if op =~ /^l32r/
@@ -142,7 +145,7 @@ class Map
 	    f.each { |l|
 		puts "Hint: " + l
 	    }
-	    close f
+	    f.close
 	end
 	# after Call to 0x40000704 we will never return from.
 	# XXX belongs in hints file
@@ -256,6 +259,47 @@ class Image
     end
 end
 
+class Calls
+    def initialize
+	@base = $rom_base
+	@calls = Hash.new
+	@syms = Hash.new
+	if File.exist? $symfile
+	    f = File.open $symfile
+	    f.each { |l|
+		next unless l =~ /^PROVIDE/
+		vals = l.split
+		@syms[vals[4].hex] = vals[2]
+	    }
+	    f.close
+	end
+    end
+
+    # avoid adding the same name twice
+    # also this gives priority to names from the
+    # symbol table that have been preloaded.
+    def add ( addr )
+	name = @calls[addr]
+	return name if name
+
+	# If there is a name in the symbol list, use it
+	# otherwise generate a name
+	name = @syms[addr]
+	unless name
+	    name = "sub_%x" % (addr - @base)
+	end
+	@calls[addr] = name
+	return name
+    end
+
+    def call_lookup ( addr )
+	return @calls[addr]
+    end
+    def sym_lookup ( addr )
+	return @syms[addr]
+    end
+end
+
 class Dumper
     def initialize
 	@elf = $elf_file
@@ -277,6 +321,7 @@ class Dumper
 
 	@map = Map.new $rom_base, $rom_size
 	@image = Image.new
+	@call = Calls.new
     end
     def one_inst ( addr )
 	eaddr = addr + 3
@@ -303,12 +348,37 @@ class Dumper
     end
 
     def print_inst ( i )
+
+	    # print a nice label before known subroutines
+	    name = @call.call_lookup i.addr
+	    if name
+		puts ""
+		puts "  " + name + ":"
+	    end
+
+	    if i.is_call8
+		name = @call.call_lookup i.target.hex
+		if name
+		    puts i.line + "\t; " + name
+		else
+		    # should never happen
+		    puts i.line + "\t; " + "????"
+		end
+		return
+	    end
+
 	    if i.is_l32r
 		val = @image.fetch_long ( i.target.hex )
-		puts i.line + "\t; ( " + val.xhex + " )"
-	    else
-		puts i.line
+		sym = @call.sym_lookup val
+		if sym
+		    puts i.line + "\t; #{sym} ( " + val.xhex + " )"
+		else
+		    puts i.line + "\t; ( " + val.xhex + " )"
+		end
+		return
 	    end
+
+	    puts i.line
     end
 
     def range1 ( addr )
@@ -316,6 +386,10 @@ class Dumper
 	    break unless @map.is_avail addr
 
 	    i = one_inst addr
+
+	    if i.is_call8
+		@call.add i.target.hex
+	    end
 
 	    print_inst i if @show_pass1
 
@@ -337,6 +411,7 @@ class Dumper
 	    add_addr i.target if i.is_jump
 	    add_addr i.target if i.is_branch
 	    add_addr i.target if i.is_call
+
 	    addr += i.size
 	    if i.is_term
 		puts "*** END ***" if @debug_pass1
