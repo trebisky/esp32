@@ -15,7 +15,8 @@ PORT           = /dev/ttyUSB2
 #TOOL_PATH = /opt/esp32/xtensa-esp32-elf/bin
 
 ESPTOOL = $(IDF_PATH)/components/esptool_py/esptool/esptool.py -p $(PORT)
-ESPSYMDIR = $(IDF_PATH)/components/esp32/ld
+ESPSYMDIR1 = $(IDF_PATH)/components/esp32/ld
+ESPSYMDIR2 = $(IDF_PATH)/components/esptool_py/esptool/flasher_stub
 
 # This can be found on our search path
 #NOBJDUMP = xtensa-lx106-elf-objdump -D -b binary -mxtensa
@@ -32,13 +33,19 @@ info:
 .PHONY: syms
 
 # clump together all available symbol lists
+# The files in the flasher_stub directory both add some
+# additional names and change certain names
 syms:
-	cp $(ESPSYMDIR)/esp32.rom.ld syms
-	cat $(ESPSYMDIR)/esp32.peripherals.ld >>syms
-	cat $(ESPSYMDIR)/esp32.rom.ld >>syms
-	cat $(ESPSYMDIR)/esp32.rom.nanofmt.ld >>syms
-	cat $(ESPSYMDIR)/esp32.rom.spiflash.ld >>syms
-	cat $(ESPSYMDIR)/esp32.rom.spiram_incompatible_fns.ld >>syms
+	cp $(ESPSYMDIR1)/esp32.rom.ld syms
+	cat $(ESPSYMDIR1)/esp32.peripherals.ld >>syms
+	cat $(ESPSYMDIR1)/esp32.rom.ld >>syms
+	cat $(ESPSYMDIR1)/esp32.rom.nanofmt.ld >>syms
+	cat $(ESPSYMDIR1)/esp32.rom.spiflash.ld >>syms
+	cat $(ESPSYMDIR1)/esp32.rom.spiram_incompatible_fns.ld >>syms
+	cat $(ESPSYMDIR2)/rom_32.ld >>syms
+
+# this file adds nothing new
+#	cat $(ESPSYMDIR2)/stub_32.ld >>syms
 
 #ROM0_SIZE = 65536 * 5
 ROM0_SIZE = 393216

@@ -22,18 +22,20 @@
 # 0x40000400, we have disassembled 19234 bytes of 458752
 # (approximately 4 percent!)
 
-# TODO:
+# DONE:
 # 1 - find out why my "Twice" messages don't run in a continuous
 #       flow thru areas where I am sure they must.  DONE
 #  Things involving setting ruby subarrays that I still don't understand.
 # 2 - deal with l32r nicely. DONE
 # 3 - generate an output in proper order via pass2. DONE
-# 4 - dump the "gaps" in some nice way.
-# 5 - symbols from ld file
-# 6 - strings
-# 7 - add call table and generate "sub_xxx" sort of labels
+# 5 - symbols from ld file DONE
+# 7 - add call table and generate "sub_xxx" sort of labels DONE
 #     for all call targets not in the ld file.
-# 8 arrange for hints file
+# 8 arrange for hints file DONE
+#
+# TODO:
+# -- strings
+# -- dump the "gaps" in some nice way. sorta DONE
 
 $bin_file = "esp32.bin"
 $elf_file = "esp32.elf"
@@ -298,6 +300,10 @@ class Calls
 	@base = $rom_base
 	@calls = Hash.new
 	@syms = Hash.new
+	# Note that in this scheme of loading the syms
+	# table, we take no care for alternate names that
+	# may pop up for the same location, the last one
+	# just overwrites the first.
 	if File.exist? $symfile
 	    f = File.open $symfile
 	    f.each { |l|
@@ -365,11 +371,9 @@ class Dumper
 	return Instr.new addr, `#{cmd}`	; note backticks here
     end
     def add_addr ( target )
-	#puts "Check add: " + target
 	error 0xdead, target if target !~ /^0x4/
 	addr = target.hex
-	#puts "Maybe add: " + addr.hex
-	# Never see Wow, now that we have all 7 * 64k
+	# Never see this, now that we have all 7 * 64k
 	# but this is what tipped us off to the address map
 	# in the reference manual being wrong.
 	if addr > @limit
@@ -517,7 +521,7 @@ class Dumper
 	    
 	    puts "Pass2 #{addr.hex} #{xaddr.hex} #{type}" if @debug_pass2
 
-	    # Handle a l32r
+	    # Handle an l32r
 	    if type == "L"
 		hval = @image.fetch_long(addr).hex
 		print "#{addr.hex}:	" + hval + "	; l32r\n"
@@ -540,8 +544,6 @@ class Dumper
 	    else
 		len = xaddr - addr;
 		if ( len > 16 )
-		    #eaddr = xaddr - 1
-		    #print "#{addr.hex} to #{eaddr.hex}  --------- Unknown territory !!!\n"
 		    eaddr = xaddr - 1 - @base
 		    eaddr_hex = "%x" % eaddr
 		    puts "#{addr.hex}:#{eaddr_hex}\t\t\tunknown\t; (not disassembled)"
