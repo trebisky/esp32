@@ -34,6 +34,7 @@
 # 8 arrange for hints file DONE
 #
 # TODO:
+# -- chase all the entry points in the sym table.
 # -- strings
 # -- dump the "gaps" in some nice way. sorta DONE
 
@@ -44,7 +45,6 @@ $rom_base = 0x40000000
 $rom_size = 65536 * 7
 
 $hintfile = "hints"
-$symfile = "syms"
 
 # Augment this with some convenience methods
 class Integer
@@ -144,6 +144,7 @@ class Map
 	@size = size
 	@limit = base + size - 1
 	@map = Array.new size, "X"
+	@call = nil
     end
 
     def good_addr addr
@@ -178,9 +179,14 @@ class Map
 		#puts "D " + a1.hex + " " + a2.hex
 	    end
 	end
+	if cmd == "sym"
+	    addr = words[1].hex
+	    @call.add_sym addr, words[2]
+	end
     end
 
-    def load_hints
+    def load_hints ( calls )
+	@call = calls
 	if File.exist? $hintfile
 	    f = File.open $hintfile
 	    f.each { |l|
@@ -304,8 +310,8 @@ class Calls
 	# table, we take no care for alternate names that
 	# may pop up for the same location, the last one
 	# just overwrites the first.
-	if File.exist? $symfile
-	    f = File.open $symfile
+	if File.exist? "syms"
+	    f = File.open "syms"
 	    f.each { |l|
 		next unless l =~ /^PROVIDE/
 		vals = l.split
@@ -313,6 +319,20 @@ class Calls
 	    }
 	    f.close
 	end
+	if File.exist? "iosyms"
+	    f = File.open "iosyms"
+	    f.each { |l|
+		next unless l =~ /^PROVIDE/
+		vals = l.split
+		@syms[vals[4].hex] = "IO:" + vals[2]
+	    }
+	    f.close
+	end
+    end
+
+    # Used to load a symbol from the hints file
+    def add_sym ( addr, name )
+	@syms[addr] = name
     end
 
     # avoid adding the same name twice
@@ -359,10 +379,10 @@ class Dumper
 	@cur_addr = Array.new
 	@old_addr = Array.new
 
-	@map = Map.new $rom_base, $rom_size
-	@map.load_hints
-	@image = Image.new
 	@call = Calls.new
+	@map = Map.new $rom_base, $rom_size
+	@map.load_hints @call
+	@image = Image.new
     end
     def one_inst ( addr )
 	eaddr = addr + 3
@@ -386,11 +406,19 @@ class Dumper
 	@new_addr << addr
     end
 
-    def print_inst ( i )
+    def print_instr ( i )
 
 	    # print a nice label before known subroutines
+	    marked = false
 	    name = @call.call_lookup i.addr
 	    if name
+		puts ""
+		puts "  " + name + ":"
+		marked = true
+	    end
+
+	    name = @call.sym_lookup i.addr
+	    if name and not marked
 		puts ""
 		puts "  " + name + ":"
 	    end
@@ -430,7 +458,7 @@ class Dumper
 		@call.add i.target.hex
 	    end
 
-	    print_inst i if @show_pass1
+	    print_instr i if @show_pass1
 
 	    if i.is_l32r
 		@map.claim_l32r i.target.hex
@@ -501,7 +529,7 @@ class Dumper
 	    # only a hint would set things right.
 	    break unless @map.is_ok addr
 	    i = one_inst addr
-	    print_inst i
+	    print_instr i
 	    puts "" if i.is_term
 
 	    addr += i.size
@@ -572,7 +600,7 @@ d = Dumper.new
 #exit
 
 d.pass1 0x40000400
-puts "End of Pass 1"
+#puts "End of Pass 1"
 #d.show_map
 d.pass2
 d.summary

@@ -30,19 +30,21 @@ info:
 	$(ESPTOOL) read_mac
 	$(ESPTOOL) flash_id
 
-.PHONY: syms
+.PHONY: syms iosyms
 
 # clump together all available symbol lists
 # The files in the flasher_stub directory both add some
 # additional names and change certain names
 syms:
 	cp $(ESPSYMDIR1)/esp32.rom.ld syms
-	cat $(ESPSYMDIR1)/esp32.peripherals.ld >>syms
 	cat $(ESPSYMDIR1)/esp32.rom.ld >>syms
 	cat $(ESPSYMDIR1)/esp32.rom.nanofmt.ld >>syms
 	cat $(ESPSYMDIR1)/esp32.rom.spiflash.ld >>syms
 	cat $(ESPSYMDIR1)/esp32.rom.spiram_incompatible_fns.ld >>syms
 	cat $(ESPSYMDIR2)/rom_32.ld >>syms
+
+iosyms:
+	cp $(ESPSYMDIR1)/esp32.peripherals.ld iosyms
 
 # this file adds nothing new
 #	cat $(ESPSYMDIR2)/stub_32.ld >>syms
