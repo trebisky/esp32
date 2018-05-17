@@ -46,6 +46,11 @@ $rom_size = 65536 * 7
 
 $hintfile = "hints"
 
+$debug_pass1 = false
+$debug_pass2 = false
+
+$debug = true if $debug_pass1 or $debug_pass2
+
 # Augment this with some convenience methods
 class Integer
     def hex
@@ -75,13 +80,16 @@ class Instr
     attr_reader :is_jump
     attr_reader :is_l32r
     attr_reader :is_term
+    attr_reader :illegal
 
     def initialize ( addr, stuff )
 	@is_branch = false
 	@is_call = false
+	@is_call8 = false
 	@is_jump = false
 	@is_l32r = false
 	@is_term = false
+	@illegal = false
 	@target = nil
 
 	@addr = addr
@@ -119,6 +127,7 @@ class Instr
 	@is_call = true if op =~ /^call/
 	@is_call = false if op =~ /^callx/
 	@is_l32r = true if op =~ /^l32r/
+	@illegal = true if op =~ /^ill/
 
 	if @is_jump
 	    @target = w[-1]
@@ -160,10 +169,12 @@ class Map
     end
 
     def one_hint line
+	# puts "Hint: " + line
 	words = line.split
 	cmd = words[0].downcase
 	# mark a single byte
-	if cmd == "data1"
+
+	if cmd == "data1" or cmd == "data"
 	    addr = words[1].hex
 	    if good_addr addr
 		@map[addr-@base] = "D"
@@ -192,7 +203,6 @@ class Map
 	    f.each { |l|
 		next if l =~ /^#/
 		next if l =~ /^$/
-		#puts "Hint: " + l
 		one_hint l
 	    }
 	    f.close
@@ -213,6 +223,17 @@ class Map
 	    addr += 16
 	}
     end
+    def show_map_addr ( addr )
+	addr &= ~0xf
+	i = addr - @base
+	print "MAP #{addr.hex}: "
+	16.times {
+	    print " " + @map[i] 
+	    i += 1
+	}
+	print "\n"
+    end
+
     def get_count
 	rv = 0;
 	@map.each { |m|
@@ -302,10 +323,14 @@ class Image
 end
 
 class Calls
+    #attr_reader :calls
+    attr_reader :syms
+
     def initialize
 	@base = $rom_base
 	@calls = Hash.new
 	@syms = Hash.new
+
 	# Note that in this scheme of loading the syms
 	# table, we take no care for alternate names that
 	# may pop up for the same location, the last one
@@ -358,6 +383,9 @@ class Calls
     def sym_lookup ( addr )
 	return @syms[addr]
     end
+    def sym_lookup_name ( name )
+	return @syms.key name
+    end
 end
 
 class Dumper
@@ -365,11 +393,12 @@ class Dumper
 	@elf = $elf_file
 	@size = $rom_size
 	@base = $rom_base
+	@limit = @base + @size -1
 
 	@show_pass1 = false
-	@debug_pass1 = false
-	@debug_pass2 = false
-	@limit = @base + @size -1
+	@debug_pass1 = $debug_pass1
+	@debug_pass2 = $debug_pass2
+	@show_pass1 = true if $debug_pass1
 
 	# This should be on the search path, if not prefix
 	# with something like /opt/esp32/xtensa-esp32-elf/bin
@@ -390,9 +419,11 @@ class Dumper
 	cmd = @cmd + " " + range + " #{@elf}"
 	return Instr.new addr, `#{cmd}`	; note backticks here
     end
+
     def add_addr ( target )
-	error 0xdead, target if target !~ /^0x4/
+	# error 0xdead, target if target !~ /^0x4/
 	addr = target.hex
+	return if addr < @base
 	# Never see this, now that we have all 7 * 64k
 	# but this is what tipped us off to the address map
 	# in the reference manual being wrong.
@@ -464,6 +495,11 @@ class Dumper
 		@map.claim_l32r i.target.hex
 	    end
 
+	    if i.illegal
+		puts "*** Illegal instruction, ending range"
+		break
+	    end
+
 	    # This indicates we have "slid" into a section we
 	    # already disassembled, usually because we followed a
 	    # branch prior to that section, so we can justend.
@@ -487,13 +523,16 @@ class Dumper
 	    i = nil	# help garbage collection ??
 	}
     end
+
     def pass1 ( addr )
+	# @map.show_map_addr 0x400649cd
+	# @map.show_map_addr 0x400657d3
 	@cur_addr << addr
 	pass = 0
 	loop {
 	    pass += 1
 	    break if @cur_addr.size < 1
-	    puts "Starting pass for %d items" % @cur_addr.size if @debug_pass1
+	    puts "Starting scan for %d items" % @cur_addr.size if @debug_pass1
 	    @new_addr = Array.new
 	    loop {
 		t = @cur_addr.shift
@@ -503,7 +542,7 @@ class Dumper
 		puts "Chase: " + t.hex + " (#{@cur_addr.size})" if @debug_pass1
 		range1 t
 	    }
-	    puts "!!! Pass #{pass} finished, %d waiting" % @new_addr.size if @debug_pass1
+	    puts "!!! Scan #{pass} finished, %d waiting" % @new_addr.size if @debug_pass1
 
 	    # We drop things that we saved as potential targets,
 	    # but apparently continued on to disassemble
@@ -593,19 +632,71 @@ class Dumper
 	puts ""
 	puts "; disassembled #{count} bytes of #{@size}"
     end
+
+    # The following are the 3 ways to run this.
+
+    def everything
+	#pass1 0x40000400
+	pass1 0x400649c4
+	# XXX
+	return
+
+	@call.syms.each { |addr,_|
+	    next if addr < @base or addr > @limit
+	    next unless @map.is_avail addr
+	    puts "Everything, run: " + addr.hex
+	    pass1 addr
+	}
+    end
+
+    # Just the startup code (what we began with)
+    def startup_only
+	pass1 0x40000400
+    end
+
+    # A particular symbol by name
+    # or by hex address
+    def one_symbol ( who )
+	if who =~ /^0x/
+	    addr = who.hex
+	else
+	    addr = @call.sym_lookup_name who
+	    unless addr
+		puts "Sorry, no such symbol"
+		exit
+	    end
+	end
+	#puts addr.hex
+	pass1 addr
+    end
+
+end
+
+name = nil
+if ARGV.size > 0
+    name = ARGV[0]
 end
 
 d = Dumper.new
+
 #d.show_map
 #exit
 
-d.pass1 0x40000400
-#puts "End of Pass 1"
+if name
+    d.one_symbol name
+    d.pass2
+    exit
+end
+
+puts "Begin Pass 1" if $debug
+d.startup_only
+#d.everything
+puts "End of Pass 1" if $debug
 #d.show_map
 d.pass2
 d.summary
 
-#puts "DONE"
+puts "DONE" if $debug
 
 # THE END
 

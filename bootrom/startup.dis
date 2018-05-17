@@ -15,8 +15,6 @@
 ; to other parts of the ROM.
 ;
 ; 5-13-2018  Tom Trebisky
-;
-;  The output below may still have bugs and issues -- beware !!
 
 40000000:3ff			unknown	; (not disassembled)
 
@@ -136,11 +134,9 @@
 40000554:	51bbff        	l32r	a5, 0x40000440	; _Pri_5_HandlerAddress ( 0x3ffe064c )
 40000557:	426500        	s32i	a4, a5, 0
 4000055a:	851a00        	call0	0x40000704
-4000055d:	000000        	ill
-
-  _stext:
-40000560:	203ffe        	f64iter	a3, a15, a2, 3, 1
-40000563:	3f          	.byte 0x3f
+4000055d:	00
+4000055e:	0000
+40000560:	3ffe3f20	; l32r
 40000564:	00040020	; l32r
 40000568:	4000d5d0	; l32r
 4000056c:	4000d66c	; l32r
@@ -150,174 +146,17 @@
 4000057c:	40000de8	; l32r
 40000580:	3ffe0548	; l32r
 40000584:	3ffe0448	; l32r
-40000588:	230005        	lsi	f2, a0, 20
-4000058b:	000700        	lsi	f0, a7, 0
-4000058e:	008005        	extui	a8, a0, 16, 1
-40000591:	000000        	ill
-40000594:	c0000000	; l32r
+40000588:	230005000700008005000000000000c0
 40000598:	3ffe0650	; l32r
 4000059c:	80000000	; l32r
 400005a0:	3ffe0658	; l32r
-400005a4:	34c000        	lsi	f3, a0, 0
-400005a7:	400000        	lsi	f4, a0, 0
-400005a8:	00380000	; l32r
-400005ac:	40000a19	; l32r
-400005b0:	0088c0        	sub	a8, a8, a0
-400005b3:	28ea      	l32i.n	a2, a10, 56
-400005b5:	0a00      	add.n	a0, a0, a0
-400005b7:	40600c        	lsi	f4, a0, 48
-400005ba:	fe          	.byte 0xfe
-400005bb:	3f          	.byte 0x3f
-400005bc:	4806      	l32i.n	a4, a6, 0
-400005be:	fe          	.byte 0xfe
-400005bf:	3f          	.byte 0x3f
-400005c0:	240005        	lsi	f2, a0, 20
-400005c3:	000000        	ill
-400005c6:	0053c0        	sub	a5, a3, a0
-400005c9:	11fe3f        	l32r	a1, 0x3ffd05c4	; ( 0xc15338fd )
-400005cc:	4c06      	movi.n	a6, 64
-400005ce:	fe          	.byte 0xfe
-400005cf:	3f          	.byte 0x3f
-400005d0:	250005        	call8	0x400055d4	; sub_55d4
-400005d3:	000000        	ill
-400005d6:	018400        	l32r	a0, 0x3ffc07e8	; ( 0xc0a1ca00 )
-400005d9:	f00000        	callx12	a0
-400005dc:	d4c2f9        	lsi	f13, a2, 0x3e4
-400005df:	3f          	.byte 0x3f
-400005e0:	2460f9        	lsi	f2, a0, 0x3e4
-400005e3:	3f          	.byte 0x3f
-400005e4:	0060f9        	lsi	f0, a0, 0x3e4
-400005e7:	3f          	.byte 0x3f
-400005e8:	5063f9        	lsi	f5, a3, 0x3e4
-400005eb:	3f          	.byte 0x3f
-400005ec:	0e          	.byte 0xe
-400005ed:	330000        	lsi	f3, a0, 0
-400005f0:	cdab      	lsi	f12, a11, 44
-400005f2:	ff          	.byte 0xff
-400005f3:	ff          	.byte 0xff
-400005f4:	341200        	lsi	f3, a2, 0
-400005f7:	006de6        	lsi	f0, a13, 0x398
-400005fa:	ff          	.byte 0xff
-400005fb:	ff          	.byte 0xff
-400005fc:	ecde      	bnez.n	a14, 0x4000062d
-400005fe:	ff          	.byte 0xff
-400005ff:	ff          	.byte 0xff
-40000600:	010000        	l32r	a0, 0x3ffc0600	; ( 0xc5064200 )
-40000603:	000000        	ill
-40000606:	00002d        	lsi	f0, a0, 180
-40000609:	7f          	.byte 0x7f
-4000060a:	954c2d        	call4	0x4002dad4
-4000060d:	f45158        	mula.da.ll.lddec	m1, a1, m1, a15
-40000610:	ff          	.byte 0xff
-40000611:	ff          	.byte 0xff
-40000612:	ff          	.byte 0xff
-40000613:	7f          	.byte 0x7f
-40000614:	875934        	bbc	a9, a8, 0x4000064c
-40000617:	125f0b        	s16i	a1, a15, 22
-4000061a:	4e          	.byte 0x4e
-4000061b:	83e30c        	lsi	f8, a3, 48
-4000061e:	fe          	.byte 0xfe
-4000061f:	ff          	.byte 0xff
-40000620:	a74100        	ball	a1, a10, 0x40000624
-40000623:	00ecf4        	extui	a14, a0, 12, 16
-40000626:	ff          	.byte 0xff
-40000627:	ff          	.byte 0xff
-40000628:	ff          	.byte 0xff
-40000629:	ef          	.byte 0xef
-4000062a:	ff          	.byte 0xff
-4000062b:	ff          	.byte 0xff
+400005a4:62b			unknown	; (not disassembled)
 4000062c:	00001000	; l32r
-40000630:	ff          	.byte 0xff
-40000631:	000000        	ill
-40000634:	00ff00        	lsi	f0, a15, 0
-40000637:	000000        	ill
+40000630:	ff00000000ff0000
 40000638:	00ff0000	; l32r
-4000063c:	000000        	ill
-4000063f:	ff          	.byte 0xff
-40000640:	404040        	lsi	f4, a0, 0x100
-40000643:	405462        	lsi	f4, a4, 0x188
-40000646:	f93f      	s32i.n	a15, a15, 12
-40000648:	1f          	.byte 0x1f
-40000649:	85eb51        	call0	0x40052504
-4000064c:	9c60      	beqz.n	a0, 0x40000666
-4000064e:	f93f      	s32i.n	a15, a15, 12
-40000650:	932449        	lsi	f9, a4, 0x124
-40000653:	92ffff        	s32ri	a9, a15, 0x3fc
-40000656:	ff          	.byte 0xff
-40000657:	3f          	.byte 0x3f
-40000658:	805101        	slli	a5, a1, 24
-4000065b:	0080e0        	subx4	a8, a0, a0
-4000065e:	fa3f      	add.n	a3, a15, a15
-40000660:	a6c4f9        	blti	a4, 32, 0x4000065d
-40000663:	3f          	.byte 0x3f
-40000664:	a0e0fa        	rsqrt0.s	f14, f0
-40000667:	3f          	.byte 0x3f
-40000668:	a4e0fa        	lsi	f10, a0, 0x3e8
-4000066b:	3f          	.byte 0x3f
-4000066c:	30e0fa        	const.s	f14, 0
-4000066f:	3f          	.byte 0x3f
-40000670:	a9c4      	s32i.n	a10, a4, 48
-40000672:	f93f      	s32i.n	a15, a15, 12
-40000674:	84e0fa        	lsi	f8, a0, 0x3e8
-40000677:	3f          	.byte 0x3f
-40000678:	adc4      	lsi	f10, a4, 16
-4000067a:	f93f      	s32i.n	a15, a15, 12
-4000067c:	93e0fa        	lsi	f9, a0, 0x3e8
-4000067f:	3f          	.byte 0x3f
-40000680:	d0c4f9        	lsi	f13, a4, 0x3e4
-40000683:	3f          	.byte 0x3f
-40000684:	88e0      	l32i.n	a8, a0, 56
-40000686:	fa3f      	add.n	a3, a15, a15
-40000688:	f0f1ff        	f64cmph	a15, a1, a15, 15
-4000068b:	ff          	.byte 0xff
-4000068c:	bcc4      	beqz.n	a4, 0x400006cc
-4000068e:	f93f      	s32i.n	a15, a15, 12
-40000690:	cf          	.byte 0xcf
-40000691:	c4f93f        	lsi	f12, a9, 252
-40000694:	ec1f      	bnez.n	a15, 0x400006b9
-40000696:	004018        	lsxp	f4, a0, a0
-40000699:	110040        	l32r	a1, 0x3ffd069c	; ( 0x00040656 )
-4000069c:	501100        	movsp	a5, a1
-4000069f:	408411        	slli	a8, a4, 12
-400006a2:	0040b8        	lsi	f0, a0, 0x2e0
-400006a5:	110040        	l32r	a1, 0x3ffd06a8	; ( 0xfd0eb102 )
-400006a8:	b0e0fa        	nexp01.s	f14, f0
-400006ab:	3f          	.byte 0x3f
-400006ac:	ace0      	beqz.n	a0, 0x400006de
-400006ae:	fa3f      	add.n	a3, a15, a15
-400006b0:	a8e0      	l32i.n	a10, a0, 56
-400006b2:	fa3f      	add.n	a3, a15, a15
-400006b4:	481d      	l32i.n	a4, a13, 4
-400006b6:	004058        	ssxp	f4, a0, a0
-400006b9:	1d00      	mov.n	a1, a0
-400006bb:	40701d        	lsi	f4, a0, 116
-400006be:	0040b4        	extui	a4, a0, 0, 12
-400006c1:	e0fa3f        	f64cmph	a15, a10, a14, 3
-400006c4:	38e0      	l32i.n	a3, a0, 56
-400006c6:	fa3f      	add.n	a3, a15, a15
-400006c8:	b8e0      	l32i.n	a11, a0, 56
-400006ca:	fa3f      	add.n	a3, a15, a15
-400006cc:	9864      	l32i.n	a9, a4, 24
-400006ce:	f93f      	s32i.n	a15, a15, 12
-400006d0:	7864      	l32i.n	a7, a4, 24
-400006d2:	f93f      	s32i.n	a15, a15, 12
-400006d4:	5864      	l32i.n	a5, a4, 24
-400006d6:	f93f      	s32i.n	a15, a15, 12
-400006d8:	000080        	add	a0, a0, a0
-400006db:	7f          	.byte 0x7f
-400006dc:	000040        	ssr	a0
-400006df:	00ffff        	f64cmph	a15, a15, a0, 15
-400006e2:	ff          	.byte 0xff
-400006e3:	000000        	ill
+4000063c:6e3			unknown	; (not disassembled)
 400006e4:	7ff00000	; l32r
-400006e8:	000008        	lsx	f0, a0, a0
-400006eb:	00ffff        	f64cmph	a15, a15, a0, 15
-400006ee:	1f          	.byte 0x1f
-400006ef:	000000        	ill
-400006f2:	003844        	extui	a3, a0, 8, 5
-400006f5:	65f93f        	call8	0x4004068c	; sub_4068c
-400006f8:	966900        	bltz	a9, 0x40000702
-400006fb:	00b4c2        	quou	a11, a4, a0
+400006e8:6fb			unknown	; (not disassembled)
 400006fc:	3ff9c2b4	; l32r
 40000700:	4000c01c	; l32r
 
@@ -383,71 +222,7 @@
 40000788:	917bff        	l32r	a9, 0x40000574	; _xtos_p_none ( 0x4000bfd4 )
 4000078b:	c6f7ff        	j	0x4000076e
 
-4000078e:970			unknown	; (not disassembled)
-40000971:	035108        	lsi	f0, a1, 32
-40000974:	ff          	.byte 0xff
-40000975:	404520        	or	a4, a5, a4
-40000978:	404590        	addx2	a4, a5, a4
-4000097b:	360102        	entry	a1, 0x100
-4000097e:	f06200        	rsil	a15, 2
-40000981:	f0e203        	rsr.interrupt	a15
-40000984:	c0e403        	rsr.intenable	a12
-40000987:	d108ff        	l32r	a13, 0x400005a8	; ( 0x00380000 )
-4000098a:	c0ff10        	and	a15, a15, a12
-4000098d:	d0ff10        	and	a15, a15, a13
-40000990:	e00303        	rsr.sar	a14
-40000993:	16ef06        	beqz	a15, 0x40000a05
-40000996:	e921      	s32i.n	a14, a1, 8
-40000998:	d00203        	rsr.lcount	a13
-4000099b:	e00003        	rsr.lbeg	a14
-4000099e:	d991      	s32i.n	a13, a1, 36
-400009a0:	d00103        	rsr.lend	a13
-400009a3:	e9a1      	s32i.n	a14, a1, 40
-400009a5:	d9b1      	s32i.n	a13, a1, 44
-400009a7:	d01003        	rsr.acclo	a13
-400009aa:	e01103        	rsr.acchi	a14
-400009ad:	d9c1      	s32i.n	a13, a1, 48
-400009af:	e9d1      	s32i.n	a14, a1, 52
-400009b1:	f0c060        	neg	a12, a15
-400009b4:	f0cc10        	and	a12, a12, a15
-400009b7:	c0e313        	wsr.intclear	a12
-400009ba:	d1f9fe        	l32r	a13, 0x400005a0	; _xtos_interrupt_table ( 0x3ffe0658 )
-400009bd:	1cfe      	movi.n	a14, 31
-400009bf:	c0fc40        	nsau	a12, a12
-400009c2:	c0fec0        	sub	a15, a14, a12
-400009c5:	f0f060        	neg	a15, a15
-400009c8:	f2cf1f        	addi	a15, a15, 31
-400009cb:	d0cfb0        	addx8	a12, a15, a13
-400009ce:	d80c      	l32i.n	a13, a12, 0
-400009d0:	e81c      	l32i.n	a14, a12, 4
-400009d2:	10f120        	or	a15, a1, a1
-400009d5:	f00d00        	callx12	a13
-400009d8:	f0e203        	rsr.interrupt	a15
-400009db:	c0e403        	rsr.intenable	a12
-400009de:	d1f2fe        	l32r	a13, 0x400005a8	; ( 0x00380000 )
-400009e1:	c0ff10        	and	a15, a15, a12
-400009e4:	d0ff10        	and	a15, a15, a13
-400009e7:	566ffc        	bnez	a15, 0x400009b1
-400009ea:	d891      	l32i.n	a13, a1, 36
-400009ec:	e8a1      	l32i.n	a14, a1, 40
-400009ee:	f8b1      	l32i.n	a15, a1, 44
-400009f0:	d00213        	wsr.lcount	a13
-400009f3:	e00013        	wsr.lbeg	a14
-400009f6:	f00113        	wsr.lend	a15
-400009f9:	d8c1      	l32i.n	a13, a1, 48
-400009fb:	e8d1      	l32i.n	a14, a1, 52
-400009fd:	d01013        	wsr.acclo	a13
-40000a00:	e01113        	wsr.acchi	a14
-40000a03:	e821      	l32i.n	a14, a1, 8
-40000a05:	01e9fe        	l32r	a0, 0x400005ac	; ( 0x40000a19 )
-40000a08:	d1e3fe        	l32r	a13, 0x40000594	; ( 0xc0000000 )
-40000a0b:	e00313        	wsr.sar	a14
-40000a0e:	d00020        	or	a0, a0, a13
-40000a11:	000d90        	addx2	a0, a13, a0
-40000a14:	e06300        	rsil	a14, 3
-40000a17:	1df0      	retw.n
-
-40000a19:2f83			unknown	; (not disassembled)
+4000078e:2f83			unknown	; (not disassembled)
 40002f84:	dfffffff	; l32r
 40002f88:3513			unknown	; (not disassembled)
 40003514:	00800000	; l32r
@@ -463,35 +238,7 @@
 400040ac:	08000000	; l32r
 400040b0:4b23			unknown	; (not disassembled)
 40004b24:	bfffffff	; l32r
-40004b28:55bf			unknown	; (not disassembled)
-400055c0:	600060dc	; l32r
-400055c4:	600060e0	; l32r
-400055c8:	36410051a4f63030f4822500
-
-  sub_55d4:
-400055d4:	30b320        	or	a11, a3, a3
-400055d7:	822851        	l32i	a8, a8, 0x144
-400055da:	20a074        	extui	a10, a2, 0, 8
-400055dd:	e00800        	callx8	a8
-400055e0:	81f8ff        	l32r	a8, 0x400055c0	; ( 0x600060dc )
-400055e3:	91f8ff        	l32r	a9, 0x400055c4	; ( 0x600060e0 )
-400055e6:	c02000        	memw
-400055e9:	8808      	l32i.n	a8, a8, 0
-400055eb:	c02000        	memw
-400055ee:	9809      	l32i.n	a9, a9, 0
-400055f0:	5805      	l32i.n	a5, a5, 0
-400055f2:	1b33      	addi.n	a3, a3, 1
-400055f4:	909621        	srai	a9, a9, 6
-400055f7:	808621        	srai	a8, a8, 6
-400055fa:	3088d2        	quos	a8, a8, a3
-400055fd:	522552        	l32i	a5, a5, 0x148
-40005600:	3039d2        	quos	a3, a9, a3
-40005603:	8904      	s32i.n	a8, a4, 0
-40005605:	3914      	s32i.n	a3, a4, 4
-40005607:	e00500        	callx8	a5
-4000560a:	1df0      	retw.n
-
-4000560c:5cdb			unknown	; (not disassembled)
+40004b28:5cdb			unknown	; (not disassembled)
 40005cdc:	cccccccd	; l32r
 40005ce0:666b			unknown	; (not disassembled)
 4000666c:	3ffe03f8	; l32r
@@ -5838,297 +5585,23 @@
 4000d4e6:	303091        	srl	a3, a3
 4000d4e9:	1df0      	retw.n
 
-4000d4eb:102b7			unknown	; (not disassembled)
-400102b8:	3ffb8360	; l32r
-400102bc:11653			unknown	; (not disassembled)
-40011654:	3ffae70c	; l32r
-40011658:14413			unknown	; (not disassembled)
-40014414:	3ffb8d40	; l32r
-40014418:	3ff71064	; l32r
-4001441c:2dad3			unknown	; (not disassembled)
-4002dad4:	000098        	lsi	f0, a0, 0x260
-4002dad7:	02b2a1        	l32ai	a0, a2, 0x284
-4002dada:	daba      	add.n	a11, a10, a13
-4002dadc:	b41c0c        	lsi	f11, a12, 48
-4002dadf:	ad01      	mov.n	a10, a1
-4002dae1:	9991      	s32i.n	a9, a1, 36
-4002dae3:	89c1      	s32i.n	a8, a1, 48
-4002dae5:	d9b1      	s32i.n	a13, a1, 44
-4002dae7:	257ede        	call8	0x4000c2c8	; memcpy
-4002daea:	88c1      	l32i.n	a8, a1, 48
-4002daec:	72a20a        	movi	a7, 0x20a
-4002daef:	a2a212        	movi	a10, 0x212
-4002daf2:	7a74      	add.n	a7, a4, a7
-4002daf4:	aaa4      	add.n	a10, a4, a10
-4002daf6:	c2a0ae        	movi	a12, 174
-4002daf9:	7941      	s32i.n	a7, a1, 16
-4002dafb:	a951      	s32i.n	a10, a1, 20
-4002dafd:	cac8      	add.n	a12, a8, a12
-4002daff:	d8b1      	l32i.n	a13, a1, 44
-4002db01:	f21c00        	l16ui	a15, a12, 0
-4002db04:	c21c01        	l16ui	a12, a12, 2
-4002db07:	921d00        	l16ui	a9, a13, 0
-4002db0a:	a21d01        	l16ui	a10, a13, 2
-4002db0d:	00bc11        	slli	a11, a12, 16
-4002db10:	d2a0b6        	movi	a13, 182
-4002db13:	c2a0b2        	movi	a12, 178
-4002db16:	cac8      	add.n	a12, a8, a12
-4002db18:	da88      	add.n	a8, a8, a13
-4002db1a:	e21800        	l16ui	a14, a8, 0
-4002db1d:	d21801        	l16ui	a13, a8, 2
-4002db20:	8891      	l32i.n	a8, a1, 36
-4002db22:	99a1      	s32i.n	a9, a1, 40
-4002db24:	88d8      	l32i.n	a8, a8, 52
-4002db26:	921c00        	l16ui	a9, a12, 0
-4002db29:	c21c01        	l16ui	a12, a12, 2
-4002db2c:	8991      	s32i.n	a8, a1, 36
-4002db2e:	00cc11        	slli	a12, a12, 16
-4002db31:	82210a        	l32i	a8, a1, 40
-4002db34:	00dd11        	slli	a13, a13, 16
-4002db37:	e0dd20        	or	a13, a13, a14
-4002db3a:	f0bb20        	or	a11, a11, a15
-4002db3d:	e2241f        	l32i	a14, a4, 124
-4002db40:	f22420        	l32i	a15, a4, 128
-4002db43:	90cc20        	or	a12, a12, a9
-4002db46:	00aa11        	slli	a10, a10, 16
-4002db49:	922109        	l32i	a9, a1, 36
-4002db4c:	80aa20        	or	a10, a10, a8
-4002db4f:	e00900        	callx8	a9
-4002db52:	8802      	l32i.n	a8, a2, 0
-4002db54:	c20440        	l8ui	a12, a4, 64
-4002db57:	822895        	l32i	a8, a8, 0x254
-4002db5a:	bd07      	mov.n	a11, a7
-4002db5c:	60a620        	or	a10, a6, a6
-4002db5f:	e00800        	callx8	a8
-4002db62:	4802      	l32i.n	a4, a2, 0
-4002db64:	ad03      	mov.n	a10, a3
-4002db66:	4224ae        	l32i	a4, a4, 0x2b8
-4002db69:	e00400        	callx8	a4
-4002db6c:	4805      	l32i.n	a4, a5, 0
-4002db6e:	ad03      	mov.n	a10, a3
-4002db70:	422442        	l32i	a4, a4, 0x108
-4002db73:	b2a061        	movi	a11, 97
-4002db76:	e00400        	callx8	a4
-4002db79:	4881      	l32i.n	a4, a1, 32
-4002db7b:	2204fb        	l8ui	a2, a4, 251
-4002db7e:	bcc2      	beqz.n	a2, 0x4002dbbe
-4002db80:	21b58e        	l32r	a2, 0x40011654	; r_ip_funcs_p ( 0x3ffae70c )
-4002db83:	ad03      	mov.n	a10, a3
-4002db85:	222200        	l32i	a2, a2, 0
-4002db88:	60b620        	or	a11, a6, a6
-4002db8b:	22d204        	addmi	a2, a2, 0x400
-4002db8e:	222216        	l32i	a2, a2, 88
-4002db91:	e00200        	callx8	a2
-4002db94:	860900        	j	0x4002dbbe
-
-4002db97:2dbbd			unknown	; (not disassembled)
-4002dbbe:	0c02      	movi.n	a2, 0
-4002dbc0:	1df0      	retw.n
-
-4002dbc2:2f5d3			unknown	; (not disassembled)
+4000d4eb:2f5d3			unknown	; (not disassembled)
 4002f5d4:	00001000	; l32r
 4002f5d8:2fa87			unknown	; (not disassembled)
 4002fa88:	03ffffff	; l32r
-4002fa8c:305ff			unknown	; (not disassembled)
-40030600:	c5064200	; l32r
-40030604:307e7			unknown	; (not disassembled)
-400307e8:	c0a1ca00	; l32r
-400307ec:343eb			unknown	; (not disassembled)
-400343ec:	00000a36	; l32r
-400343f0:34d93			unknown	; (not disassembled)
-40034d94:	ffff1fff	; l32r
-40034d98:	05d3f93f330a0000
-40034da0:	ffffe0ff	; l32r
-40034da4:	47d3f93f
-40034da8:	00000a34	; l32r
-40034dac:34dcf			unknown	; (not disassembled)
-40034dd0:	3ff9914c	; l32r
-40034dd4:39727			unknown	; (not disassembled)
-40039728:	ffffa019	; l32r
-4003972c:3ae43			unknown	; (not disassembled)
+4002fa8c:3ae43			unknown	; (not disassembled)
 4003ae44:	08000000	; l32r
 4003ae48:3bf17			unknown	; (not disassembled)
 4003bf18:	f7ffffff	; l32r
 4003bf1c:3c6ff			unknown	; (not disassembled)
 4003c700:	40000000	; l32r
-4003c704:3fae3			unknown	; (not disassembled)
-4003fae4:	3ff9de52	; l32r
-4003fae8:3fafb			unknown	; (not disassembled)
-4003fafc:	3ff9e182	; l32r
-4003fb00:40337			unknown	; (not disassembled)
-40040338:	3ffb2250	; l32r
-4004033c:4035f			unknown	; (not disassembled)
-40040360:	3ffb2254	; l32r
-40040364:	3ffb2256	; l32r
-40040368:	3ffb2268	; l32r
-4004036c:	3ffb227a	; l32r
-40040370:	3ff9d305	; l32r
-40040374:	3ff9d347	; l32r
-40040378:	3ff9d384	; l32r
-4004037c:	3ffb22b2	; l32r
-40040380:	3ffb22b4	; l32r
-40040384:40563			unknown	; (not disassembled)
-40040564:	003252        	lsi	f0, a2, 0x148
-40040567:	00217d        	lsi	f0, a1, 0x1f4
-4004056a:	ff          	.byte 0xff
-4004056b:	c02000        	memw
-4004056e:	525200        	s16i	a5, a2, 0
-40040571:	217bff        	l32r	a2, 0x40040360	; ( 0x3ffb2254 )
-40040574:	c02000        	memw
-40040577:	525200        	s16i	a5, a2, 0
-4004057a:	217aff        	l32r	a2, 0x40040364	; ( 0x3ffb2256 )
-4004057d:	c02000        	memw
-40040580:	525200        	s16i	a5, a2, 0
-40040583:	2179ff        	l32r	a2, 0x40040368	; ( 0x3ffb2268 )
-40040586:	5d09      	mov.n	a5, a9
-40040588:	321200        	l16ui	a3, a2, 0
-4004058b:	3030c4        	extui	a3, a3, 0, 13
-4004058e:	c02000        	memw
-40040591:	325200        	s16i	a3, a2, 0
-40040594:	2176ff        	l32r	a2, 0x4004036c	; ( 0x3ffb227a )
-40040597:	321200        	l16ui	a3, a2, 0
-4004059a:	3030f4        	extui	a3, a3, 0, 16
-4004059d:	403310        	and	a3, a3, a4
-400405a0:	0c14      	movi.n	a4, 1
-400405a2:	403320        	or	a3, a3, a4
-400405a5:	420e23        	l8ui	a4, a14, 35
-400405a8:	c02000        	memw
-400405ab:	325200        	s16i	a3, a2, 0
-400405ae:	31f9d1        	l32r	a3, 0x40034d94	; ( 0xffff1fff )
-400405b1:	304411        	slli	a4, a4, 13
-400405b4:	220e22        	l8ui	a2, a14, 34
-400405b7:	370412        	bnone	a4, a3, 0x400405cd
-400405ba:	313f3f        	l32r	a3, 0x400102b8	; r_plf_funcs_p ( 0x3ffb8360 )
-400405bd:	a16cff        	l32r	a10, 0x40040370	; ( 0x3ff9d305 )
-400405c0:	3803      	l32i.n	a3, a3, 0
-400405c2:	b148fd        	l32r	a11, 0x4003fae4	; ( 0x3ff9de52 )
-400405c5:	f5c15338	; l32r
-400405c9:	d1e00300
-400405cd:	81f4d1        	l32r	a8, 0x40034da0	; ( 0xffffe0ff )
-400405d0:	803211        	slli	a3, a2, 8
-400405d3:	870312        	bnone	a3, a8, 0x400405e9
-400405d6:	81383f        	l32r	a8, 0x400102b8	; r_plf_funcs_p ( 0x3ffb8360 )
-400405d9:	a166ff        	l32r	a10, 0x40040374	; ( 0x3ff9d347 )
-400405dc:	8808      	l32i.n	a8, a8, 0
-400405de:	b141fd        	l32r	a11, 0x4003fae4	; ( 0x3ff9de52 )
-400405e1:	8858      	l32i.n	a8, a8, 20
-400405e3:	c1f1d1        	l32r	a12, 0x40034da8	; ( 0x00000a34 )
-400405e6:	e00800        	callx8	a8
-400405e9:	6c08      	movi.n	a8, -32
-400405eb:	870212        	bnone	a2, a8, 0x40040601
-400405ee:	81323f        	l32r	a8, 0x400102b8	; r_plf_funcs_p ( 0x3ffb8360 )
-400405f1:	a161ff        	l32r	a10, 0x40040378	; ( 0x3ff9d384 )
-400405f4:	8808      	l32i.n	a8, a8, 0
-400405f6:	b13bfd        	l32r	a11, 0x4003fae4	; ( 0x3ff9de52 )
-400405f9:	8858      	l32i.n	a8, a8, 20
-400405fb:	c17ccf        	l32r	a12, 0x400343ec	; ( 0x00000a36 )
-400405fe:	e00800        	callx8	a8
-40040601:	303420        	or	a3, a4, a3
-40040604:	202320        	or	a2, a3, a2
-40040607:	815dff        	l32r	a8, 0x4004037c	; ( 0x3ffb22b2 )
-4004060a:	2020f4        	extui	a2, a2, 0, 16
-4004060d:	c02000        	memw
-40040610:	225800        	s16i	a2, a8, 0
-40040613:	215bff        	l32r	a2, 0x40040380	; ( 0x3ffb22b4 )
-40040616:	0c03      	movi.n	a3, 0
-40040618:	c02000        	memw
-4004061b:	325200        	s16i	a3, a2, 0
-4004061e:	21ecd1        	l32r	a2, 0x40034dd0	; rwip_coex_cfg ( 0x3ff9914c )
-40040621:	8141e4        	l32r	a8, 0x40039728	; ( 0xffffa019 )
-40040624:	220207        	l8ui	a2, a2, 7
-40040627:	ad07      	mov.n	a10, a7
-40040629:	204004        	extui	a4, a2, 0, 1
-4004062c:	604411        	slli	a4, a4, 10
-4004062f:	804420        	or	a4, a4, a8
-40040632:	208104        	extui	a8, a2, 1, 1
-40040635:	708811        	slli	a8, a8, 9
-40040638:	804420        	or	a4, a4, a8
-4004063b:	208204        	extui	a8, a2, 2, 1
-4004063e:	808811        	slli	a8, a8, 8
-40040641:	804420        	or	a4, a4, a8
-40040644:	208304        	extui	a8, a2, 3, 1
-40040647:	908811        	slli	a8, a8, 7
-4004064a:	202404        	extui	a2, a2, 4, 1
-4004064d:	804420        	or	a4, a4, a8
-40040650:	a02211        	slli	a2, a2, 6
-40040653:	202420        	or	a2, a4, a2
-40040656:	4138ff        	l32r	a4, 0x40040338	; ( 0x3ffb2250 )
-40040659:	2020f4        	extui	a2, a2, 0, 16
-4004065c:	c02000        	memw
-4004065f:	225400        	s16i	a2, a4, 0
-40040662:	2805      	l32i.n	a2, a5, 0
-40040664:	6927      	s32i.n	a6, a7, 8
-40040666:	222237        	l32i	a2, a2, 220
-40040669:	e00200        	callx8	a2
-4004066c:	cc5a      	bnez.n	a10, 0x40040675
-4004066e:	32473c        	s8i	a3, a7, 60
-40040671:	c60400        	j	0x40040688
-
-40040674:	00
-40040675:	21103f        	l32r	a2, 0x400102b8	; r_plf_funcs_p ( 0x3ffb8360 )
-40040678:	a121fd        	l32r	a10, 0x4003fafc	; ( 0x3ff9e182 )
-4004067b:	2802      	l32i.n	a2, a2, 0
-4004067d:	b119fd        	l32r	a11, 0x4003fae4	; ( 0x3ff9de52 )
-40040680:	2852      	l32i.n	a2, a2, 20
-40040682:	c2a24f        	movi	a12, 0x24f
-40040685:	e00200        	callx8	a2
-40040688:	0c02      	movi.n	a2, 0
-4004068a:	060a00        	j	0x400406b6
-
-4004068d:	210a3f        	l32r	a2, 0x400102b8	; r_plf_funcs_p ( 0x3ffb8360 )
-40040690:	a11bfd        	l32r	a10, 0x4003fafc	; ( 0x3ff9e182 )
-40040693:	2802      	l32i.n	a2, a2, 0
-40040695:	b113fd        	l32r	a11, 0x4003fae4	; ( 0x3ff9de52 )
-40040698:	2852      	l32i.n	a2, a2, 20
-4004069a:	c2a256        	movi	a12, 0x256
-4004069d:	00000406	; l32r
-400406a1:	21053fa116fd28
-400406a8:	fd0eb102	; l32r
-400406ac:	2852c2a25be002000cc2
-400406b6:	a1574f        	l32r	a10, 0x40014414	; sw_to_hw ( 0x3ffb8d40 )
-400406b9:	32a0ff        	movi	a3, 255
-400406bc:	420a1c        	l8ui	a4, a10, 28
-400406bf:	37141f        	beq	a4, a3, 0x400406e2
-400406c2:	31554f        	l32r	a3, 0x40014418	; ( 0x3ff71064 )
-400406c5:	0c46      	movi.n	a6, 4
-400406c7:	d04411        	slli	a4, a4, 3
-400406ca:	c02000        	memw
-400406cd:	5803      	l32i.n	a5, a3, 0
-400406cf:	001440        	ssl	a4
-400406d2:	0046a1        	sll	a4, a6
-400406d5:	7cf6      	movi.n	a6, -1
-400406d7:	404630        	xor	a4, a6, a4
-400406da:	504410        	and	a4, a4, a5
-400406dd:	c02000        	memw
-400406e0:	4903      	s32i.n	a4, a3, 0
-400406e2:	1df0      	retw.n
-
-400406e4:4bac7			unknown	; (not disassembled)
-4004bac8:	3ffae70c	; l32r
-4004bacc:4d2e3			unknown	; (not disassembled)
+4003c704:4d2e3			unknown	; (not disassembled)
 4004d2e4:	00040000	; l32r
 4004d2e8:4e493			unknown	; (not disassembled)
 4004e494:	80000000	; l32r
 4004e498:51347			unknown	; (not disassembled)
 40051348:	04000000	; l32r
-4005134c:52503			unknown	; (not disassembled)
-40052504:	3171e5        	l32r	a3, 0x4004bac8	; r_ip_funcs_p ( 0x3ffae70c )
-40052507:	2d0a      	mov.n	a2, a10
-40052509:	8803      	l32i.n	a8, a3, 0
-4005250b:	82d806        	addmi	a8, a8, 0x600
-4005250e:	a22823        	l32i	a10, a8, 140
-40052511:	e00a00        	callx8	a10
-40052514:	0c08      	movi.n	a8, 0
-40052516:	a24201        	s8i	a10, a2, 1
-40052519:	824200        	s8i	a8, a2, 0
-4005251c:	3803      	l32i.n	a3, a3, 0
-4005251e:	ad02      	mov.n	a10, a2
-40052520:	32235c        	l32i	a3, a3, 0x170
-40052523:	0c02      	movi.n	a2, 0
-40052525:	e00300        	callx8	a3
-40052528:	1df0      	retw.n
-
-4005252a:5579f			unknown	; (not disassembled)
+4005134c:5579f			unknown	; (not disassembled)
 400557a0:	7fffffff	; l32r
 400557a4:561bf			unknown	; (not disassembled)
 400561c0:	00400000	; l32r
@@ -8024,6 +7497,8 @@
 400631a5:	2d05      	mov.n	a2, a5
 400631a7:	1df0      	retw.n
 
-400631a9:6ffff			unknown	; (not disassembled)
+400631a9:657d2			unknown	; (not disassembled)
+400657d3:	00
+400657d4:6ffff			unknown	; (not disassembled)
 
-; disassembled 19554 bytes of 458752
+; disassembled 18276 bytes of 458752
