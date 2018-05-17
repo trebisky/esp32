@@ -44,28 +44,28 @@
 40000450:	02a000        	movi	a0, 0
 40000453:	00e413        	wsr.intenable	a0
 40000456:	20eb03        	rsr.prid	a2
-40000459:	31eaff        	l32r	a3, 0x40000404	; ( 0x0000abab )
+40000459:	31eaff        	l32r	a3, [0x0000abab]	; 0x40000404
 4000045c:	379211        	bne	a2, a3, 0x40000471
-4000045f:	31eaff        	l32r	a3, 0x40000408	; ( 0x3ff00038 )
+4000045f:	31eaff        	l32r	a3, [0x3ff00038]	; 0x40000408
 40000462:	322300        	l32i	a3, a3, 0
 40000465:	f77308        	bbci	a3, 31, 0x40000471
-40000468:	21e9ff        	l32r	a2, 0x4000040c	; ( 0x7fffffff )
+40000468:	21e9ff        	l32r	a2, [0x7fffffff]	; 0x4000040c
 4000046b:	203310        	and	a3, a3, a2
 4000046e:	c00300        	callx0	a3
-40000471:	21e7ff        	l32r	a2, 0x40000410	; ( 0x00000000 )
+40000471:	21e7ff        	l32r	a2, [0x00000000]	; 0x40000410
 40000474:	30eb03        	rsr.prid	a3
 40000477:	303074        	extui	a3, a3, 0, 8
 4000047a:	8c22      	beqz.n	a2, 0x40000480
 4000047c:	cc03      	bnez.n	a3, 0x40000480
 4000047e:	0902      	s32i.n	a0, a2, 0
-40000480:	21e5ff        	l32r	a2, 0x40000414	; _WindowOverflow4 ( 0x40000000 )
+40000480:	21e5ff        	l32r	a2, [_WindowOverflow4]	; [0x40000000] 0x40000414
 40000483:	20e713        	wsr.vecbase	a2
 40000486:	1c53      	movi.n	a3, 21
 40000488:	306313        	wsr.atomctl	a3
 4000048b:	206100        	rsil	a2, 1
-4000048e:	21e2ff        	l32r	a2, 0x40000418	; ( 0x2222211f )
-40000491:	51e2ff        	l32r	a5, 0x4000041c	; ( 0xe0000000 )
-40000494:	61e3ff        	l32r	a6, 0x40000420	; ( 0x400004c3 )
+4000048e:	21e2ff        	l32r	a2, [0x2222211f]	; 0x40000418
+40000491:	51e2ff        	l32r	a5, [0xe0000000]	; 0x4000041c
+40000494:	61e3ff        	l32r	a6, [0x400004c3]	; 0x40000420
 40000497:	0c03      	movi.n	a3, 0
 40000499:	7d02      	mov.n	a7, a2
 4000049b:	506610        	and	a6, a6, a5
@@ -85,7 +85,7 @@
 400004cc:	5033c0        	sub	a3, a3, a5
 400004cf:	f6b3ed        	bgeui	a3, 16, 0x400004c0
 400004d2:	002000        	isync
-400004d5:	51d1ff        	l32r	a5, 0x4000041c	; ( 0xe0000000 )
+400004d5:	51d1ff        	l32r	a5, [0xe0000000]	; 0x4000041c
 400004d8:	0c03      	movi.n	a3, 0
 400004da:	207220        	or	a7, a2, a2
 400004dd:	704034        	extui	a4, a7, 0, 4
@@ -98,15 +98,15 @@
 400004f2:	206103        	rsr.memctl	a2
 400004f5:	302220        	or	a2, a2, a3
 400004f8:	206113        	wsr.memctl	a2
-400004fb:	41caff        	l32r	a4, 0x40000424	; _rom_store_table ( 0x4000d4f8 )
-400004fe:	51caff        	l32r	a5, 0x40000428	; _data_end ( 0x4000d5c8 )
+400004fb:	41caff        	l32r	a4, [_rom_store_table]	; [0x4000d4f8] 0x40000424
+400004fe:	51caff        	l32r	a5, [_data_end]	; [0x4000d5c8] 0x40000428
 40000501:	6804      	l32i.n	a6, a4, 0
 40000503:	7814      	l32i.n	a7, a4, 4
 40000505:	8824      	l32i.n	a8, a4, 8
 40000507:	2834      	l32i.n	a2, a4, 12
 40000509:	261208        	beqi	a2, 1, 0x40000515
 4000050c:	20eb03        	rsr.prid	a2
-4000050f:	31bdff        	l32r	a3, 0x40000404	; ( 0x0000abab )
+4000050f:	31bdff        	l32r	a3, [0x0000abab]	; 0x40000404
 40000512:	37120a        	beq	a2, a3, 0x40000520
 40000515:	2808      	l32i.n	a2, a8, 0
 40000517:	2906      	s32i.n	a2, a6, 0
@@ -121,17 +121,17 @@
 4000052e:	004813        	wsr.windowbase	a0
 40000531:	102000        	rsync
 40000534:	0c00      	movi.n	a0, 0
-40000536:	41bdff        	l32r	a4, 0x4000042c	; _Level2FromVector ( 0x40000954 )
+40000536:	41bdff        	l32r	a4, [_Level2FromVector]	; [0x40000954] 0x4000042c
 40000539:	40d213        	wsr.excsave2	a4
-4000053c:	41bdff        	l32r	a4, 0x40000430	; _Level3FromVector ( 0x40000a28 )
+4000053c:	41bdff        	l32r	a4, [_Level3FromVector]	; [0x40000a28] 0x40000430
 4000053f:	40d313        	wsr.excsave3	a4
-40000542:	41bcff        	l32r	a4, 0x40000434	; _Level4FromVector ( 0x40000af8 )
+40000542:	41bcff        	l32r	a4, [_Level4FromVector]	; [0x40000af8] 0x40000434
 40000545:	40d413        	wsr.excsave4	a4
-40000548:	51bcff        	l32r	a5, 0x40000438	; _Pri_4_HandlerAddress ( 0x3ffe0648 )
+40000548:	51bcff        	l32r	a5, [_Pri_4_HandlerAddress]	; [0x3ffe0648] 0x40000438
 4000054b:	426500        	s32i	a4, a5, 0
-4000054e:	41bbff        	l32r	a4, 0x4000043c	; _Level5FromVector ( 0x40000c68 )
+4000054e:	41bbff        	l32r	a4, [_Level5FromVector]	; [0x40000c68] 0x4000043c
 40000551:	40d513        	wsr.excsave5	a4
-40000554:	51bbff        	l32r	a5, 0x40000440	; _Pri_5_HandlerAddress ( 0x3ffe064c )
+40000554:	51bbff        	l32r	a5, [_Pri_5_HandlerAddress]	; [0x3ffe064c] 0x40000440
 40000557:	426500        	s32i	a4, a5, 0
 4000055a:	851a00        	call0	0x40000704
 4000055d:	00
@@ -162,19 +162,19 @@
 
   _start:
 40000704:	0c00      	movi.n	a0, 0
-40000706:	1196ff        	l32r	a1, 0x40000560	; __stack ( 0x3ffe3f20 )
-40000709:	3196ff        	l32r	a3, 0x40000564	; ( 0x00040020 )
+40000706:	1196ff        	l32r	a1, [__stack]	; [0x3ffe3f20] 0x40000560
+40000709:	3196ff        	l32r	a3, [0x00040020]	; 0x40000564
 4000070c:	30e613        	wsr.ps	a3
 4000070f:	102000        	rsync
-40000712:	6195ff        	l32r	a6, 0x40000568	; ( 0x4000d5d0 )
-40000715:	7195ff        	l32r	a7, 0x4000056c	; _rom_store ( 0x4000d66c )
+40000712:	6195ff        	l32r	a6, [0x4000d5d0]	; 0x40000568
+40000715:	7195ff        	l32r	a7, [_rom_store]	; [0x4000d66c] 0x4000056c
 40000718:	0c00      	movi.n	a0, 0
 4000071a:	4806      	l32i.n	a4, a6, 0
 4000071c:	5816      	l32i.n	a5, a6, 4
 4000071e:	3826      	l32i.n	a3, a6, 8
 40000720:	261311        	beqi	a3, 1, 0x40000735
 40000723:	20eb03        	rsr.prid	a2
-40000726:	3192ff        	l32r	a3, 0x40000570	; ( 0x0000abab )
+40000726:	3192ff        	l32r	a3, [0x0000abab]	; 0x40000570
 40000729:	37120b        	beq	a2, a3, 0x40000738
 4000072c:	460100        	j	0x40000735
 
@@ -199,17 +199,17 @@
 40000754:	0c02      	movi.n	a2, 0
 40000756:	1df0      	retw.n
 
-40000758:	a18aff        	l32r	a10, 0x40000580	; _xtos_c_handler_table ( 0x3ffe0548 )
+40000758:	a18aff        	l32r	a10, [_xtos_c_handler_table]	; [0x3ffe0548] 0x40000580
 4000075b:	e08211        	slli	a8, a2, 2
 4000075e:	ac23      	beqz.n	a3, 0x40000784
-40000760:	9185ff        	l32r	a9, 0x40000574	; _xtos_p_none ( 0x4000bfd4 )
+40000760:	9185ff        	l32r	a9, [_xtos_p_none]	; [0x4000bfd4] 0x40000574
 40000763:	8a2a      	add.n	a2, a10, a8
 40000765:	222200        	l32i	a2, a2, 0
-40000768:	b185ff        	l32r	a11, 0x4000057c	; _xtos_c_wrapper_handler ( 0x40000de8 )
+40000768:	b185ff        	l32r	a11, [_xtos_c_wrapper_handler]	; [0x40000de8] 0x4000057c
 4000076b:	979305        	bne	a3, a9, 0x40000774
-4000076e:	b182ff        	l32r	a11, 0x40000578	; _xtos_unhandled_exception ( 0x4000c024 )
+4000076e:	b182ff        	l32r	a11, [_xtos_unhandled_exception]	; [0x4000c024] 0x40000578
 40000771:	903920        	or	a3, a9, a9
-40000774:	c184ff        	l32r	a12, 0x40000584	; _xtos_exc_handler_table ( 0x3ffe0448 )
+40000774:	c184ff        	l32r	a12, [_xtos_exc_handler_table]	; [0x3ffe0448] 0x40000584
 40000777:	8aaa      	add.n	a10, a10, a8
 40000779:	8a8c      	add.n	a8, a12, a8
 4000077b:	b908      	s32i.n	a11, a8, 0
@@ -219,7 +219,7 @@
 
 40000784:	8a2a      	add.n	a2, a10, a8
 40000786:	2802      	l32i.n	a2, a2, 0
-40000788:	917bff        	l32r	a9, 0x40000574	; _xtos_p_none ( 0x4000bfd4 )
+40000788:	917bff        	l32r	a9, [_xtos_p_none]	; [0x4000bfd4] 0x40000574
 4000078b:	c6f7ff        	j	0x4000076e
 
 4000078e:2f83			unknown	; (not disassembled)
@@ -250,7 +250,7 @@
 
   ets_run:
 400066bc:	364100        	entry	a1, 32
-400066bf:	31feff        	l32r	a3, 0x400066b8	; ets_readySet_ ( 0x3ffe01f0 )
+400066bf:	31feff        	l32r	a3, [ets_readySet_]	; [0x3ffe01f0] 0x400066b8
 400066c2:	e50e00        	call8	0x400067b0	; ets_intr_lock
 400066c5:	822300        	l32i	a8, a3, 0
 400066c8:	42a020        	movi	a4, 32
@@ -258,7 +258,7 @@
 400066ce:	2024c0        	sub	a2, a4, a2
 400066d1:	202074        	extui	a2, a2, 0, 8
 400066d4:	16d204        	beqz	a2, 0x40006725
-400066d7:	41ebff        	l32r	a4, 0x40006684	; ( 0x3ffe01f4 )
+400066d7:	41ebff        	l32r	a4, [0x3ffe01f4]	; 0x40006684
 400066da:	22c2ff        	addi	a2, a2, -1
 400066dd:	c02211        	slli	a2, a2, 4
 400066e0:	4a22      	add.n	a2, a2, a4
@@ -288,10 +288,10 @@
 4000671f:	e00200        	callx8	a2
 40006722:	06e7ff        	j	0x400066c2
 
-40006725:	21d1ff        	l32r	a2, 0x4000666c	; ( 0x3ffe03f8 )
+40006725:	21d1ff        	l32r	a2, [0x3ffe03f8]	; 0x4000666c
 40006728:	2802      	l32i.n	a2, a2, 0
 4000672a:	8c62      	beqz.n	a2, 0x40006734
-4000672c:	81d1ff        	l32r	a8, 0x40006670	; ( 0x3ffe03f4 )
+4000672c:	81d1ff        	l32r	a8, [0x3ffe03f4]	; 0x40006670
 4000672f:	a808      	l32i.n	a10, a8, 0
 40006731:	e00200        	callx8	a2
 40006734:	250a00        	call8	0x400067d8	; ets_waiti0
@@ -303,7 +303,7 @@
   ets_intr_lock:
 400067b0:	364100        	entry	a1, 32
 400067b3:	806200        	rsil	a8, 2
-400067b6:	81fdff        	l32r	a8, 0x400067ac	; ets_intr_count ( 0x3ffe03fc )
+400067b6:	81fdff        	l32r	a8, [ets_intr_count]	; [0x3ffe03fc] 0x400067ac
 400067b9:	9808      	l32i.n	a9, a8, 0
 400067bb:	1b99      	addi.n	a9, a9, 1
 400067bd:	9908      	s32i.n	a9, a8, 0
@@ -313,7 +313,7 @@
 
   ets_intr_unlock:
 400067c4:	364100        	entry	a1, 32
-400067c7:	91f9ff        	l32r	a9, 0x400067ac	; ets_intr_count ( 0x3ffe03fc )
+400067c7:	91f9ff        	l32r	a9, [ets_intr_count]	; [0x3ffe03fc] 0x400067ac
 400067ca:	8809      	l32i.n	a8, a9, 0
 400067cc:	0b88      	addi.n	a8, a8, -1
 400067ce:	8909      	s32i.n	a8, a9, 0
@@ -325,7 +325,7 @@
 
   ets_waiti0:
 400067d8:	364100        	entry	a1, 32
-400067db:	81f4ff        	l32r	a8, 0x400067ac	; ets_intr_count ( 0x3ffe03fc )
+400067db:	81f4ff        	l32r	a8, [ets_intr_count]	; [0x3ffe03fc] 0x400067ac
 400067de:	9808      	l32i.n	a9, a8, 0
 400067e0:	0b99      	addi.n	a9, a9, -1
 400067e2:	9908      	s32i.n	a9, a8, 0
@@ -379,8 +379,8 @@
 400068ca:	60a620        	or	a10, a6, a6
 400068cd:	651403        	call8	0x40009a14	; Cache_Flush
 400068d0:	d22200        	l32i	a13, a2, 0
-400068d3:	71f7ff        	l32r	a7, 0x400068b0	; ( 0xffff0000 )
-400068d6:	c1f5ff        	l32r	a12, 0x400068ac	; ( 0x3f400000 )
+400068d3:	71f7ff        	l32r	a7, [0xffff0000]	; 0x400068b0
+400068d6:	c1f5ff        	l32r	a12, [0x3f400000]	; 0x400068ac
 400068d9:	bd06      	mov.n	a11, a6
 400068db:	70dd10        	and	a13, a13, a7
 400068de:	4c0e      	movi.n	a14, 64
@@ -390,12 +390,12 @@
 400068e7:	ad06      	mov.n	a10, a6
 400068e9:	a51903        	call8	0x40009a84	; Cache_Read_Enable
 400068ec:	d802      	l32i.n	a13, a2, 0
-400068ee:	a1f1ff        	l32r	a10, 0x400068b4	; ( 0x3ff9e865 )
+400068ee:	a1f1ff        	l32r	a10, [0x3ff9e865]	; 0x400068b4
 400068f1:	bd05      	mov.n	a11, a5
 400068f3:	70cd10        	and	a12, a13, a7
 400068f6:	e54501        	call8	0x40007d54	; ets_printf
 400068f9:	722200        	l32i	a7, a2, 0
-400068fc:	51ecff        	l32r	a5, 0x400068ac	; ( 0x3f400000 )
+400068fc:	51ecff        	l32r	a5, [0x3f400000]	; 0x400068ac
 400068ff:	7060f4        	extui	a6, a7, 0, 16
 40006902:	506680        	add	a6, a6, a5
 40006905:	626300        	s32i	a6, a3, 0
@@ -425,7 +425,7 @@
   ets_unpack_flash_code_legacy:
 4000694c:	364101        	entry	a1, 160
 4000694f:	326119        	s32i	a3, a1, 100
-40006952:	31f4ff        	l32r	a3, 0x40006924	; ( 0x3ff44038 )
+40006952:	31f4ff        	l32r	a3, [0x3ff44038]	; 0x40006924
 40006955:	404074        	extui	a4, a4, 0, 8
 40006958:	42611a        	s32i	a4, a1, 104
 4000695b:	505074        	extui	a5, a5, 0, 8
@@ -488,7 +488,7 @@
 400069f5:	522117        	l32i	a5, a1, 92
 400069f8:	16c50a        	beqz	a5, 0x40006aa8
 400069fb:	e5c501        	call8	0x40008658	; ets_efuse_get_spiconfig
-400069fe:	91c9ff        	l32r	a9, 0x40006924	; ( 0x3ff44038 )
+400069fe:	91c9ff        	l32r	a9, [0x3ff44038]	; 0x40006924
 40006a01:	ed0a      	mov.n	a14, a10
 40006a03:	c02000        	memw
 40006a06:	a809      	l32i.n	a10, a9, 0
@@ -500,7 +500,7 @@
 40006a14:	0c19      	movi.n	a9, 1
 40006a16:	d05983        	moveqz	a5, a9, a13
 40006a19:	920708        	l8ui	a9, a7, 8
-40006a1c:	a1c3ff        	l32r	a10, 0x40006928	; ( 0x3ff9e880 )
+40006a1c:	a1c3ff        	l32r	a10, [0x3ff9e880]	; 0x40006928
 40006a1f:	cd09      	mov.n	a12, a9
 40006a21:	bd05      	mov.n	a11, a5
 40006a23:	92611f        	s32i	a9, a1, 124
@@ -544,9 +544,9 @@
 40006a86:	bd07      	mov.n	a11, a7
 40006a88:	0c1a      	movi.n	a10, 1
 40006a8a:	65305b        	call8	0x40061d90	; spi_dummy_len_fix
-40006a8d:	81a8ff        	l32r	a8, 0x40006930	; spi_modes ( 0x3ff99270 )
+40006a8d:	81a8ff        	l32r	a8, [spi_modes]	; [0x3ff99270] 0x40006930
 40006a90:	92211f        	l32i	a9, a1, 124
-40006a93:	a1a6ff        	l32r	a10, 0x4000692c	; ( 0x3ff9e8a1 )
+40006a93:	a1a6ff        	l32r	a10, [0x3ff9e8a1]	; 0x4000692c
 40006a96:	8099a0        	addx4	a9, a9, a8
 40006a99:	b809      	l32i.n	a11, a9, 0
 40006a9b:	cd07      	mov.n	a12, a7
@@ -598,7 +598,7 @@
 40006b19:	92cbf8        	addi	a9, a11, -8
 40006b1c:	909034        	extui	a9, a9, 0, 4
 40006b1f:	604075        	extui	a4, a6, 16, 8
-40006b22:	a184ff        	l32r	a10, 0x40006934	; ( 0x3ff9e8b8 )
+40006b22:	a184ff        	l32r	a10, [0x3ff9e8b8]	; 0x40006934
 40006b25:	56894b        	bnez	a9, 0x40006fe1
 40006b28:	b0b4f4        	extui	a11, a11, 4, 16
 40006b2b:	c0bb11        	slli	a11, a11, 4
@@ -686,8 +686,8 @@
 40006bff:	0c1a      	movi.n	a10, 1
 40006c01:	e5185b        	call8	0x40061d90	; spi_dummy_len_fix
 40006c04:	82211e        	l32i	a8, a1, 120
-40006c07:	514aff        	l32r	a5, 0x40006930	; spi_modes ( 0x3ff99270 )
-40006c0a:	a148ff        	l32r	a10, 0x4000692c	; ( 0x3ff9e8a1 )
+40006c07:	514aff        	l32r	a5, [spi_modes]	; [0x3ff99270] 0x40006930
+40006c0a:	a148ff        	l32r	a10, [0x3ff9e8a1]	; 0x4000692c
 40006c0d:	5088a0        	addx4	a8, a8, a5
 40006c10:	b808      	l32i.n	a11, a8, 0
 40006c12:	cd04      	mov.n	a12, a4
@@ -737,7 +737,7 @@
 
 40006c8e:	1c0a      	movi.n	a10, 16
 40006c90:	50eac0        	sub	a14, a10, a5
-40006c93:	a129ff        	l32r	a10, 0x40006938	; ( 0x3ff9e8c4 )
+40006c93:	a129ff        	l32r	a10, [0x3ff9e8c4]	; 0x40006938
 40006c96:	e0e074        	extui	a14, a14, 0, 8
 40006c99:	cd0d      	mov.n	a12, a13
 40006c9b:	bd06      	mov.n	a11, a6
@@ -836,7 +836,7 @@
 40006d80:	8a81      	add.n	a8, a1, a8
 40006d82:	c60200        	j	0x40006d91
 
-40006d85:	a1edfe        	l32r	a10, 0x4000693c	; ( 0x3ff9e8d8 )
+40006d85:	a1edfe        	l32r	a10, [0x3ff9e8d8]	; 0x4000693c
 40006d88:	b2a33b        	movi	a11, 0x33b
 40006d8b:	a5fc00        	call8	0x40007d54	; ets_printf
 40006d8e:	469200        	j	0x40006fdb
@@ -948,7 +948,7 @@
 40006e9e:	c7941b        	bne	a4, a12, 0x40006ebd
 40006ea1:	322118        	l32i	a3, a1, 96
 40006ea4:	222119        	l32i	a2, a1, 100
-40006ea7:	a1a6fe        	l32r	a10, 0x40006940	; ( 0x3ff9e8ec )
+40006ea7:	a1a6fe        	l32r	a10, [0x3ff9e8ec]	; 0x40006940
 40006eaa:	3902      	s32i.n	a3, a2, 0
 40006eac:	bd03      	mov.n	a11, a3
 40006eae:	65ea00        	call8	0x40007d54	; ets_printf
@@ -957,7 +957,7 @@
 40006eb7:	464300        	j	0x40006fc8
 
 40006eba:	000000
-40006ebd:	a1a1fe        	l32r	a10, 0x40006944	; ( 0x3ff9e8fa )
+40006ebd:	a1a1fe        	l32r	a10, [0x3ff9e8fa]	; 0x40006944
 40006ec0:	bd04      	mov.n	a11, a4
 40006ec2:	25e900        	call8	0x40007d54	; ets_printf
 40006ec5:	c64600        	j	0x40006fe4
@@ -993,7 +993,7 @@
 40006f19:	c62200        	j	0x40006fa8
 
 40006f1c:	00
-40006f1d:	a18afe        	l32r	a10, 0x40006948	; ( 0x3ff9e913 )
+40006f1d:	a18afe        	l32r	a10, [0x3ff9e913]	; 0x40006948
 40006f20:	d0cd20        	or	a12, a13, a13
 40006f23:	bd05      	mov.n	a11, a5
 40006f25:	dd06      	mov.n	a13, a6
@@ -1069,7 +1069,7 @@
 
 40006fd5:	52a34c        	movi	a5, 0x34c
 40006fd8:	526114        	s32i	a5, a1, 80
-40006fdb:	a158fe        	l32r	a10, 0x4000693c	; ( 0x3ff9e8d8 )
+40006fdb:	a158fe        	l32r	a10, [0x3ff9e8d8]	; 0x4000693c
 40006fde:	b22114        	l32i	a11, a1, 80
 40006fe1:	25d700        	call8	0x40007d54	; ets_printf
 40006fe4:	0c12      	movi.n	a2, 1
@@ -1096,7 +1096,7 @@
 40007018:	36e100        	entry	a1, 112
 4000701b:	404074        	extui	a4, a4, 0, 8
 4000701e:	49c1      	s32i.n	a4, a1, 48
-40007020:	4141fe        	l32r	a4, 0x40006924	; ( 0x3ff44038 )
+40007020:	4141fe        	l32r	a4, [0x3ff44038]	; 0x40006924
 40007023:	3991      	s32i.n	a3, a1, 36
 40007025:	c02000        	memw
 40007028:	7804      	l32i.n	a7, a4, 0
@@ -1120,8 +1120,8 @@
 40007055:	25a602        	call8	0x40009ab8	; Cache_Read_Disable
 40007058:	a2a000        	movi	a10, 0
 4000705b:	a59b02        	call8	0x40009a14	; Cache_Flush
-4000705e:	41e8ff        	l32r	a4, 0x40007000	; ( 0x3ff00044 )
-40007061:	31e8ff        	l32r	a3, 0x40007004	; ( 0x3ff0005c )
+4000705e:	41e8ff        	l32r	a4, [0x3ff00044]	; 0x40007000
+40007061:	31e8ff        	l32r	a3, [0x3ff0005c]	; 0x40007004
 40007064:	c02000        	memw
 40007067:	922400        	l32i	a9, a4, 0
 4000706a:	c02000        	memw
@@ -1138,7 +1138,7 @@
 40007085:	707a20        	or	a7, a10, a7
 40007088:	c02000        	memw
 4000708b:	7904      	s32i.n	a7, a4, 0
-4000708d:	71deff        	l32r	a7, 0x40007008	; ( 0x3ff10000 )
+4000708d:	71deff        	l32r	a7, [0x3ff10000]	; 0x40007008
 40007090:	0c1f      	movi.n	a15, 1
 40007092:	c02000        	memw
 40007095:	a807      	l32i.n	a10, a7, 0
@@ -1147,8 +1147,8 @@
 4000709c:	9904      	s32i.n	a9, a4, 0
 4000709e:	c02000        	memw
 400070a1:	8903      	s32i.n	a8, a3, 0
-400070a3:	4103fe        	l32r	a4, 0x400068b0	; ( 0xffff0000 )
-400070a6:	3101fe        	l32r	a3, 0x400068ac	; ( 0x3f400000 )
+400070a3:	4103fe        	l32r	a4, [0xffff0000]	; 0x400068b0
+400070a6:	3101fe        	l32r	a3, [0x3f400000]	; 0x400068ac
 400070a9:	d841      	l32i.n	a13, a1, 16
 400070ab:	0c0a      	movi.n	a10, 0
 400070ad:	cd03      	mov.n	a12, a3
@@ -1191,7 +1191,7 @@
 4000710f:	4961      	s32i.n	a4, a1, 24
 40007111:	82a0e9        	movi	a8, 233
 40007114:	87190c        	beq	a9, a8, 0x40007124
-40007117:	a109fe        	l32r	a10, 0x4000693c	; ( 0x3ff9e8d8 )
+40007117:	a109fe        	l32r	a10, [0x3ff9e8d8]	; 0x4000693c
 4000711a:	b2a3e8        	movi	a11, 0x3e8
 4000711d:	65c300        	call8	0x40007d54	; ets_printf
 40007120:	0c12      	movi.n	a2, 1
@@ -1199,7 +1199,7 @@
 
 40007124:	16160a        	beqz	a6, 0x400071c9
 40007127:	255301        	call8	0x40008658	; ets_efuse_get_spiconfig
-4000712a:	81fefd        	l32r	a8, 0x40006924	; ( 0x3ff44038 )
+4000712a:	81fefd        	l32r	a8, [0x3ff44038]	; 0x40006924
 4000712d:	a0da20        	or	a13, a10, a10
 40007130:	c02000        	memw
 40007133:	a22800        	l32i	a10, a8, 0
@@ -1211,7 +1211,7 @@
 40007143:	0c18      	movi.n	a8, 1
 40007145:	904883        	moveqz	a4, a8, a9
 40007148:	320708        	l8ui	a3, a7, 8
-4000714b:	a1b0ff        	l32r	a10, 0x4000700c	; ( 0x3ff9e92a )
+4000714b:	a1b0ff        	l32r	a10, [0x3ff9e92a]	; 0x4000700c
 4000714e:	40b420        	or	a11, a4, a4
 40007151:	30c320        	or	a12, a3, a3
 40007154:	d2610d        	s32i	a13, a1, 52
@@ -1252,8 +1252,8 @@
 400071a9:	0c1a      	movi.n	a10, 1
 400071ab:	65be5a        	call8	0x40061d90	; spi_dummy_len_fix
 400071ae:	822110        	l32i	a8, a1, 64
-400071b1:	41dffd        	l32r	a4, 0x40006930	; spi_modes ( 0x3ff99270 )
-400071b4:	a1defd        	l32r	a10, 0x4000692c	; ( 0x3ff9e8a1 )
+400071b1:	41dffd        	l32r	a4, [spi_modes]	; [0x3ff99270] 0x40006930
+400071b4:	a1defd        	l32r	a10, [0x3ff9e8a1]	; 0x4000692c
 400071b7:	4088a0        	addx4	a8, a8, a4
 400071ba:	b808      	l32i.n	a11, a8, 0
 400071bc:	cd07      	mov.n	a12, a7
@@ -1293,7 +1293,7 @@
 4000721b:	92cbf8        	addi	a9, a11, -8
 4000721e:	909034        	extui	a9, a9, 0, 4
 40007221:	407075        	extui	a7, a4, 16, 8
-40007224:	a1c4fd        	l32r	a10, 0x40006934	; ( 0x3ff9e8b8 )
+40007224:	a1c4fd        	l32r	a10, [0x3ff9e8b8]	; 0x40006934
 40007227:	5629ef        	bnez	a9, 0x4000711d
 4000722a:	b0b4f4        	extui	a11, a11, 4, 16
 4000722d:	b961      	s32i.n	a11, a1, 24
@@ -1360,8 +1360,8 @@
 400072bf:	bd02      	mov.n	a11, a2
 400072c1:	a2a001        	movi	a10, 1
 400072c4:	a5ac5a        	call8	0x40061d90	; spi_dummy_len_fix
-400072c7:	319afd        	l32r	a3, 0x40006930	; spi_modes ( 0x3ff99270 )
-400072ca:	a198fd        	l32r	a10, 0x4000692c	; ( 0x3ff9e8a1 )
+400072c7:	319afd        	l32r	a3, [spi_modes]	; [0x3ff99270] 0x40006930
+400072ca:	a198fd        	l32r	a10, [0x3ff9e8a1]	; 0x4000692c
 400072cd:	3066a0        	addx4	a6, a6, a3
 400072d0:	b806      	l32i.n	a11, a6, 0
 400072d2:	20c220        	or	a12, a2, a2
@@ -1404,7 +1404,7 @@
 40007339:	00
 4000733a:	a2a010        	movi	a10, 16
 4000733d:	209ac0        	sub	a9, a10, a2
-40007340:	a17efd        	l32r	a10, 0x40006938	; ( 0x3ff9e8c4 )
+40007340:	a17efd        	l32r	a10, [0x3ff9e8c4]	; 0x40006938
 40007343:	909074        	extui	a9, a9, 0, 8
 40007346:	80c820        	or	a12, a8, a8
 40007349:	40b420        	or	a11, a4, a4
@@ -1567,7 +1567,7 @@
 400074bf:	c62f00        	j	0x40007582
 
 400074c2:	000000
-400074c5:	a11ffd        	l32r	a10, 0x40006944	; ( 0x3ff9e8fa )
+400074c5:	a11ffd        	l32r	a10, [0x3ff9e8fa]	; 0x40006944
 400074c8:	bd06      	mov.n	a11, a6
 400074ca:	a58800        	call8	0x40007d54	; ets_printf
 400074cd:	c613ff        	j	0x40007120
@@ -1604,7 +1604,7 @@
 40007524:	461100        	j	0x4000756d
 
 40007527:	0000
-40007529:	a107fd        	l32r	a10, 0x40006948	; ( 0x3ff9e913 )
+40007529:	a107fd        	l32r	a10, [0x3ff9e913]	; 0x40006948
 4000752c:	dd08      	mov.n	a13, a8
 4000752e:	bd02      	mov.n	a11, a2
 40007530:	cd04      	mov.n	a12, a4
@@ -1649,8 +1649,8 @@
 4000758e:	2871      	l32i.n	a2, a1, 28
 40007590:	0c0a      	movi.n	a10, 0
 40007592:	d2d2f0        	addmi	a13, a2, 0xfffff000
-40007595:	21c6fc        	l32r	a2, 0x400068b0	; ( 0xffff0000 )
-40007598:	c1c5fc        	l32r	a12, 0x400068ac	; ( 0x3f400000 )
+40007595:	21c6fc        	l32r	a2, [0xffff0000]	; 0x400068b0
+40007598:	c1c5fc        	l32r	a12, [0x3f400000]	; 0x400068ac
 4000759b:	bd0a      	mov.n	a11, a10
 4000759d:	20dd10        	and	a13, a13, a2
 400075a0:	4c0e      	movi.n	a14, 64
@@ -1658,12 +1658,12 @@
 400075a4:	a50302        	call8	0x400095e0	; cache_flash_mmu_set
 400075a7:	0c0a      	movi.n	a10, 0
 400075a9:	a54d02        	call8	0x40009a84	; Cache_Read_Enable
-400075ac:	a199fe        	l32r	a10, 0x40007010	; ( 0x3f3ff080 )
+400075ac:	a199fe        	l32r	a10, [0x3f3ff080]	; 0x40007010
 400075af:	3871      	l32i.n	a3, a1, 28
 400075b1:	a0a380        	add	a10, a3, a10
 400075b4:	e56455        	call8	0x4005cc04	; ets_secure_boot_check_finish
 400075b7:	661a0a        	bnei	a10, 1, 0x400075c5
-400075ba:	a196fe        	l32r	a10, 0x40007014	; ( 0x3ff9e947 )
+400075ba:	a196fe        	l32r	a10, [0x3ff9e947]	; 0x40007014
 400075bd:	657900        	call8	0x40007d54	; ets_printf
 400075c0:	06d7fe        	j	0x40007120
 
@@ -1672,8 +1672,8 @@
 400075c7:	254f02        	call8	0x40009ab8	; Cache_Read_Disable
 400075ca:	0c0a      	movi.n	a10, 0
 400075cc:	654402        	call8	0x40009a14	; Cache_Flush
-400075cf:	318cfe        	l32r	a3, 0x40007000	; ( 0x3ff00044 )
-400075d2:	218cfe        	l32r	a2, 0x40007004	; ( 0x3ff0005c )
+400075cf:	318cfe        	l32r	a3, [0x3ff00044]	; 0x40007000
+400075d2:	218cfe        	l32r	a2, [0x3ff0005c]	; 0x40007004
 400075d5:	c02000        	memw
 400075d8:	6803      	l32i.n	a6, a3, 0
 400075da:	c02000        	memw
@@ -1690,7 +1690,7 @@
 400075f5:	404720        	or	a4, a7, a4
 400075f8:	c02000        	memw
 400075fb:	4903      	s32i.n	a4, a3, 0
-400075fd:	4182fe        	l32r	a4, 0x40007008	; ( 0x3ff10000 )
+400075fd:	4182fe        	l32r	a4, [0x3ff10000]	; 0x40007008
 40007600:	0c0a      	movi.n	a10, 0
 40007602:	c02000        	memw
 40007605:	8904      	s32i.n	a8, a4, 0
@@ -1701,7 +1701,7 @@
 40007611:	254702        	call8	0x40009a84	; Cache_Read_Enable
 40007614:	9891      	l32i.n	a9, a1, 36
 40007616:	2881      	l32i.n	a2, a1, 32
-40007618:	a1cafc        	l32r	a10, 0x40006940	; ( 0x3ff9e8ec )
+40007618:	a1cafc        	l32r	a10, [0x3ff9e8ec]	; 0x40006940
 4000761b:	2909      	s32i.n	a2, a9, 0
 4000761d:	bd02      	mov.n	a11, a2
 4000761f:	657300        	call8	0x40007d54	; ets_printf
@@ -1758,21 +1758,21 @@
 
   rom_main:
 400076c4:	36e100        	entry	a1, 112
-400076c7:	b1ebff        	l32r	a11, 0x40007674	; ( 0x3ff9918c )
+400076c7:	b1ebff        	l32r	a11, [0x3ff9918c]	; 0x40007674
 400076ca:	ad01      	mov.n	a10, a1
 400076cc:	4c4c      	movi.n	a12, 68
 400076ce:	a5bf04        	call8	0x4000c2c8	; memcpy
-400076d1:	21a7e3        	l32r	a2, 0x40000570	; ( 0x0000abab )
+400076d1:	21a7e3        	l32r	a2, [0x0000abab]	; 0x40000570
 400076d4:	30eb03        	rsr.prid	a3
 400076d7:	27930e        	bne	a3, a2, 0x400076e9
-400076da:	316ffc        	l32r	a3, 0x40006898	; ( 0x3ff00038 )
+400076da:	316ffc        	l32r	a3, [0x3ff00038]	; 0x40006898
 400076dd:	c02000        	memw
 400076e0:	2803      	l32i.n	a2, a3, 0
 400076e2:	1672ff        	beqz	a2, 0x400076dd
 400076e5:	c64101        	j	0x40007bf0
 
 400076e8:	00
-400076e9:	2145fe        	l32r	a2, 0x40007000	; ( 0x3ff00044 )
+400076e9:	2145fe        	l32r	a2, [0x3ff00044]	; 0x40007000
 400076ec:	0c63      	movi.n	a3, 6
 400076ee:	c02000        	memw
 400076f1:	4802      	l32i.n	a4, a2, 0
@@ -1781,8 +1781,8 @@
 400076f9:	c02000        	memw
 400076fc:	326200        	s32i	a3, a2, 0
 400076ff:	65ad00        	call8	0x400081d4	; rtc_get_reset_reason
-40007702:	21ddff        	l32r	a2, 0x40007678	; ( 0x3ff48088 )
-40007705:	41ddff        	l32r	a4, 0x4000767c	; ( 0xffff7fff )
+40007702:	21ddff        	l32r	a2, [0x3ff48088]	; 0x40007678
+40007705:	41ddff        	l32r	a4, [0xffff7fff]	; 0x4000767c
 40007708:	c02000        	memw
 4000770b:	5802      	l32i.n	a5, a2, 0
 4000770d:	3d0a      	mov.n	a3, a10
@@ -1800,7 +1800,7 @@
 4000772d:	bd0a      	mov.n	a11, a10
 4000772f:	a2a000        	movi	a10, 0
 40007732:	e59e01        	call8	0x40009120	; Uart_Init
-40007735:	217bfc        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+40007735:	217bfc        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007738:	c02000        	memw
 4000773b:	4802      	l32i.n	a4, a2, 0
 4000773d:	47e420        	bbsi	a4, 4, 0x40007761
@@ -1817,11 +1817,11 @@
 4000775b:	860b00        	j	0x4000778d
 
 4000775e:	000000
-40007761:	21c7ff        	l32r	a2, 0x40007680	; ( 0x3ff480b0 )
+40007761:	21c7ff        	l32r	a2, [0x3ff480b0]	; 0x40007680
 40007764:	c02000        	memw
 40007767:	2802      	l32i.n	a2, a2, 0
 40007769:	07e220        	bbsi	a2, 0, 0x4000778d
-4000776c:	216efc        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+4000776c:	216efc        	l32r	a2, [0x3ff44038]	; 0x40006924
 4000776f:	c02000        	memw
 40007772:	4802      	l32i.n	a4, a2, 0
 40007774:	17e4e0        	bbsi	a4, 1, 0x40007758
@@ -1833,14 +1833,14 @@
 40007784:	22a01c        	movi	a2, 28
 40007787:	202410        	and	a2, a4, a2
 4000778a:	6682ca        	bnei	a2, 8, 0x40007758
-4000778d:	2165fc        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+4000778d:	2165fc        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007790:	0ce4      	movi.n	a4, 14
 40007792:	c02000        	memw
 40007795:	5802      	l32i.n	a5, a2, 0
 40007797:	505044        	extui	a5, a5, 0, 5
 4000779a:	47950e        	bne	a5, a4, 0x400077ac
-4000779d:	a1b9ff        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
-400077a0:	b1baff        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
+4000779d:	a1b9ff        	l32r	a10, [0x3ff9ea62]	; 0x40007684
+400077a0:	b1baff        	l32r	a11, [0x3ff9ea6a]	; 0x40007688
 400077a3:	c2a0ee        	movi	a12, 238
 400077a6:	e55a00        	call8	0x40007d54	; ets_printf
 400077a9:	06ffff        	j	0x400077a9
@@ -1879,11 +1879,11 @@
 400077f4:	279405        	bne	a4, a2, 0x400077fd
 400077f7:	a2a004        	movi	a10, 4
 400077fa:	e56503        	call8	0x4000ae58	; sip_init_attach
-400077fd:	8149fc        	l32r	a8, 0x40006924	; ( 0x3ff44038 )
-40007800:	4192ff        	l32r	a4, 0x40007648	; ( 0x3ff9e95f )
+400077fd:	8149fc        	l32r	a8, [0x3ff44038]	; 0x40006924
+40007800:	4192ff        	l32r	a4, [0x3ff9e95f]	; 0x40007648
 40007803:	c02000        	memw
 40007806:	5808      	l32i.n	a5, a8, 0
-40007808:	2191ff        	l32r	a2, 0x4000764c	; ( 0x3ff9e963 )
+40007808:	2191ff        	l32r	a2, [0x3ff9e963]	; 0x4000764c
 4000780b:	505044        	extui	a5, a5, 0, 5
 4000780e:	52c5f1        	addi	a5, a5, -15
 40007811:	502493        	movnez	a2, a4, a5
@@ -1895,27 +1895,27 @@
 40007821:	5808      	l32i.n	a5, a8, 0
 40007823:	1cb9      	movi.n	a9, 27
 40007825:	905510        	and	a5, a5, a9
-40007828:	418aff        	l32r	a4, 0x40007650	; ( 0x3ff9e974 )
+40007828:	418aff        	l32r	a4, [0x3ff9e974]	; 0x40007650
 4000782b:	52c5fe        	addi	a5, a5, -2
 4000782e:	502483        	moveqz	a2, a4, a5
 40007831:	c02000        	memw
 40007834:	5808      	l32i.n	a5, a8, 0
-40007836:	4187ff        	l32r	a4, 0x40007654	; ( 0x3ff9e99f )
+40007836:	4187ff        	l32r	a4, [0x3ff9e99f]	; 0x40007654
 40007839:	905510        	and	a5, a5, a9
 4000783c:	52c5fd        	addi	a5, a5, -3
 4000783f:	502483        	moveqz	a2, a4, a5
 40007842:	c02000        	memw
 40007845:	5808      	l32i.n	a5, a8, 0
-40007847:	4184ff        	l32r	a4, 0x40007658	; ( 0x3ff9e9ca )
+40007847:	4184ff        	l32r	a4, [0x3ff9e9ca]	; 0x40007658
 4000784a:	905510        	and	a5, a5, a9
 4000784d:	502483        	moveqz	a2, a4, a5
 40007850:	c02000        	memw
 40007853:	4808      	l32i.n	a4, a8, 0
 40007855:	909410        	and	a9, a4, a9
-40007858:	4181ff        	l32r	a4, 0x4000765c	; ( 0x3ff9e9f5 )
+40007858:	4181ff        	l32r	a4, [0x3ff9e9f5]	; 0x4000765c
 4000785b:	0b99      	addi.n	a9, a9, -1
 4000785d:	902483        	moveqz	a2, a4, a9
-40007860:	8131fc        	l32r	a8, 0x40006924	; ( 0x3ff44038 )
+40007860:	8131fc        	l32r	a8, [0x3ff44038]	; 0x40006924
 40007863:	c02000        	memw
 40007866:	422800        	l32i	a4, a8, 0
 40007869:	47e40b        	bbsi	a4, 4, 0x40007878
@@ -1925,46 +1925,46 @@
 40007875:	66a41f        	bnei	a4, 12, 0x40007898
 40007878:	c02000        	memw
 4000787b:	422800        	l32i	a4, a8, 0
-4000787e:	2178ff        	l32r	a2, 0x40007660	; ( 0x3ff9ea20 )
+4000787e:	2178ff        	l32r	a2, [0x3ff9ea20]	; 0x40007660
 40007881:	47e413        	bbsi	a4, 4, 0x40007898
 40007884:	c02000        	memw
 40007887:	5808      	l32i.n	a5, a8, 0
 40007889:	42a01c        	movi	a4, 28
 4000788c:	405510        	and	a5, a5, a4
-4000788f:	4175ff        	l32r	a4, 0x40007664	; ( 0x3ff9ea35 )
+4000788f:	4175ff        	l32r	a4, [0x3ff9ea35]	; 0x40007664
 40007892:	52c5f8        	addi	a5, a5, -8
 40007895:	502493        	movnez	a2, a4, a5
-40007898:	8123fc        	l32r	a8, 0x40006924	; ( 0x3ff44038 )
+40007898:	8123fc        	l32r	a8, [0x3ff44038]	; 0x40006924
 4000789b:	1cc4      	movi.n	a4, 28
 4000789d:	c02000        	memw
 400078a0:	5808      	l32i.n	a5, a8, 0
 400078a2:	405510        	and	a5, a5, a4
-400078a5:	4170ff        	l32r	a4, 0x40007668	; ( 0x3ff9ea34 )
+400078a5:	4170ff        	l32r	a4, [0x3ff9ea34]	; 0x40007668
 400078a8:	52c5f8        	addi	a5, a5, -8
 400078ab:	502483        	moveqz	a2, a4, a5
 400078ae:	c02000        	memw
 400078b1:	5808      	l32i.n	a5, a8, 0
-400078b3:	416eff        	l32r	a4, 0x4000766c	; ( 0x3ff9ea44 )
+400078b3:	416eff        	l32r	a4, [0x3ff9ea44]	; 0x4000766c
 400078b6:	505044        	extui	a5, a5, 0, 5
 400078b9:	52c5f3        	addi	a5, a5, -13
 400078bc:	502483        	moveqz	a2, a4, a5
 400078bf:	c02000        	memw
 400078c2:	5808      	l32i.n	a5, a8, 0
-400078c4:	416bff        	l32r	a4, 0x40007670	; ( 0x3ff9ea59 )
+400078c4:	416bff        	l32r	a4, [0x3ff9ea59]	; 0x40007670
 400078c7:	505044        	extui	a5, a5, 0, 5
 400078ca:	52c5f2        	addi	a5, a5, -14
 400078cd:	502483        	moveqz	a2, a4, a5
 400078d0:	1c05      	movi.n	a5, 16
-400078d2:	415dff        	l32r	a4, 0x40007648	; ( 0x3ff9e95f )
+400078d2:	415dff        	l32r	a4, [0x3ff9e95f]	; 0x40007648
 400078d5:	373504        	bltu	a5, a3, 0x400078dd
 400078d8:	1043a0        	addx4	a4, a3, a1
 400078db:	4804      	l32i.n	a4, a4, 0
-400078dd:	b16cff        	l32r	a11, 0x40007690	; ( 0x3ff9ea80 )
-400078e0:	c16dff        	l32r	a12, 0x40007694	; ( 0x3ff9ea8c )
-400078e3:	a16aff        	l32r	a10, 0x4000768c	; ( 0x3ff9ea75 )
+400078dd:	b16cff        	l32r	a11, [0x3ff9ea80]	; 0x40007690
+400078e0:	c16dff        	l32r	a12, [0x3ff9ea8c]	; 0x40007694
+400078e3:	a16aff        	l32r	a10, [0x3ff9ea75]	; 0x4000768c
 400078e6:	e54600        	call8	0x40007d54	; ets_printf
-400078e9:	510efc        	l32r	a5, 0x40006924	; ( 0x3ff44038 )
-400078ec:	a16bff        	l32r	a10, 0x40007698	; ( 0x3ff9ea95 )
+400078e9:	510efc        	l32r	a5, [0x3ff44038]	; 0x40006924
+400078ec:	a16bff        	l32r	a10, [0x3ff9ea95]	; 0x40007698
 400078ef:	c02000        	memw
 400078f2:	d805      	l32i.n	a13, a5, 0
 400078f4:	cd04      	mov.n	a12, a4
@@ -1979,15 +1979,15 @@
 40007907:	0c14      	movi.n	a4, 1
 40007909:	001240        	ssl	a2
 4000790c:	0024a1        	sll	a2, a4
-4000790f:	4163ff        	l32r	a4, 0x4000769c	; ( 0x0000c3ed )
+4000790f:	4163ff        	l32r	a4, [0x0000c3ed]	; 0x4000769c
 40007912:	478223        	bany	a2, a4, 0x40007939
-40007915:	4162ff        	l32r	a4, 0x400076a0	; ( 0x00001c00 )
+40007915:	4162ff        	l32r	a4, [0x00001c00]	; 0x400076a0
 40007918:	404210        	and	a4, a2, a4
 4000791b:	56e416        	bnez	a4, 0x40007a8d
 4000791e:	47e202        	bbsi	a2, 4, 0x40007924
 40007921:	06af00        	j	0x40007be1
 
-40007924:	21d5fb        	l32r	a2, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007924:	21d5fb        	l32r	a2, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007927:	bd03      	mov.n	a11, a3
 40007929:	ad02      	mov.n	a10, a2
 4000792b:	258f00        	call8	0x4000821c	; rtc_boot_control
@@ -1996,7 +1996,7 @@
 40007933:	e00500        	callx8	a5
 40007936:	426200        	s32i	a4, a2, 0
 40007939:	e5c400        	call8	0x40008588	; ets_get_detected_xtal_freq
-4000793c:	81fafb        	l32r	a8, 0x40006924	; ( 0x3ff44038 )
+4000793c:	81fafb        	l32r	a8, [0x3ff44038]	; 0x40006924
 4000793f:	22a018        	movi	a2, 24
 40007942:	c02000        	memw
 40007945:	922800        	l32i	a9, a8, 0
@@ -2021,7 +2021,7 @@
 40007976:	909044        	extui	a9, a9, 0, 5
 40007979:	66a950        	bnei	a9, 12, 0x400079cd
 4000797c:	a5cd00        	call8	0x40008658	; ets_efuse_get_spiconfig
-4000797f:	21e9fb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+4000797f:	21e9fb        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007982:	b2a000        	movi	a11, 0
 40007985:	c02000        	memw
 40007988:	422200        	l32i	a4, a2, 0
@@ -2034,7 +2034,7 @@
 4000799c:	0c12      	movi.n	a2, 1
 4000799e:	40b293        	movnez	a11, a2, a4
 400079a1:	b0b074        	extui	a11, a11, 0, 8
-400079a4:	21e0fb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+400079a4:	21e0fb        	l32r	a2, [0x3ff44038]	; 0x40006924
 400079a7:	52a001        	movi	a5, 1
 400079aa:	c02000        	memw
 400079ad:	422200        	l32i	a4, a2, 0
@@ -2045,7 +2045,7 @@
 400079bb:	405293        	movnez	a5, a2, a4
 400079be:	a0a583        	moveqz	a10, a5, a10
 400079c1:	a50a5b        	call8	0x40062a6c	; spi_flash_attach
-400079c4:	41adfb        	l32r	a4, 0x40006878	; user_code_start ( 0x3ffe0400 )
+400079c4:	41adfb        	l32r	a4, [user_code_start]	; [0x3ffe0400] 0x40006878
 400079c7:	2904      	s32i.n	a2, a4, 0
 400079c9:	063000        	j	0x40007a8d
 
@@ -2062,13 +2062,13 @@
 400079e6:	ad04      	mov.n	a10, a4
 400079e8:	256e01        	call8	0x400090cc	; uart_div_modify
 400079eb:	0c22      	movi.n	a2, 2
-400079ed:	41cdfb        	l32r	a4, 0x40006924	; ( 0x3ff44038 )
+400079ed:	41cdfb        	l32r	a4, [0x3ff44038]	; 0x40006924
 400079f0:	0cd8      	movi.n	a8, 13
 400079f2:	c02000        	memw
 400079f5:	9804      	l32i.n	a9, a4, 0
 400079f7:	909044        	extui	a9, a9, 0, 5
 400079fa:	879907        	bne	a9, a8, 0x40007a05
-400079fd:	a129ff        	l32r	a10, 0x400076a4	; ( 0x3ff9eab4 )
+400079fd:	a129ff        	l32r	a10, [0x3ff9eab4]	; 0x400076a4
 40007a00:	0c12      	movi.n	a2, 1
 40007a02:	253500        	call8	0x40007d54	; ets_printf
 40007a05:	c02000        	memw
@@ -2079,7 +2079,7 @@
 40007a12:	bd05      	mov.n	a11, a5
 40007a14:	0c1a      	movi.n	a10, 1
 40007a16:	a57001        	call8	0x40009120	; Uart_Init
-40007a19:	a123ff        	l32r	a10, 0x400076a8	; ( 0x3ff9eacb )
+40007a19:	a123ff        	l32r	a10, [0x3ff9eacb]	; 0x400076a8
 40007a1c:	653300        	call8	0x40007d54	; ets_printf
 40007a1f:	ad04      	mov.n	a10, a4
 40007a21:	658301        	call8	0x40009258	; uart_tx_flush
@@ -2104,15 +2104,15 @@
 40007a53:	101120        	or	a1, a1, a1
 40007a56:	65dafe        	call8	0x400067fc	; ets_isr_mask
 40007a59:	662211        	bnei	a2, 2, 0x40007a6e
-40007a5c:	b14eef        	l32r	a11, 0x40003794	; ( 0x00002000 )
-40007a5f:	c186fb        	l32r	a12, 0x40006878	; user_code_start ( 0x3ffe0400 )
-40007a62:	a112ff        	l32r	a10, 0x400076ac	; ( 0x3ffc0000 )
+40007a5c:	b14eef        	l32r	a11, [0x00002000]	; 0x40003794
+40007a5f:	c186fb        	l32r	a12, [user_code_start]	; [0x3ffe0400] 0x40006878
+40007a62:	a112ff        	l32r	a10, [0x3ffc0000]	; 0x400076ac
 40007a65:	252801        	call8	0x40008ce8	; UartDwnLdProc
 40007a68:	460800        	j	0x40007a8d
 
 40007a6b:	000000
-40007a6e:	2110ff        	l32r	a2, 0x400076b0	; ( 0x3ff49068 )
-40007a71:	4110ff        	l32r	a4, 0x400076b4	; ( 0xffff8fff )
+40007a6e:	2110ff        	l32r	a2, [0x3ff49068]	; 0x400076b0
+40007a71:	4110ff        	l32r	a4, [0xffff8fff]	; 0x400076b4
 40007a74:	c02000        	memw
 40007a77:	5802      	l32i.n	a5, a2, 0
 40007a79:	404510        	and	a4, a5, a4
@@ -2126,7 +2126,7 @@
 40007a8d:	32c3f5        	addi	a3, a3, -11
 40007a90:	f63349        	bgeui	a3, 3, 0x40007add
 40007a93:	65bc00        	call8	0x40008658	; ets_efuse_get_spiconfig
-40007a96:	21a3fb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+40007a96:	21a3fb        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007a99:	0c0b      	movi.n	a11, 0
 40007a9b:	c02000        	memw
 40007a9e:	3802      	l32i.n	a3, a2, 0
@@ -2139,7 +2139,7 @@
 40007ab0:	0c12      	movi.n	a2, 1
 40007ab2:	30b293        	movnez	a11, a2, a3
 40007ab5:	b0b074        	extui	a11, a11, 0, 8
-40007ab8:	219bfb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+40007ab8:	219bfb        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007abb:	42a001        	movi	a4, 1
 40007abe:	c02000        	memw
 40007ac1:	322200        	l32i	a3, a2, 0
@@ -2150,9 +2150,9 @@
 40007acf:	304293        	movnez	a4, a2, a3
 40007ad2:	a0a483        	moveqz	a10, a4, a10
 40007ad5:	65f95a        	call8	0x40062a6c	; spi_flash_attach
-40007ad8:	3168fb        	l32r	a3, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007ad8:	3168fb        	l32r	a3, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007adb:	2903      	s32i.n	a2, a3, 0
-40007add:	2191fb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+40007add:	2191fb        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007ae0:	c02000        	memw
 40007ae3:	3802      	l32i.n	a3, a2, 0
 40007ae5:	47e33c        	bbsi	a3, 4, 0x40007b25
@@ -2176,10 +2176,10 @@
 40007b16:	270302        	bnone	a3, a2, 0x40007b1c
 40007b19:	063600        	j	0x40007bf5
 
-40007b1c:	2157fb        	l32r	a2, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007b1c:	2157fb        	l32r	a2, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007b1f:	222200        	l32i	a2, a2, 0
 40007b22:	56f20c        	bnez	a2, 0x40007bf5
-40007b25:	217ffb        	l32r	a2, 0x40006924	; ( 0x3ff44038 )
+40007b25:	217ffb        	l32r	a2, [0x3ff44038]	; 0x40006924
 40007b28:	c02000        	memw
 40007b2b:	3802      	l32i.n	a3, a2, 0
 40007b2d:	47e30f        	bbsi	a3, 4, 0x40007b40
@@ -2192,7 +2192,7 @@
 
 40007b40:	0c0a      	movi.n	a10, 0
 40007b42:	25a601        	call8	0x400095a4	; mmu_init
-40007b45:	2159fb        	l32r	a2, 0x400068ac	; ( 0x3f400000 )
+40007b45:	2159fb        	l32r	a2, [0x3f400000]	; 0x400068ac
 40007b48:	0c0a      	movi.n	a10, 0
 40007b4a:	cd02      	mov.n	a12, a2
 40007b4c:	dd0a      	mov.n	a13, a10
@@ -2200,7 +2200,7 @@
 40007b50:	bd0a      	mov.n	a11, a10
 40007b52:	0c1f      	movi.n	a15, 1
 40007b54:	a5a801        	call8	0x400095e0	; cache_flash_mmu_set
-40007b57:	312afd        	l32r	a3, 0x40007000	; ( 0x3ff00044 )
+40007b57:	312afd        	l32r	a3, [0x3ff00044]	; 0x40007000
 40007b5a:	6cf4      	movi.n	a4, -17
 40007b5c:	c02000        	memw
 40007b5f:	5803      	l32i.n	a5, a3, 0
@@ -2213,18 +2213,18 @@
 40007b71:	a2a000        	movi	a10, 0
 40007b74:	650555        	call8	0x4005cbcc	; ets_secure_boot_check_start
 40007b77:	a0d074        	extui	a13, a10, 0, 8
-40007b7a:	b13ffb        	l32r	a11, 0x40006878	; user_code_start ( 0x3ffe0400 )
-40007b7d:	a1abe2        	l32r	a10, 0x4000062c	; ( 0x00001000 )
+40007b7a:	b13ffb        	l32r	a11, [user_code_start]	; [0x3ffe0400] 0x40006878
+40007b7d:	a1abe2        	l32r	a10, [0x00001000]	; 0x4000062c
 40007b80:	0c0c      	movi.n	a12, 0
 40007b82:	0c1e      	movi.n	a14, 1
 40007b84:	2549ff        	call8	0x40007018	; ets_unpack_flash_code
 40007b87:	16aa06        	beqz	a10, 0x40007bf5
-40007b8a:	21cbfe        	l32r	a2, 0x400076b8	; ( 0x3ff5a018 )
+40007b8a:	21cbfe        	l32r	a2, [0x3ff5a018]	; 0x400076b8
 40007b8d:	c02000        	memw
 40007b90:	2802      	l32i.n	a2, a2, 0
 40007b92:	27620e        	bbci	a2, 2, 0x40007ba4
-40007b95:	a1bbfe        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
-40007b98:	b1bcfe        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
+40007b95:	a1bbfe        	l32r	a10, [0x3ff9ea62]	; 0x40007684
+40007b98:	b1bcfe        	l32r	a11, [0x3ff9ea6a]	; 0x40007688
 40007b9b:	c2a173        	movi	a12, 0x173
 40007b9e:	651b00        	call8	0x40007d54	; ets_printf
 40007ba1:	06ffff        	j	0x40007ba1
@@ -2233,36 +2233,36 @@
 40007ba7:	861200        	j	0x40007bf5
 
 40007baa:	000000
-40007bad:	21c2fe        	l32r	a2, 0x400076b8	; ( 0x3ff5a018 )
+40007bad:	21c2fe        	l32r	a2, [0x3ff5a018]	; 0x400076b8
 40007bb0:	c02000        	memw
 40007bb3:	c22200        	l32i	a12, a2, 0
 40007bb6:	22a004        	movi	a2, 4
 40007bb9:	20cc10        	and	a12, a12, a2
 40007bbc:	561c01        	bnez	a12, 0x40007bd1
-40007bbf:	a19be2        	l32r	a10, 0x4000062c	; ( 0x00001000 )
-40007bc2:	b12dfb        	l32r	a11, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007bbf:	a19be2        	l32r	a10, [0x00001000]	; 0x4000062c
+40007bc2:	b12dfb        	l32r	a11, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007bc5:	0c1d      	movi.n	a13, 1
 40007bc7:	65d8fe        	call8	0x4000694c	; ets_unpack_flash_code_legacy
 40007bca:	ac7a      	beqz.n	a10, 0x40007bf5
 40007bcc:	06f5ff        	j	0x40007ba4
 
 40007bcf:	0000
-40007bd1:	a1acfe        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
-40007bd4:	b1adfe        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
+40007bd1:	a1acfe        	l32r	a10, [0x3ff9ea62]	; 0x40007684
+40007bd4:	b1adfe        	l32r	a11, [0x3ff9ea6a]	; 0x40007688
 40007bd7:	c2a17f        	movi	a12, 0x17f
 40007bda:	a51700        	call8	0x40007d54	; ets_printf
 40007bdd:	06ffff        	j	0x40007bdd
 
 40007be0:	00
-40007be1:	a1a8fe        	l32r	a10, 0x40007684	; ( 0x3ff9ea62 )
-40007be4:	b1a9fe        	l32r	a11, 0x40007688	; ( 0x3ff9ea6a )
+40007be1:	a1a8fe        	l32r	a10, [0x3ff9ea62]	; 0x40007684
+40007be4:	b1a9fe        	l32r	a11, [0x3ff9ea6a]	; 0x40007688
 40007be7:	c2a186        	movi	a12, 0x186
 40007bea:	a51600        	call8	0x40007d54	; ets_printf
 40007bed:	06ffff        	j	0x40007bed
 
-40007bf0:	3122fb        	l32r	a3, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007bf0:	3122fb        	l32r	a3, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007bf3:	2903      	s32i.n	a2, a3, 0
-40007bf5:	21b1fe        	l32r	a2, 0x400076bc	; ( 0x40006840 )
+40007bf5:	21b1fe        	l32r	a2, [0x40006840]	; 0x400076bc
 40007bf8:	0c9a      	movi.n	a10, 9
 40007bfa:	bd02      	mov.n	a11, a2
 40007bfc:	e5b4f8        	call8	0x4000074c	; _xtos_set_exception_handler
@@ -2284,13 +2284,13 @@
 40007c22:	bd02      	mov.n	a11, a2
 40007c24:	0c8a      	movi.n	a10, 8
 40007c26:	65b2f8        	call8	0x4000074c	; _xtos_set_exception_handler
-40007c29:	2113fb        	l32r	a2, 0x40006878	; user_code_start ( 0x3ffe0400 )
+40007c29:	2113fb        	l32r	a2, [user_code_start]	; [0x3ffe0400] 0x40006878
 40007c2c:	2802      	l32i.n	a2, a2, 0
 40007c2e:	162200        	beqz	a2, 0x40007c34
 40007c31:	e00200        	callx8	a2
-40007c34:	a1a3fe        	l32r	a10, 0x400076c0	; ( 0x3ff9eae1 )
+40007c34:	a1a3fe        	l32r	a10, [0x3ff9eae1]	; 0x400076c0
 40007c37:	e51100        	call8	0x40007d54	; ets_printf
-40007c3a:	2113fb        	l32r	a2, 0x40006888	; ets_startup_callback ( 0x3ffe0404 )
+40007c3a:	2113fb        	l32r	a2, [ets_startup_callback]	; [0x3ffe0404] 0x40006888
 40007c3d:	2802      	l32i.n	a2, a2, 0
 40007c3f:	165200        	beqz	a2, 0x40007c48
 40007c42:	e00200        	callx8	a2
@@ -2306,13 +2306,13 @@
 
   sub_7c58:
 40007c58:	364100        	entry	a1, 32
-40007c5b:	81fdff        	l32r	a8, 0x40007c50	; ( 0x3ffae014 )
+40007c5b:	81fdff        	l32r	a8, [0x3ffae014]	; 0x40007c50
 40007c5e:	202074        	extui	a2, a2, 0, 8
 40007c61:	8808      	l32i.n	a8, a8, 0
 40007c63:	165800        	beqz	a8, 0x40007c6c
 40007c66:	20a220        	or	a10, a2, a2
 40007c69:	e00800        	callx8	a8
-40007c6c:	81faff        	l32r	a8, 0x40007c54	; ( 0x3ffae010 )
+40007c6c:	81faff        	l32r	a8, [0x3ffae010]	; 0x40007c54
 40007c6f:	8808      	l32i.n	a8, a8, 0
 40007c71:	8c38      	beqz.n	a8, 0x40007c78
 40007c73:	ad02      	mov.n	a10, a2
@@ -2382,8 +2382,8 @@
 
   ets_install_uart_printf:
 40007d28:	364100        	entry	a1, 32
-40007d2b:	91feff        	l32r	a9, 0x40007d24	; ets_write_char_uart ( 0x40007cf8 )
-40007d2e:	81c8ff        	l32r	a8, 0x40007c50	; ( 0x3ffae014 )
+40007d2b:	91feff        	l32r	a9, [ets_write_char_uart]	; [0x40007cf8] 0x40007d24
+40007d2e:	81c8ff        	l32r	a8, [0x3ffae014]	; 0x40007c50
 40007d31:	9908      	s32i.n	a9, a8, 0
 40007d33:	1df0      	retw.n
 
@@ -2396,14 +2396,14 @@
   ets_printf:
 40007d54:	362101        	entry	a1, 144
 40007d57:	39d1      	s32i.n	a3, a1, 52
-40007d59:	31bdff        	l32r	a3, 0x40007c50	; ( 0x3ffae014 )
+40007d59:	31bdff        	l32r	a3, [0x3ffae014]	; 0x40007c50
 40007d5c:	49e1      	s32i.n	a4, a1, 56
 40007d5e:	59f1      	s32i.n	a5, a1, 60
 40007d60:	626110        	s32i	a6, a1, 64
 40007d63:	726111        	s32i	a7, a1, 68
 40007d66:	3803      	l32i.n	a3, a3, 0
 40007d68:	568300        	bnez	a3, 0x40007d74
-40007d6b:	31baff        	l32r	a3, 0x40007c54	; ( 0x3ffae010 )
+40007d6b:	31baff        	l32r	a3, [0x3ffae010]	; 0x40007c54
 40007d6e:	322300        	l32i	a3, a3, 0
 40007d71:	16e33d        	beqz	a3, 0x40008153
 40007d74:	52c170        	addi	a5, a1, 112
@@ -2675,12 +2675,12 @@
 40007fe3:	b22115        	l32i	a11, a1, 84
 40007fe6:	cd01      	mov.n	a12, a1
 40007fe8:	0cad      	movi.n	a13, 10
-40007fea:	e157ff        	l32r	a14, 0x40007d48	; ( 0x3ff9ee46 )
+40007fea:	e157ff        	l32r	a14, [0x3ff9ee46]	; 0x40007d48
 40007fed:	060300        	j	0x40007ffd
 
 40007ff0:	a22114        	l32i	a10, a1, 80
 40007ff3:	b22115        	l32i	a11, a1, 84
-40007ff6:	e155ff        	l32r	a14, 0x40007d4c	; ( 0x3ff9c316 )
+40007ff6:	e155ff        	l32r	a14, [0x3ff9c316]	; 0x40007d4c
 40007ff9:	cd01      	mov.n	a12, a1
 40007ffb:	1c0d      	movi.n	a13, 16
 40007ffd:	e5c7ff        	call8	0x40007c7c	; sub_7c7c
@@ -2691,7 +2691,7 @@
 40008008:	b22115        	l32i	a11, a1, 84
 4000800b:	cd01      	mov.n	a12, a1
 4000800d:	1c0d      	movi.n	a13, 16
-4000800f:	e150ff        	l32r	a14, 0x40007d50	; ( 0x3ff9c305 )
+4000800f:	e150ff        	l32r	a14, [0x3ff9c305]	; 0x40007d50
 40008012:	c6f9ff        	j	0x40007ffd
 
 40008015:	00
@@ -2705,7 +2705,7 @@
 40008028:	8a55      	add.n	a5, a5, a8
 4000802a:	52c5fc        	addi	a5, a5, -4
 4000802d:	5805      	l32i.n	a5, a5, 0
-4000802f:	4145ff        	l32r	a4, 0x40007d44	; ( 0x3ff9ee3f )
+4000802f:	4145ff        	l32r	a4, [0x3ff9ee3f]	; 0x40007d44
 40008032:	505483        	moveqz	a5, a4, a5
 40008035:	526116        	s32i	a5, a1, 88
 40008038:	0c05      	movi.n	a5, 0
@@ -2843,8 +2843,8 @@
 
   calc_rtc_memory_crc:
 40008170:	364100        	entry	a1, 32
-40008173:	81fbff        	l32r	a8, 0x40008160	; ( 0x3ff48100 )
-40008176:	21fbff        	l32r	a2, 0x40008164	; ( 0xfff001ff )
+40008173:	81fbff        	l32r	a8, [0x3ff48100]	; 0x40008160
+40008176:	21fbff        	l32r	a2, [0xfff001ff]	; 0x40008164
 40008179:	c02000        	memw
 4000817c:	9808      	l32i.n	a9, a8, 0
 4000817e:	202910        	and	a2, a9, a2
@@ -2852,9 +2852,9 @@
 40008184:	2908      	s32i.n	a2, a8, 0
 40008186:	c02000        	memw
 40008189:	9808      	l32i.n	a9, a8, 0
-4000818b:	21f7ff        	l32r	a2, 0x40008168	; ( 0x800fffff )
+4000818b:	21f7ff        	l32r	a2, [0x800fffff]	; 0x40008168
 4000818e:	202910        	and	a2, a9, a2
-40008191:	9154e1        	l32r	a9, 0x400006e4	; ( 0x7ff00000 )
+40008191:	9154e1        	l32r	a9, [0x7ff00000]	; 0x400006e4
 40008194:	902220        	or	a2, a2, a9
 40008197:	c02000        	memw
 4000819a:	2908      	s32i.n	a2, a8, 0
@@ -2873,7 +2873,7 @@
 400081bc:	202910        	and	a2, a9, a2
 400081bf:	c02000        	memw
 400081c2:	2908      	s32i.n	a2, a8, 0
-400081c4:	21eaff        	l32r	a2, 0x4000816c	; ( 0x3ff48104 )
+400081c4:	21eaff        	l32r	a2, [0x3ff48104]	; 0x4000816c
 400081c7:	c02000        	memw
 400081ca:	2802      	l32i.n	a2, a2, 0
 400081cc:	1df0      	retw.n
@@ -2883,7 +2883,7 @@
 
   rtc_get_reset_reason:
 400081d4:	364100        	entry	a1, 32
-400081d7:	81feff        	l32r	a8, 0x400081d0	; ( 0x3ff48034 )
+400081d7:	81feff        	l32r	a8, [0x3ff48034]	; 0x400081d0
 400081da:	cca2      	bnez.n	a2, 0x400081e8
 400081dc:	c02000        	memw
 400081df:	2808      	l32i.n	a2, a8, 0
@@ -2903,14 +2903,14 @@
 
   rtc_boot_control:
 4000821c:	364100        	entry	a1, 32
-4000821f:	91feff        	l32r	a9, 0x40008218	; ( 0x3ff480b8 )
+4000821f:	91feff        	l32r	a9, [0x3ff480b8]	; 0x40008218
 40008222:	c02000        	memw
 40008225:	8809      	l32i.n	a8, a9, 0
 40008227:	3d09      	mov.n	a3, a9
 40008229:	8902      	s32i.n	a8, a2, 0
 4000822b:	166801        	beqz	a8, 0x40008245
 4000822e:	25f4ff        	call8	0x40008170	; calc_rtc_memory_crc
-40008231:	81f4ff        	l32r	a8, 0x40008204	; ( 0x3ff480bc )
+40008231:	81f4ff        	l32r	a8, [0x3ff480bc]	; 0x40008204
 40008234:	c02000        	memw
 40008237:	9808      	l32i.n	a9, a8, 0
 40008239:	0c08      	movi.n	a8, 0
@@ -2925,8 +2925,8 @@
 
   software_reset:
 4000824c:	364100        	entry	a1, 32
-4000824f:	81feff        	l32r	a8, 0x40008248	; IO:RTCCNTL ( 0x3ff48000 )
-40008252:	91d2e0        	l32r	a9, 0x4000059c	; ( 0x80000000 )
+4000824f:	81feff        	l32r	a8, [IO:RTCCNTL]	; [0x3ff48000] 0x40008248
+40008252:	91d2e0        	l32r	a9, [0x80000000]	; 0x4000059c
 40008255:	c02000        	memw
 40008258:	a808      	l32i.n	a10, a8, 0
 4000825a:	909a20        	or	a9, a10, a9
@@ -2940,7 +2940,7 @@
   ets_delay_us:
 40008534:	364100        	entry	a1, 32
 40008537:	a5b103        	call8	0x4000c050	; xthal_get_ccount
-4000853a:	81fdff        	l32r	a8, 0x40008530	; g_ticks_per_us_pro ( 0x3ffe01e0 )
+4000853a:	81fdff        	l32r	a8, [g_ticks_per_us_pro]	; [0x3ffe01e0] 0x40008530
 4000853d:	3d0a      	mov.n	a3, a10
 4000853f:	8808      	l32i.n	a8, a8, 0
 40008541:	802282        	mull	a2, a2, a8
@@ -2958,7 +2958,7 @@
 
   ets_get_detected_xtal_freq:
 40008588:	364100        	entry	a1, 32
-4000858b:	21f7ff        	l32r	a2, 0x40008568	; ( 0x3ff5f06c )
+4000858b:	21f7ff        	l32r	a2, [0x3ff5f06c]	; 0x40008568
 4000858e:	c02000        	memw
 40008591:	222200        	l32i	a2, a2, 0
 40008594:	a51700        	call8	0x40008710	; ets_efuse_get_8M_clock
@@ -2968,11 +2968,11 @@
 400085a0:	a09811        	slli	a9, a8, 6
 400085a3:	8089c0        	sub	a8, a9, a8
 400085a6:	2028b0        	addx8	a2, a8, a2
-400085a9:	91ccf5        	l32r	a9, 0x40005cdc	; ( 0xcccccccd )
+400085a9:	91ccf5        	l32r	a9, [0xcccccccd]	; 0x40005cdc
 400085ac:	a0a282        	mull	a10, a2, a10
-400085af:	81f3ff        	l32r	a8, 0x4000857c	; ( 0x018cba80 )
+400085af:	81f3ff        	l32r	a8, [0x018cba80]	; 0x4000857c
 400085b2:	902aa2        	muluh	a2, a10, a9
-400085b5:	91f2ff        	l32r	a9, 0x40008580	; ( 0x3ff480b4 )
+400085b5:	91f2ff        	l32r	a9, [0x3ff480b4]	; 0x40008580
 400085b8:	202541        	srli	a2, a2, 5
 400085bb:	202883        	moveqz	a2, a8, a2
 400085be:	c02000        	memw
@@ -2983,7 +2983,7 @@
 400085cd:	9090f4        	extui	a9, a9, 0, 16
 400085d0:	97980c        	bne	a8, a9, 0x400085e0
 400085d3:	8c98      	beqz.n	a8, 0x400085e0
-400085d5:	91ebff        	l32r	a9, 0x40008584	; ( 0x0000ffff )
+400085d5:	91ebff        	l32r	a9, [0x0000ffff]	; 0x40008584
 400085d8:	971804        	beq	a8, a9, 0x400085e0
 400085db:	402811        	slli	a2, a8, 12
 400085de:	1df0      	retw.n
@@ -2991,7 +2991,7 @@
 400085e0:	208c41        	srli	a8, a2, 12
 400085e3:	009811        	slli	a9, a8, 16
 400085e6:	808920        	or	a8, a9, a8
-400085e9:	91e5ff        	l32r	a9, 0x40008580	; ( 0x3ff480b4 )
+400085e9:	91e5ff        	l32r	a9, [0x3ff480b4]	; 0x40008580
 400085ec:	c02000        	memw
 400085ef:	8909      	s32i.n	a8, a9, 0
 400085f1:	1df0      	retw.n
@@ -3003,11 +3003,11 @@
 
   ets_efuse_get_spiconfig:
 40008658:	364100        	entry	a1, 32
-4000865b:	21fcff        	l32r	a2, 0x4000864c	; ( 0x3ff5a014 )
+4000865b:	21fcff        	l32r	a2, [0x3ff5a014]	; 0x4000864c
 4000865e:	0c19      	movi.n	a9, 1
 40008660:	c02000        	memw
 40008663:	8802      	l32i.n	a8, a2, 0
-40008665:	21faff        	l32r	a2, 0x40008650	; ( 0x000fffff )
+40008665:	21faff        	l32r	a2, [0x000fffff]	; 0x40008650
 40008668:	20a810        	and	a10, a8, a2
 4000866b:	20bac0        	sub	a11, a10, a2
 4000866e:	0c02      	movi.n	a2, 0
@@ -3016,7 +3016,7 @@
 40008676:	56c208        	bnez	a2, 0x40008706
 40008679:	a02983        	moveqz	a2, a9, a10
 4000867c:	566208        	bnez	a2, 0x40008706
-4000867f:	21f5ff        	l32r	a2, 0x40008654	; ( 0x3ff5a00c )
+4000867f:	21f5ff        	l32r	a2, [0x3ff5a00c]	; 0x40008654
 40008682:	808044        	extui	a8, a8, 0, 5
 40008685:	c02000        	memw
 40008688:	c802      	l32i.n	a12, a2, 0
@@ -3075,7 +3075,7 @@
 
   ets_efuse_get_8M_clock:
 40008710:	364100        	entry	a1, 32
-40008713:	21feff        	l32r	a2, 0x4000870c	; ( 0x3ff5a010 )
+40008713:	21feff        	l32r	a2, [0x3ff5a010]	; 0x4000870c
 40008716:	c02000        	memw
 40008719:	2802      	l32i.n	a2, a2, 0
 4000871b:	202074        	extui	a2, a2, 0, 8
@@ -3093,7 +3093,7 @@
 4000873b:	203074        	extui	a3, a2, 0, 8
 4000873e:	30a320        	or	a10, a3, a3
 40008741:	e5c700        	call8	0x400093c0	; uart_buff_switch
-40008744:	21f7ff        	l32r	a2, 0x40008720	; UartDev ( 0x3ffe019c )
+40008744:	21f7ff        	l32r	a2, [UartDev]	; [0x3ffe019c] 0x40008720
 40008747:	42220c        	l32i	a4, a2, 48
 4000874a:	f6241c        	bgeui	a4, 2, 0x4000876a
 4000874d:	0c1b      	movi.n	a11, 1
@@ -3109,16 +3109,16 @@
 40008763:	0c24      	movi.n	a4, 2
 40008765:	659600        	call8	0x400090cc	; uart_div_modify
 40008768:	49c2      	s32i.n	a4, a2, 48
-4000876a:	21d0fb        	l32r	a2, 0x400076ac	; ( 0x3ffc0000 )
-4000876d:	b109ec        	l32r	a11, 0x40003794	; ( 0x00002000 )
+4000876a:	21d0fb        	l32r	a2, [0x3ffc0000]	; 0x400076ac
+4000876d:	b109ec        	l32r	a11, [0x00002000]	; 0x40003794
 40008770:	ad02      	mov.n	a10, a2
 40008772:	c2a001        	movi	a12, 1
 40008775:	65dd00        	call8	0x4000954c	; RcvMsg
 40008778:	56ca07        	bnez	a10, 0x400087f8
 4000877b:	821200        	l16ui	a8, a2, 0
-4000877e:	41e9ff        	l32r	a4, 0x40008724	; ( 0x00000800 )
+4000877e:	41e9ff        	l32r	a4, [0x00000800]	; 0x40008724
 40008781:	479873        	bne	a8, a4, 0x400087f8
-40008784:	81e9ff        	l32r	a8, 0x40008728	; gTxMsg ( 0x3ffe0050 )
+40008784:	81e9ff        	l32r	a8, [gTxMsg]	; [0x3ffe0050] 0x40008728
 40008787:	0c14      	movi.n	a4, 1
 40008789:	424800        	s8i	a4, a8, 0
 4000878c:	0c44      	movi.n	a4, 4
@@ -3138,12 +3138,12 @@
 400087b3:	a24809        	s8i	a10, a8, 9
 400087b6:	4d08      	mov.n	a4, a8
 400087b8:	9c83      	beqz.n	a3, 0x400087d4
-400087ba:	21dcff        	l32r	a2, 0x4000872c	; ( 0x3ff49058 )
-400087bd:	81bdfb        	l32r	a8, 0x400076b4	; ( 0xffff8fff )
+400087ba:	21dcff        	l32r	a2, [0x3ff49058]	; 0x4000872c
+400087bd:	81bdfb        	l32r	a8, [0xffff8fff]	; 0x400076b4
 400087c0:	c02000        	memw
 400087c3:	922200        	l32i	a9, a2, 0
 400087c6:	808910        	and	a8, a9, a8
-400087c9:	91d9ff        	l32r	a9, 0x40008730	; ( 0x00004000 )
+400087c9:	91d9ff        	l32r	a9, [0x00004000]	; 0x40008730
 400087cc:	908820        	or	a8, a8, a9
 400087cf:	c02000        	memw
 400087d2:	8902      	s32i.n	a8, a2, 0
@@ -3153,8 +3153,8 @@
 400087dc:	65ba00        	call8	0x40009384	; SendMsg
 400087df:	661a19        	bnei	a10, 1, 0x400087fc
 400087e2:	162301        	beqz	a3, 0x400087f8
-400087e5:	21d1ff        	l32r	a2, 0x4000872c	; ( 0x3ff49058 )
-400087e8:	31b3fb        	l32r	a3, 0x400076b4	; ( 0xffff8fff )
+400087e5:	21d1ff        	l32r	a2, [0x3ff49058]	; 0x4000872c
+400087e8:	31b3fb        	l32r	a3, [0xffff8fff]	; 0x400076b4
 400087eb:	c02000        	memw
 400087ee:	4802      	l32i.n	a4, a2, 0
 400087f0:	303410        	and	a3, a4, a3
@@ -3171,7 +3171,7 @@
 40008807:	3c4a      	movi.n	a10, 52
 40008809:	1c1b      	movi.n	a11, 17
 4000880b:	256d01        	call8	0x40009edc	; gpio_matrix_in
-4000880e:	31c9ff        	l32r	a3, 0x40008734	; ( 0x3ff00190 )
+4000880e:	31c9ff        	l32r	a3, [0x3ff00190]	; 0x40008734
 40008811:	1c04      	movi.n	a4, 16
 40008813:	c02000        	memw
 40008816:	4903      	s32i.n	a4, a3, 0
@@ -3184,13 +3184,13 @@
 
   UartDwnLdProc:
 40008ce8:	36c100        	entry	a1, 96
-40008ceb:	518ffe        	l32r	a5, 0x40008728	; gTxMsg ( 0x3ffe0050 )
+40008ceb:	518ffe        	l32r	a5, [gTxMsg]	; [0x3ffe0050] 0x40008728
 40008cee:	72a001        	movi	a7, 1
 40008cf1:	724500        	s8i	a7, a5, 0
 40008cf4:	72a004        	movi	a7, 4
 40008cf7:	62a000        	movi	a6, 0
 40008cfa:	724502        	s8i	a7, a5, 2
-40008cfd:	71f7ff        	l32r	a7, 0x40008cdc	; ( 0x3ffc4000 )
+40008cfd:	71f7ff        	l32r	a7, [0x3ffc4000]	; 0x40008cdc
 40008d00:	6981      	s32i.n	a6, a1, 32
 40008d02:	6971      	s32i.n	a6, a1, 28
 40008d04:	624503        	s8i	a6, a5, 3
@@ -3223,7 +3223,7 @@
 40008d3f:	77b802        	bgeu	a8, a7, 0x40008d45
 40008d42:	065300        	j	0x40008e92
 
-40008d45:	81e6ff        	l32r	a8, 0x40008ce0	; ( 0x3ff9bec4 )
+40008d45:	81e6ff        	l32r	a8, [0x3ff9bec4]	; 0x40008ce0
 40008d48:	8077a0        	addx4	a7, a7, a8
 40008d4b:	7807      	l32i.n	a7, a7, 0
 40008d4d:	a00700        	jx	a7
@@ -3312,9 +3312,9 @@
 
   uartAttach:
 40008fd0:	364100        	entry	a1, 32
-40008fd3:	81d3fd        	l32r	a8, 0x40008720	; UartDev ( 0x3ffe019c )
-40008fd6:	91f8ff        	l32r	a9, 0x40008fb8	; ( 0x0001c200 )
-40008fd9:	b1f8ff        	l32r	a11, 0x40008fbc	; RecvBuff ( 0x3ffe009c )
+40008fd3:	81d3fd        	l32r	a8, [UartDev]	; [0x3ffe019c] 0x40008720
+40008fd6:	91f8ff        	l32r	a9, [0x0001c200]	; 0x40008fb8
+40008fd9:	b1f8ff        	l32r	a11, [RecvBuff]	; [0x3ffe009c] 0x40008fbc
 40008fdc:	926800        	s32i	a9, a8, 0
 40008fdf:	92a003        	movi	a9, 3
 40008fe2:	0c1a      	movi.n	a10, 1
@@ -3333,16 +3333,16 @@
 40008ffd:	99d8      	s32i.n	a9, a8, 52
 40008fff:	924818        	s8i	a9, a8, 24
 40009002:	924819        	s8i	a9, a8, 25
-40009005:	81eeff        	l32r	a8, 0x40008fc0	; ( 0x3ff40010 )
+40009005:	81eeff        	l32r	a8, [0x3ff40010]	; 0x40008fc0
 40009008:	c02000        	memw
 4000900b:	a908      	s32i.n	a10, a8, 0
-4000900d:	81edff        	l32r	a8, 0x40008fc4	; ( 0x3ff50010 )
+4000900d:	81edff        	l32r	a8, [0x3ff50010]	; 0x40008fc4
 40009010:	c02000        	memw
 40009013:	a26800        	s32i	a10, a8, 0
 40009016:	2c0a      	movi.n	a10, 32
 40009018:	257efd        	call8	0x400067fc	; ets_isr_mask
-4000901b:	b1ebff        	l32r	a11, 0x40008fc8	; uart_rx_intr_handler ( 0x40008f4c )
-4000901e:	c1ebff        	l32r	a12, 0x40008fcc	; ( 0x3ffe01b8 )
+4000901b:	b1ebff        	l32r	a11, [uart_rx_intr_handler]	; [0x40008f4c] 0x40008fc8
+4000901e:	c1ebff        	l32r	a12, [0x3ffe01b8]	; 0x40008fcc
 40009021:	0c5a      	movi.n	a10, 5
 40009023:	a57cfd        	call8	0x400067ec	; ets_isr_attach
 40009026:	1df0      	retw.n
@@ -3351,14 +3351,14 @@
 
   uart_baudrate_detect:
 40009034:	364100        	entry	a1, 32
-40009037:	81bafd        	l32r	a8, 0x40008720	; UartDev ( 0x3ffe019c )
+40009037:	81bafd        	l32r	a8, [UartDev]	; [0x3ffe019c] 0x40008720
 4000903a:	202074        	extui	a2, a2, 0, 8
 4000903d:	48c8      	l32i.n	a4, a8, 48
 4000903f:	303074        	extui	a3, a3, 0, 8
 40009042:	cc34      	bnez.n	a4, 0x40009049
 40009044:	0c14      	movi.n	a4, 1
 40009046:	42680c        	s32i	a4, a8, 48
-40009049:	41beff        	l32r	a4, 0x40008f44	; ( 0x00003ff4 )
+40009049:	41beff        	l32r	a4, [0x00003ff4]	; 0x40008f44
 4000904c:	4a22      	add.n	a2, a2, a4
 4000904e:	002211        	slli	a2, a2, 16
 40009051:	c02000        	memw
@@ -3393,7 +3393,7 @@
 4000909d:	808910        	and	a8, a9, a8
 400090a0:	c02000        	memw
 400090a3:	8962      	s32i.n	a8, a2, 24
-400090a5:	816afd        	l32r	a8, 0x40008650	; ( 0x000fffff )
+400090a5:	816afd        	l32r	a8, [0x000fffff]	; 0x40008650
 400090a8:	802410        	and	a2, a4, a8
 400090ab:	808310        	and	a8, a3, a8
 400090ae:	8a22      	add.n	a2, a2, a8
@@ -3413,8 +3413,8 @@
 
   uart_div_modify:
 400090cc:	364100        	entry	a1, 32
-400090cf:	819dff        	l32r	a8, 0x40008f44	; ( 0x00003ff4 )
-400090d2:	a15ffd        	l32r	a10, 0x40008650	; ( 0x000fffff )
+400090cf:	819dff        	l32r	a8, [0x00003ff4]	; 0x40008f44
+400090d2:	a15ffd        	l32r	a10, [0x000fffff]	; 0x40008650
 400090d5:	309034        	extui	a9, a3, 0, 4
 400090d8:	202074        	extui	a2, a2, 0, 8
 400090db:	303441        	srli	a3, a3, 4
@@ -3427,13 +3427,13 @@
 400090ef:	3958      	s32i.n	a3, a8, 20
 400090f1:	c02000        	memw
 400090f4:	9888      	l32i.n	a9, a8, 32
-400090f6:	31f3ff        	l32r	a3, 0x400090c4	; ( 0x00060000 )
+400090f6:	31f3ff        	l32r	a3, [0x00060000]	; 0x400090c4
 400090f9:	303920        	or	a3, a9, a3
 400090fc:	c02000        	memw
 400090ff:	3988      	s32i.n	a3, a8, 32
 40009101:	c02000        	memw
 40009104:	9888      	l32i.n	a9, a8, 32
-40009106:	31f0ff        	l32r	a3, 0x400090c8	; ( 0xfff9ffff )
+40009106:	31f0ff        	l32r	a3, [0xfff9ffff]	; 0x400090c8
 40009109:	303910        	and	a3, a9, a3
 4000910c:	c02000        	memw
 4000910f:	3988      	s32i.n	a3, a8, 32
@@ -3463,7 +3463,7 @@
 40009144:	e53301        	call8	0x4000a484	; gpio_pad_unhold
 40009147:	a2a001        	movi	a10, 1
 4000914a:	a53301        	call8	0x4000a484	; gpio_pad_unhold
-4000914d:	41f1ff        	l32r	a4, 0x40009114	; ( 0x3ff49088 )
+4000914d:	41f1ff        	l32r	a4, [0x3ff49088]	; 0x40009114
 40009150:	82aeff        	movi	a8, 0xfffffeff
 40009153:	c02000        	memw
 40009156:	9804      	l32i.n	a9, a4, 0
@@ -3472,11 +3472,11 @@
 4000915e:	8904      	s32i.n	a8, a4, 0
 40009160:	c02000        	memw
 40009163:	9804      	l32i.n	a9, a4, 0
-40009165:	8153f9        	l32r	a8, 0x400076b4	; ( 0xffff8fff )
+40009165:	8153f9        	l32r	a8, [0xffff8fff]	; 0x400076b4
 40009168:	808910        	and	a8, a9, a8
 4000916b:	c02000        	memw
 4000916e:	8904      	s32i.n	a8, a4, 0
-40009170:	416cfd        	l32r	a4, 0x40008720	; UartDev ( 0x3ffe019c )
+40009170:	416cfd        	l32r	a4, [UartDev]	; [0x3ffe019c] 0x40008720
 40009173:	c03311        	slli	a3, a3, 4
 40009176:	b804      	l32i.n	a11, a4, 0
 40009178:	ad02      	mov.n	a10, a2
@@ -3484,9 +3484,9 @@
 4000917d:	e5f4ff        	call8	0x400090cc	; uart_div_modify
 40009180:	9824      	l32i.n	a9, a4, 8
 40009182:	3834      	l32i.n	a3, a4, 12
-40009184:	8170ff        	l32r	a8, 0x40008f44	; ( 0x00003ff4 )
+40009184:	8170ff        	l32r	a8, [0x00003ff4]	; 0x40008f44
 40009187:	303920        	or	a3, a9, a3
-4000918a:	91c8eb        	l32r	a9, 0x400040ac	; ( 0x08000000 )
+4000918a:	91c8eb        	l32r	a9, [0x08000000]	; 0x400040ac
 4000918d:	8a82      	add.n	a8, a2, a8
 4000918f:	903320        	or	a3, a3, a9
 40009192:	9844      	l32i.n	a9, a4, 16
@@ -3500,13 +3500,13 @@
 400091a8:	3988      	s32i.n	a3, a8, 32
 400091aa:	c02000        	memw
 400091ad:	9888      	l32i.n	a9, a8, 32
-400091af:	31daff        	l32r	a3, 0x40009118	; ( 0x04060000 )
+400091af:	31daff        	l32r	a3, [0x04060000]	; 0x40009118
 400091b2:	303920        	or	a3, a9, a3
 400091b5:	c02000        	memw
 400091b8:	3988      	s32i.n	a3, a8, 32
 400091ba:	c02000        	memw
 400091bd:	9888      	l32i.n	a9, a8, 32
-400091bf:	31c2ff        	l32r	a3, 0x400090c8	; ( 0xfff9ffff )
+400091bf:	31c2ff        	l32r	a3, [0xfff9ffff]	; 0x400090c8
 400091c2:	303910        	and	a3, a9, a3
 400091c5:	c02000        	memw
 400091c8:	3988      	s32i.n	a3, a8, 32
@@ -3514,7 +3514,7 @@
 400091cd:	303064        	extui	a3, a3, 0, 7
 400091d0:	c02000        	memw
 400091d3:	3998      	s32i.n	a3, a8, 36
-400091d5:	31ebfc        	l32r	a3, 0x40008584	; ( 0x0000ffff )
+400091d5:	31ebfc        	l32r	a3, [0x0000ffff]	; 0x40008584
 400091d8:	c02000        	memw
 400091db:	3948      	s32i.n	a3, a8, 16
 400091dd:	c02000        	memw
@@ -3525,10 +3525,10 @@
 400091ea:	3938      	s32i.n	a3, a8, 12
 400091ec:	0c54      	movi.n	a4, 5
 400091ee:	8c42      	beqz.n	a2, 0x400091f6
-400091f0:	2151fd        	l32r	a2, 0x40008734	; ( 0x3ff00190 )
+400091f0:	2151fd        	l32r	a2, [0x3ff00190]	; 0x40008734
 400091f3:	860000        	j	0x400091f9
 
-400091f6:	21c9ff        	l32r	a2, 0x4000911c	; ( 0x3ff0018c )
+400091f6:	21c9ff        	l32r	a2, [0x3ff0018c]	; 0x4000911c
 400091f9:	c02000        	memw
 400091fc:	4902      	s32i.n	a4, a2, 0
 400091fe:	1df0      	retw.n
@@ -3538,10 +3538,10 @@
   uart_tx_one_char2:
 4000922c:	364100        	entry	a1, 32
 4000922f:	209074        	extui	a9, a2, 0, 8
-40009232:	213bfd        	l32r	a2, 0x40008720	; UartDev ( 0x3ffe019c )
-40009235:	a1b7e8        	l32r	a10, 0x40003514	; ( 0x00800000 )
+40009232:	213bfd        	l32r	a2, [UartDev]	; [0x3ffe019c] 0x40008720
+40009235:	a1b7e8        	l32r	a10, [0x00800000]	; 0x40003514
 40009238:	820218        	l8ui	a8, a2, 24
-4000923b:	2142ff        	l32r	a2, 0x40008f44	; ( 0x00003ff4 )
+4000923b:	2142ff        	l32r	a2, [0x00003ff4]	; 0x40008f44
 4000923e:	2a88      	add.n	a8, a8, a2
 40009240:	008811        	slli	a8, a8, 16
 40009243:	b2c81c        	addi	a11, a8, 28
@@ -3556,11 +3556,11 @@
 
   uart_tx_flush:
 40009258:	364100        	entry	a1, 32
-4000925b:	813aff        	l32r	a8, 0x40008f44	; ( 0x00003ff4 )
+4000925b:	813aff        	l32r	a8, [0x00003ff4]	; 0x40008f44
 4000925e:	202074        	extui	a2, a2, 0, 8
 40009261:	8aa2      	add.n	a10, a2, a8
 40009263:	00aa11        	slli	a10, a10, 16
-40009266:	81f4dc        	l32r	a8, 0x40000638	; ( 0x00ff0000 )
+40009266:	81f4dc        	l32r	a8, [0x00ff0000]	; 0x40000638
 40009269:	a2ca1c        	addi	a10, a10, 28
 4000926c:	c02000        	memw
 4000926f:	980a      	l32i.n	a9, a10, 0
@@ -3571,13 +3571,13 @@
 
   uart_tx_wait_idle:
 40009278:	364100        	entry	a1, 32
-4000927b:	3132ff        	l32r	a3, 0x40008f44	; ( 0x00003ff4 )
+4000927b:	3132ff        	l32r	a3, [0x00003ff4]	; 0x40008f44
 4000927e:	20a074        	extui	a10, a2, 0, 8
 40009281:	3a3a      	add.n	a3, a10, a3
 40009283:	003311        	slli	a3, a3, 16
 40009286:	c02000        	memw
 40009289:	8843      	l32i.n	a8, a3, 16
-4000928b:	4129fd        	l32r	a4, 0x40008730	; ( 0x00004000 )
+4000928b:	4129fd        	l32r	a4, [0x00004000]	; 0x40008730
 4000928e:	408820        	or	a8, a8, a4
 40009291:	c02000        	memw
 40009294:	8943      	s32i.n	a8, a3, 16
@@ -3658,9 +3658,9 @@
 400093c5:	202074        	extui	a2, a2, 0, 8
 400093c8:	0c08      	movi.n	a8, 0
 400093ca:	208983        	moveqz	a8, a9, a2
-400093cd:	91ddfe        	l32r	a9, 0x40008f44	; ( 0x00003ff4 )
+400093cd:	91ddfe        	l32r	a9, [0x00003ff4]	; 0x40008f44
 400093d0:	9a88      	add.n	a8, a8, a9
-400093d2:	916cfc        	l32r	a9, 0x40008584	; ( 0x0000ffff )
+400093d2:	916cfc        	l32r	a9, [0x0000ffff]	; 0x40008584
 400093d5:	008811        	slli	a8, a8, 16
 400093d8:	c02000        	memw
 400093db:	9948      	s32i.n	a9, a8, 16
@@ -3670,15 +3670,15 @@
 400093e4:	909a10        	and	a9, a10, a9
 400093e7:	c02000        	memw
 400093ea:	9938      	s32i.n	a9, a8, 12
-400093ec:	a1f8fe        	l32r	a10, 0x40008fcc	; ( 0x3ffe01b8 )
+400093ec:	a1f8fe        	l32r	a10, [0x3ffe01b8]	; 0x40008fcc
 400093ef:	bd01      	mov.n	a11, a1
 400093f1:	25faff        	call8	0x40009394	; uart_rx_readbuff
 400093f4:	164aff        	beqz	a10, 0x400093ec
-400093f7:	91cafc        	l32r	a9, 0x40008720	; UartDev ( 0x3ffe019c )
+400093f7:	91cafc        	l32r	a9, [UartDev]	; [0x3ffe019c] 0x40008720
 400093fa:	0c08      	movi.n	a8, 0
 400093fc:	89b9      	s32i.n	a8, a9, 44
-400093fe:	81d1fe        	l32r	a8, 0x40008f44	; ( 0x00003ff4 )
-40009401:	a160fc        	l32r	a10, 0x40008584	; ( 0x0000ffff )
+400093fe:	81d1fe        	l32r	a8, [0x00003ff4]	; 0x40008f44
+40009401:	a160fc        	l32r	a10, [0x0000ffff]	; 0x40008584
 40009404:	8a82      	add.n	a8, a2, a8
 40009406:	008811        	slli	a8, a8, 16
 40009409:	c02000        	memw
@@ -3699,10 +3699,10 @@
 40009427:	0c05      	movi.n	a5, 0
 40009429:	524100        	s8i	a5, a1, 0
 4000942c:	404074        	extui	a4, a4, 0, 8
-4000942f:	51e7fe        	l32r	a5, 0x40008fcc	; ( 0x3ffe01b8 )
+4000942f:	51e7fe        	l32r	a5, [0x3ffe01b8]	; 0x40008fcc
 40009432:	72a0c0        	movi	a7, 192
 40009435:	8cc4      	beqz.n	a4, 0x40009445
-40009437:	71bafc        	l32r	a7, 0x40008720	; UartDev ( 0x3ffe019c )
+40009437:	71bafc        	l32r	a7, [UartDev]	; [0x3ffe019c] 0x40008720
 4000943a:	98c7      	l32i.n	a9, a7, 48
 4000943c:	68d7      	l32i.n	a6, a7, 52
 4000943e:	662947        	bnei	a9, 2, 0x40009489
@@ -3744,7 +3744,7 @@
 40009491:	25f0ff        	call8	0x40009394	; uart_rx_readbuff
 40009494:	56ca0a        	bnez	a10, 0x40009544
 40009497:	9c14      	beqz.n	a4, 0x400094ac
-40009499:	91a1fc        	l32r	a9, 0x40008720	; UartDev ( 0x3ffe019c )
+40009499:	91a1fc        	l32r	a9, [UartDev]	; [0x3ffe019c] 0x40008720
 4000949c:	98c9      	l32i.n	a9, a9, 48
 4000949e:	66490a        	bnei	a9, 4, 0x400094ac
 400094a1:	820100        	l8ui	a8, a1, 0
@@ -3760,7 +3760,7 @@
 400094bb:	16d6fc        	beqz	a6, 0x4000948c
 400094be:	2d06      	mov.n	a2, a6
 400094c0:	166408        	beqz	a4, 0x4000954a
-400094c3:	3197fc        	l32r	a3, 0x40008720	; UartDev ( 0x3ffe019c )
+400094c3:	3197fc        	l32r	a3, [UartDev]	; [0x3ffe019c] 0x40008720
 400094c6:	0c04      	movi.n	a4, 0
 400094c8:	49d3      	s32i.n	a4, a3, 52
 400094ca:	0c24      	movi.n	a4, 2
@@ -3775,7 +3775,7 @@
 400094dc:	c60700        	j	0x400094ff
 
 400094df:	0000
-400094e1:	918ffc        	l32r	a9, 0x40008720	; UartDev ( 0x3ffe019c )
+400094e1:	918ffc        	l32r	a9, [UartDev]	; [0x3ffe019c] 0x40008720
 400094e4:	a8c9      	l32i.n	a10, a9, 48
 400094e6:	663a10        	bnei	a10, 3, 0x400094fa
 400094e9:	0c4a      	movi.n	a10, 4
@@ -3802,7 +3802,7 @@
 40009519:	92afdb        	movi	a9, -37
 4000951c:	924100        	s8i	a9, a1, 0
 4000951f:	8c54      	beqz.n	a4, 0x40009528
-40009521:	917ffc        	l32r	a9, 0x40008720	; UartDev ( 0x3ffe019c )
+40009521:	917ffc        	l32r	a9, [UartDev]	; [0x3ffe019c] 0x40008720
 40009524:	0c3a      	movi.n	a10, 3
 40009526:	a9c9      	s32i.n	a10, a9, 48
 40009528:	372602        	blt	a6, a3, 0x4000952e
@@ -3811,7 +3811,7 @@
 4000952e:	a20100        	l8ui	a10, a1, 0
 40009531:	6a92      	add.n	a9, a2, a6
 40009533:	a24900        	s8i	a10, a9, 0
-40009536:	917afc        	l32r	a9, 0x40008720	; UartDev ( 0x3ffe019c )
+40009536:	917afc        	l32r	a9, [UartDev]	; [0x3ffe019c] 0x40008720
 40009539:	1b66      	addi.n	a6, a6, 1
 4000953b:	a8d9      	l32i.n	a10, a9, 52
 4000953d:	1baa      	addi.n	a10, a10, 1
@@ -3839,18 +3839,18 @@
 
   GetUartDevice:
 40009598:	364100        	entry	a1, 32
-4000959b:	2161fc        	l32r	a2, 0x40008720	; UartDev ( 0x3ffe019c )
+4000959b:	2161fc        	l32r	a2, [UartDev]	; [0x3ffe019c] 0x40008720
 4000959e:	1df0      	retw.n
 
 400095a0:	3ff12000	; l32r
 
   mmu_init:
 400095a4:	364100        	entry	a1, 32
-400095a7:	91feff        	l32r	a9, 0x400095a0	; ( 0x3ff12000 )
-400095aa:	8197f6        	l32r	a8, 0x40007008	; ( 0x3ff10000 )
+400095a7:	91feff        	l32r	a9, [0x3ff12000]	; 0x400095a0
+400095aa:	8197f6        	l32r	a8, [0x3ff10000]	; 0x40007008
 400095ad:	80a223        	sext	a10, a2, 15
 400095b0:	a08993        	movnez	a8, a9, a10
-400095b3:	c178e8        	l32r	a12, 0x40003794	; ( 0x00002000 )
+400095b3:	c178e8        	l32r	a12, [0x00002000]	; 0x40003794
 400095b6:	80a820        	or	a10, a8, a8
 400095b9:	b2a000        	movi	a11, 0
 400095bc:	e5e802        	call8	0x4000c44c	; memset
@@ -3868,7 +3868,7 @@
   cache_flash_mmu_set:
 400095e0:	364100        	entry	a1, 32
 400095e3:	4c08      	movi.n	a8, 64
-400095e5:	91e7fb        	l32r	a9, 0x40008584	; ( 0x0000ffff )
+400095e5:	91e7fb        	l32r	a9, [0x0000ffff]	; 0x40008584
 400095e8:	6088d2        	quos	a8, a8, a6
 400095eb:	0b88      	addi.n	a8, a8, -1
 400095ed:	000840        	ssr	a8
@@ -3890,18 +3890,18 @@
 40009613:	00
 40009614:	0c19      	movi.n	a9, 1
 40009616:	0cfa      	movi.n	a10, 15
-40009618:	b1ebff        	l32r	a11, 0x400095c4	; ( 0x3f3fffff )
+40009618:	b1ebff        	l32r	a11, [0x3f3fffff]	; 0x400095c4
 4000961b:	b62302        	bltui	a3, 2, 0x40009621
 4000961e:	862900        	j	0x400096c8
 
 40009621:	473b02        	bltu	a11, a4, 0x40009627
 40009624:	866f00        	j	0x400097e6
 
-40009627:	31a1f4        	l32r	a3, 0x400068ac	; ( 0x3f400000 )
+40009627:	31a1f4        	l32r	a3, [0x3f400000]	; 0x400068ac
 4000962a:	006611        	slli	a6, a6, 16
 4000962d:	3a36      	add.n	a3, a6, a3
 4000962f:	37b415        	bgeu	a4, a3, 0x40009648
-40009632:	31e5ff        	l32r	a3, 0x400095c8	; ( 0x003fffff )
+40009632:	31e5ff        	l32r	a3, [0x003fffff]	; 0x400095c8
 40009635:	000940        	ssr	a9
 40009638:	3030b1        	sra	a3, a3
 4000963b:	404310        	and	a4, a3, a4
@@ -3910,14 +3910,14 @@
 40009644:	c64000        	j	0x4000974b
 
 40009647:	00
-40009648:	31e1ff        	l32r	a3, 0x400095cc	; ( 0x400cffff )
+40009648:	31e1ff        	l32r	a3, [0x400cffff]	; 0x400095cc
 4000964b:	473302        	bltu	a3, a4, 0x40009651
 4000964e:	066500        	j	0x400097e6
 
-40009651:	3145e9        	l32r	a3, 0x40003b68	; _WindowOverflow4 ( 0x40000000 )
+40009651:	3145e9        	l32r	a3, [_WindowOverflow4]	; [0x40000000] 0x40003b68
 40009654:	3a36      	add.n	a3, a6, a3
 40009656:	37b417        	bgeu	a4, a3, 0x40009671
-40009659:	31dbff        	l32r	a3, 0x400095c8	; ( 0x003fffff )
+40009659:	31dbff        	l32r	a3, [0x003fffff]	; 0x400095c8
 4000965c:	000940        	ssr	a9
 4000965f:	3030b1        	sra	a3, a3
 40009662:	404310        	and	a4, a3, a4
@@ -3926,14 +3926,14 @@
 4000966b:	42c440        	addi	a4, a4, 64
 4000966e:	463600        	j	0x4000974b
 
-40009671:	31d7ff        	l32r	a3, 0x400095d0	; ( 0x403fffff )
+40009671:	31d7ff        	l32r	a3, [0x403fffff]	; 0x400095d0
 40009674:	473302        	bltu	a3, a4, 0x4000967a
 40009677:	c65a00        	j	0x400097e6
 
-4000967a:	31d6ff        	l32r	a3, 0x400095d4	; ( 0x40400000 )
+4000967a:	31d6ff        	l32r	a3, [0x40400000]	; 0x400095d4
 4000967d:	3a36      	add.n	a3, a6, a3
 4000967f:	37b419        	bgeu	a4, a3, 0x4000969c
-40009682:	31d1ff        	l32r	a3, 0x400095c8	; ( 0x003fffff )
+40009682:	31d1ff        	l32r	a3, [0x003fffff]	; 0x400095c8
 40009685:	000940        	ssr	a9
 40009688:	3030b1        	sra	a3, a3
 4000968b:	404310        	and	a4, a3, a4
@@ -3943,16 +3943,16 @@
 40009697:	862b00        	j	0x40009749
 
 4000969a:	0000
-4000969c:	31cfff        	l32r	a3, 0x400095d8	; ( 0x407fffff )
+4000969c:	31cfff        	l32r	a3, [0x407fffff]	; 0x400095d8
 4000969f:	473302        	bltu	a3, a4, 0x400096a5
 400096a2:	065000        	j	0x400097e6
 
-400096a5:	31cdff        	l32r	a3, 0x400095dc	; ( 0x40800000 )
+400096a5:	31cdff        	l32r	a3, [0x40800000]	; 0x400095dc
 400096a8:	3a66      	add.n	a6, a6, a3
 400096aa:	673402        	bltu	a4, a6, 0x400096b0
 400096ad:	464d00        	j	0x400097e6
 
-400096b0:	31c6ff        	l32r	a3, 0x400095c8	; ( 0x003fffff )
+400096b0:	31c6ff        	l32r	a3, [0x003fffff]	; 0x400095c8
 400096b3:	000940        	ssr	a9
 400096b6:	3030b1        	sra	a3, a3
 400096b9:	404310        	and	a4, a3, a4
@@ -3964,11 +3964,11 @@
 400096c8:	473b02        	bltu	a11, a4, 0x400096ce
 400096cb:	c64500        	j	0x400097e6
 
-400096ce:	b177f4        	l32r	a11, 0x400068ac	; ( 0x3f400000 )
+400096ce:	b177f4        	l32r	a11, [0x3f400000]	; 0x400068ac
 400096d1:	20c611        	slli	a12, a6, 14
 400096d4:	babc      	add.n	a11, a12, a11
 400096d6:	b7b41a        	bgeu	a4, a11, 0x400096f4
-400096d9:	61ddfb        	l32r	a6, 0x40008650	; ( 0x000fffff )
+400096d9:	61ddfb        	l32r	a6, [0x000fffff]	; 0x40008650
 400096dc:	c03311        	slli	a3, a3, 4
 400096df:	000940        	ssr	a9
 400096e2:	6060b1        	sra	a6, a6
@@ -3978,15 +3978,15 @@
 400096ee:	404091        	srl	a4, a4
 400096f1:	061500        	j	0x40009749
 
-400096f4:	b1b7ff        	l32r	a11, 0x400095d0	; ( 0x403fffff )
+400096f4:	b1b7ff        	l32r	a11, [0x403fffff]	; 0x400095d0
 400096f7:	473b02        	bltu	a11, a4, 0x400096fd
 400096fa:	063a00        	j	0x400097e6
 
-400096fd:	b1b5ff        	l32r	a11, 0x400095d4	; ( 0x40400000 )
+400096fd:	b1b5ff        	l32r	a11, [0x40400000]	; 0x400095d4
 40009700:	006611        	slli	a6, a6, 16
 40009703:	bab6      	add.n	a11, a6, a11
 40009705:	b7b417        	bgeu	a4, a11, 0x40009720
-40009708:	61b0ff        	l32r	a6, 0x400095c8	; ( 0x003fffff )
+40009708:	61b0ff        	l32r	a6, [0x003fffff]	; 0x400095c8
 4000970b:	903311        	slli	a3, a3, 7
 4000970e:	000940        	ssr	a9
 40009711:	6060b1        	sra	a6, a6
@@ -3995,16 +3995,16 @@
 4000971a:	404091        	srl	a4, a4
 4000971d:	060a00        	j	0x40009749
 
-40009720:	b1aeff        	l32r	a11, 0x400095d8	; ( 0x407fffff )
+40009720:	b1aeff        	l32r	a11, [0x407fffff]	; 0x400095d8
 40009723:	473b02        	bltu	a11, a4, 0x40009729
 40009726:	062f00        	j	0x400097e6
 
-40009729:	b1acff        	l32r	a11, 0x400095dc	; ( 0x40800000 )
+40009729:	b1acff        	l32r	a11, [0x40800000]	; 0x400095dc
 4000972c:	ba66      	add.n	a6, a6, a11
 4000972e:	673402        	bltu	a4, a6, 0x40009734
 40009731:	462c00        	j	0x400097e6
 
-40009734:	61a5ff        	l32r	a6, 0x400095c8	; ( 0x003fffff )
+40009734:	61a5ff        	l32r	a6, [0x003fffff]	; 0x400095c8
 40009737:	803311        	slli	a3, a3, 8
 4000973a:	000940        	ssr	a9
 4000973d:	6060b1        	sra	a6, a6
@@ -4012,8 +4012,8 @@
 40009743:	000a40        	ssr	a10
 40009746:	404091        	srl	a4, a4
 40009749:	3a44      	add.n	a4, a4, a3
-4000974b:	312df6        	l32r	a3, 0x40007000	; ( 0x3ff00044 )
-4000974e:	612df6        	l32r	a6, 0x40007004	; ( 0x3ff0005c )
+4000974b:	312df6        	l32r	a3, [0x3ff00044]	; 0x40007000
+4000974e:	612df6        	l32r	a6, [0x3ff0005c]	; 0x40007004
 40009751:	c02000        	memw
 40009754:	c803      	l32i.n	a12, a3, 0
 40009756:	c02000        	memw
@@ -4031,8 +4031,8 @@
 40009775:	d0d620        	or	a13, a6, a13
 40009778:	c02000        	memw
 4000977b:	d903      	s32i.n	a13, a3, 0
-4000977d:	5188ff        	l32r	a5, 0x400095a0	; ( 0x3ff12000 )
-40009780:	3122f6        	l32r	a3, 0x40007008	; ( 0x3ff10000 )
+4000977d:	5188ff        	l32r	a5, [0x3ff12000]	; 0x400095a0
+40009780:	3122f6        	l32r	a3, [0x3ff10000]	; 0x40007008
 40009783:	0c06      	movi.n	a6, 0
 40009785:	203593        	movnez	a3, a5, a2
 40009788:	860300        	j	0x4000979a
@@ -4045,8 +4045,8 @@
 40009796:	d905      	s32i.n	a13, a5, 0
 40009798:	1b66      	addi.n	a6, a6, 1
 4000979a:	7796ee        	bne	a6, a7, 0x4000978c
-4000979d:	4118f6        	l32r	a4, 0x40007000	; ( 0x3ff00044 )
-400097a0:	3119f6        	l32r	a3, 0x40007004	; ( 0x3ff0005c )
+4000979d:	4118f6        	l32r	a4, [0x3ff00044]	; 0x40007000
+400097a0:	3119f6        	l32r	a3, [0x3ff0005c]	; 0x40007004
 400097a3:	c02000        	memw
 400097a6:	c904      	s32i.n	a12, a4, 0
 400097a8:	c02000        	memw
@@ -4089,15 +4089,15 @@
   Cache_Read_Init:
 40009950:	364100        	entry	a1, 32
 40009953:	7c79      	movi.n	a9, -9
-40009955:	81fbff        	l32r	a8, 0x40009944	; ( 0x3ff00040 )
+40009955:	81fbff        	l32r	a8, [0x3ff00040]	; 0x40009944
 40009958:	8c12      	beqz.n	a2, 0x4000995d
-4000995a:	81fbff        	l32r	a8, 0x40009948	; ( 0x3ff00058 )
+4000995a:	81fbff        	l32r	a8, [0x3ff00058]	; 0x40009948
 4000995d:	c02000        	memw
 40009960:	a808      	l32i.n	a10, a8, 0
 40009962:	909a10        	and	a9, a10, a9
 40009965:	c02000        	memw
 40009968:	9908      	s32i.n	a9, a8, 0
-4000996a:	81f8ff        	l32r	a8, 0x4000994c	; ( 0x3ff43050 )
+4000996a:	81f8ff        	l32r	a8, [0x3ff43050]	; 0x4000994c
 4000996d:	7ce9      	movi.n	a9, -2
 4000996f:	c02000        	memw
 40009972:	a808      	l32i.n	a10, a8, 0
@@ -4106,7 +4106,7 @@
 4000997a:	9908      	s32i.n	a9, a8, 0
 4000997c:	6cf9      	movi.n	a9, -17
 4000997e:	eca2      	bnez.n	a2, 0x400099ac
-40009980:	81f1ff        	l32r	a8, 0x40009944	; ( 0x3ff00040 )
+40009980:	81f1ff        	l32r	a8, [0x3ff00040]	; 0x40009944
 40009983:	c02000        	memw
 40009986:	a808      	l32i.n	a10, a8, 0
 40009988:	909a10        	and	a9, a10, a9
@@ -4124,7 +4124,7 @@
 400099a6:	970af7        	bnone	a10, a9, 0x400099a1
 400099a9:	060a00        	j	0x400099d5
 
-400099ac:	81e7ff        	l32r	a8, 0x40009948	; ( 0x3ff00058 )
+400099ac:	81e7ff        	l32r	a8, [0x3ff00058]	; 0x40009948
 400099af:	c02000        	memw
 400099b2:	a808      	l32i.n	a10, a8, 0
 400099b4:	909a10        	and	a9, a10, a9
@@ -4146,7 +4146,7 @@
 400099dc:	909a10        	and	a9, a10, a9
 400099df:	c02000        	memw
 400099e2:	9908      	s32i.n	a9, a8, 0
-400099e4:	81daff        	l32r	a8, 0x4000994c	; ( 0x3ff43050 )
+400099e4:	81daff        	l32r	a8, [0x3ff43050]	; 0x4000994c
 400099e7:	0c19      	movi.n	a9, 1
 400099e9:	c02000        	memw
 400099ec:	a808      	l32i.n	a10, a8, 0
@@ -4155,10 +4155,10 @@
 400099f4:	9908      	s32i.n	a9, a8, 0
 400099f6:	0c88      	movi.n	a8, 8
 400099f8:	cc42      	bnez.n	a2, 0x40009a00
-400099fa:	21d2ff        	l32r	a2, 0x40009944	; ( 0x3ff00040 )
+400099fa:	21d2ff        	l32r	a2, [0x3ff00040]	; 0x40009944
 400099fd:	860000        	j	0x40009a03
 
-40009a00:	21d2ff        	l32r	a2, 0x40009948	; ( 0x3ff00058 )
+40009a00:	21d2ff        	l32r	a2, [0x3ff00058]	; 0x40009948
 40009a03:	c02000        	memw
 40009a06:	9802      	l32i.n	a9, a2, 0
 40009a08:	808920        	or	a8, a9, a8
@@ -4172,7 +4172,7 @@
 40009a14:	364100        	entry	a1, 32
 40009a17:	6cf9      	movi.n	a9, -17
 40009a19:	ecb2      	bnez.n	a2, 0x40009a48
-40009a1b:	81caff        	l32r	a8, 0x40009944	; ( 0x3ff00040 )
+40009a1b:	81caff        	l32r	a8, [0x3ff00040]	; 0x40009944
 40009a1e:	c02000        	memw
 40009a21:	a808      	l32i.n	a10, a8, 0
 40009a23:	909a10        	and	a9, a10, a9
@@ -4191,7 +4191,7 @@
 40009a44:	460a00        	j	0x40009a71
 
 40009a47:	00
-40009a48:	81c0ff        	l32r	a8, 0x40009948	; ( 0x3ff00058 )
+40009a48:	81c0ff        	l32r	a8, [0x3ff00058]	; 0x40009948
 40009a4b:	c02000        	memw
 40009a4e:	a808      	l32i.n	a10, a8, 0
 40009a50:	909a10        	and	a9, a10, a9
@@ -4219,7 +4219,7 @@
 
   Cache_Read_Enable:
 40009a84:	364100        	entry	a1, 32
-40009a87:	81b1ff        	l32r	a8, 0x4000994c	; ( 0x3ff43050 )
+40009a87:	81b1ff        	l32r	a8, [0x3ff43050]	; 0x4000994c
 40009a8a:	0c19      	movi.n	a9, 1
 40009a8c:	c02000        	memw
 40009a8f:	a808      	l32i.n	a10, a8, 0
@@ -4227,9 +4227,9 @@
 40009a94:	c02000        	memw
 40009a97:	9908      	s32i.n	a9, a8, 0
 40009a99:	0c88      	movi.n	a8, 8
-40009a9b:	91aaff        	l32r	a9, 0x40009944	; ( 0x3ff00040 )
+40009a9b:	91aaff        	l32r	a9, [0x3ff00040]	; 0x40009944
 40009a9e:	162200        	beqz	a2, 0x40009aa4
-40009aa1:	91a9ff        	l32r	a9, 0x40009948	; ( 0x3ff00058 )
+40009aa1:	91a9ff        	l32r	a9, [0x3ff00058]	; 0x40009948
 40009aa4:	c02000        	memw
 40009aa7:	a809      	l32i.n	a10, a9, 0
 40009aa9:	808a20        	or	a8, a10, a8
@@ -4242,9 +4242,9 @@
 
   Cache_Read_Disable:
 40009ab8:	364100        	entry	a1, 32
-40009abb:	81a2ff        	l32r	a8, 0x40009944	; ( 0x3ff00040 )
+40009abb:	81a2ff        	l32r	a8, [0x3ff00040]	; 0x40009944
 40009abe:	7c7a      	movi.n	a10, -9
-40009ac0:	91a2ff        	l32r	a9, 0x40009948	; ( 0x3ff00058 )
+40009ac0:	91a2ff        	l32r	a9, [0x3ff00058]	; 0x40009948
 40009ac3:	dc32      	bnez.n	a2, 0x40009ada
 40009ac5:	c02000        	memw
 40009ac8:	b808      	l32i.n	a11, a8, 0
@@ -4265,11 +4265,11 @@
 40009aec:	82a008        	movi	a8, 8
 40009aef:	808910        	and	a8, a9, a8
 40009af2:	56c801        	bnez	a8, 0x40009b12
-40009af5:	91efff        	l32r	a9, 0x40009ab4	; ( 0x3ff430f8 )
+40009af5:	91efff        	l32r	a9, [0x3ff430f8]	; 0x40009ab4
 40009af8:	c02000        	memw
 40009afb:	8809      	l32i.n	a8, a9, 0
 40009afd:	5678ff        	bnez	a8, 0x40009af8
-40009b00:	8193ff        	l32r	a8, 0x4000994c	; ( 0x3ff43050 )
+40009b00:	8193ff        	l32r	a8, [0x3ff43050]	; 0x4000994c
 40009b03:	7ce9      	movi.n	a9, -2
 40009b05:	c02000        	memw
 40009b08:	a808      	l32i.n	a10, a8, 0
@@ -4287,7 +4287,7 @@
 
   gpio_matrix_in:
 40009edc:	364100        	entry	a1, 32
-40009edf:	81feff        	l32r	a8, 0x40009ed8	; ( 0x0ffd104c )
+40009edf:	81feff        	l32r	a8, [0x0ffd104c]	; 0x40009ed8
 40009ee2:	404074        	extui	a4, a4, 0, 8
 40009ee5:	8a33      	add.n	a3, a3, a8
 40009ee7:	e09311        	slli	a9, a3, 2
@@ -4317,19 +4317,19 @@
 40009f1e:	001240        	ssl	a2
 40009f21:	0088a1        	sll	a8, a8
 40009f24:	273905        	bltu	a9, a2, 0x40009f2d
-40009f27:	91fdfe        	l32r	a9, 0x40009b1c	; ( 0x3ff44024 )
+40009f27:	91fdfe        	l32r	a9, [0x3ff44024]	; 0x40009b1c
 40009f2a:	860000        	j	0x40009f30
 
-40009f2d:	9109ff        	l32r	a9, 0x40009b54	; ( 0x3ff44030 )
+40009f2d:	9109ff        	l32r	a9, [0x3ff44030]	; 0x40009b54
 40009f30:	c02000        	memw
 40009f33:	8909      	s32i.n	a8, a9, 0
 40009f35:	8c44      	beqz.n	a4, 0x40009f3d
 40009f37:	42a200        	movi	a4, 0x200
 40009f3a:	403320        	or	a3, a3, a4
 40009f3d:	8c45      	beqz.n	a5, 0x40009f45
-40009f3f:	41f9f9        	l32r	a4, 0x40008724	; ( 0x00000800 )
+40009f3f:	41f9f9        	l32r	a4, [0x00000800]	; 0x40008724
 40009f42:	403320        	or	a3, a3, a4
-40009f45:	41f0ff        	l32r	a4, 0x40009f08	; ( 0x0ffd114c )
+40009f45:	41f0ff        	l32r	a4, [0x0ffd114c]	; 0x40009f08
 40009f48:	4a22      	add.n	a2, a2, a4
 40009f4a:	e02211        	slli	a2, a2, 2
 40009f4d:	c02000        	memw
@@ -4346,7 +4346,7 @@
 40009fe4:	27b802        	bgeu	a8, a2, 0x40009fea
 40009fe7:	463d00        	j	0x4000a0e0
 
-40009fea:	81daff        	l32r	a8, 0x40009f54	; ( 0x3ff9bf3c )
+40009fea:	81daff        	l32r	a8, [0x3ff9bf3c]	; 0x40009f54
 40009fed:	8022a0        	addx4	a2, a2, a8
 40009ff0:	2802      	l32i.n	a2, a2, 0
 40009ff2:	a00200        	jx	a2
@@ -4366,7 +4366,7 @@
 4000a127:	27b802        	bgeu	a8, a2, 0x4000a12d
 4000a12a:	863d00        	j	0x4000a224
 
-4000a12d:	81edff        	l32r	a8, 0x4000a0e4	; ( 0x3ff9bfdc )
+4000a12d:	81edff        	l32r	a8, [0x3ff9bfdc]	; 0x4000a0e4
 4000a130:	8022a0        	addx4	a2, a2, a8
 4000a133:	2802      	l32i.n	a2, a2, 0
 4000a135:	a00200        	jx	a2
@@ -4384,7 +4384,7 @@
 4000a234:	27b802        	bgeu	a8, a2, 0x4000a23a
 4000a237:	464100        	j	0x4000a340
 
-4000a23a:	81fbff        	l32r	a8, 0x4000a228	; ( 0x3ff9c064 )
+4000a23a:	81fbff        	l32r	a8, [0x3ff9c064]	; 0x4000a228
 4000a23d:	8022a0        	addx4	a2, a2, a8
 4000a240:	2802      	l32i.n	a2, a2, 0
 4000a242:	a00200        	jx	a2
@@ -4405,7 +4405,7 @@
 4000a48c:	27b802        	bgeu	a8, a2, 0x4000a492
 4000a48f:	46a600        	j	0x4000a72c
 
-4000a492:	81f3ff        	l32r	a8, 0x4000a460	; ( 0x3ff9c174 )
+4000a492:	81f3ff        	l32r	a8, [0x3ff9c174]	; 0x4000a460
 4000a495:	8082a0        	addx4	a8, a2, a8
 4000a498:	8808      	l32i.n	a8, a8, 0
 4000a49a:	a00800        	jx	a8
@@ -4425,8 +4425,8 @@
 4000a853:	208014        	extui	a8, a2, 0, 2
 4000a856:	707074        	extui	a7, a7, 0, 8
 4000a859:	9c08      	beqz.n	a8, 0x4000a86d
-4000a85b:	a1f8ff        	l32r	a10, 0x4000a83c	; ( 0x3ff9eebe )
-4000a85e:	b1f8ff        	l32r	a11, 0x4000a840	; ( 0x3ff9eec5 )
+4000a85b:	a1f8ff        	l32r	a10, [0x3ff9eebe]	; 0x4000a83c
+4000a85e:	b1f8ff        	l32r	a11, [0x3ff9eec5]	; 0x4000a840
 4000a861:	2c6c      	movi.n	a12, 38
 4000a863:	254ffd        	call8	0x40007d54	; ets_printf
 4000a866:	3df0      	nop.n
@@ -4435,36 +4435,36 @@
 4000a86b:	0000
 4000a86d:	408014        	extui	a8, a4, 0, 2
 4000a870:	9c18      	beqz.n	a8, 0x4000a885
-4000a872:	a1f2ff        	l32r	a10, 0x4000a83c	; ( 0x3ff9eebe )
-4000a875:	b1f2ff        	l32r	a11, 0x4000a840	; ( 0x3ff9eec5 )
+4000a872:	a1f2ff        	l32r	a10, [0x3ff9eebe]	; 0x4000a83c
+4000a875:	b1f2ff        	l32r	a11, [0x3ff9eec5]	; 0x4000a840
 4000a878:	2c7c      	movi.n	a12, 39
 4000a87a:	a54dfd        	call8	0x40007d54	; ets_printf
 4000a87d:	3df0      	nop.n
 4000a87f:	86feff        	j	0x4000a87d
 
 4000a882:	000000
-4000a885:	91efff        	l32r	a9, 0x4000a844	; ( 0xaaaaaaab )
+4000a885:	91efff        	l32r	a9, [0xaaaaaaab]	; 0x4000a844
 4000a888:	6055c2        	quou	a5, a5, a6
 4000a88b:	9033a2        	muluh	a3, a3, a9
 4000a88e:	9d01      	mov.n	a9, a1
 4000a890:	303341        	srli	a3, a3, 3
 4000a893:	57b312        	bgeu	a3, a5, 0x4000a8a9
-4000a896:	a1e9ff        	l32r	a10, 0x4000a83c	; ( 0x3ff9eebe )
-4000a899:	b1e9ff        	l32r	a11, 0x4000a840	; ( 0x3ff9eec5 )
+4000a896:	a1e9ff        	l32r	a10, [0x3ff9eebe]	; 0x4000a83c
+4000a899:	b1e9ff        	l32r	a11, [0x3ff9eec5]	; 0x4000a840
 4000a89c:	2cbc      	movi.n	a12, 43
 4000a89e:	654bfd        	call8	0x40007d54	; ets_printf
 4000a8a1:	3df0      	nop.n
 4000a8a3:	86feff        	j	0x4000a8a1
 
 4000a8a6:	000000
-4000a8a9:	a1e8ff        	l32r	a10, 0x4000a84c	; ( 0xff000fff )
-4000a8ac:	d19ee8        	l32r	a13, 0x40004b24	; ( 0xbfffffff )
-4000a8af:	e1b5e1        	l32r	a14, 0x40002f84	; ( 0xdfffffff )
+4000a8a9:	a1e8ff        	l32r	a10, [0xff000fff]	; 0x4000a84c
+4000a8ac:	d19ee8        	l32r	a13, [0xbfffffff]	; 0x40004b24
+4000a8af:	e1b5e1        	l32r	a14, [0xdfffffff]	; 0x40002f84
 4000a8b2:	60b0b4        	extui	a11, a6, 0, 12
 4000a8b5:	cd0a      	mov.n	a12, a10
 4000a8b7:	c02000        	memw
 4000a8ba:	3802      	l32i.n	a3, a2, 0
-4000a8bc:	f1e3ff        	l32r	a15, 0x4000a848	; ( 0xfffff000 )
+4000a8bc:	f1e3ff        	l32r	a15, [0xfffff000]	; 0x4000a848
 4000a8bf:	4912      	s32i.n	a4, a2, 4
 4000a8c1:	f03310        	and	a3, a3, a15
 4000a8c4:	b03320        	or	a3, a3, a11
@@ -4472,7 +4472,7 @@
 4000a8ca:	3902      	s32i.n	a3, a2, 0
 4000a8cc:	c02000        	memw
 4000a8cf:	3802      	l32i.n	a3, a2, 0
-4000a8d1:	f132d7        	l32r	a15, 0x4000059c	; ( 0x80000000 )
+4000a8d1:	f132d7        	l32r	a15, [0x80000000]	; 0x4000059c
 4000a8d4:	f03320        	or	a3, a3, a15
 4000a8d7:	c02000        	memw
 4000a8da:	3902      	s32i.n	a3, a2, 0
@@ -4533,7 +4533,7 @@
 
   sip_get_state:
 4000ae2c:	364100        	entry	a1, 32
-4000ae2f:	81fbfe        	l32r	a8, 0x4000aa1c	; ( 0x3ffae65c )
+4000ae2f:	81fbfe        	l32r	a8, [0x3ffae65c]	; 0x4000aa1c
 4000ae32:	28b8      	l32i.n	a2, a8, 44
 4000ae34:	1df0      	retw.n
 
@@ -4549,21 +4549,21 @@
 
   sip_init_attach:
 4000ae58:	368100        	entry	a1, 64
-4000ae5b:	31f0fe        	l32r	a3, 0x4000aa1c	; ( 0x3ffae65c )
-4000ae5e:	81f6ff        	l32r	a8, 0x4000ae38	; ( 0x4000ac78 )
-4000ae61:	b1f9ff        	l32r	a11, 0x4000ae48	; ( 0x4000aa20 )
+4000ae5b:	31f0fe        	l32r	a3, [0x3ffae65c]	; 0x4000aa1c
+4000ae5e:	81f6ff        	l32r	a8, [0x4000ac78]	; 0x4000ae38
+4000ae61:	b1f9ff        	l32r	a11, [0x4000aa20]	; 0x4000ae48
 4000ae64:	826314        	s32i	a8, a3, 80
-4000ae67:	81f5ff        	l32r	a8, 0x4000ae3c	; ( 0x4000b184 )
-4000ae6a:	a1f6ff        	l32r	a10, 0x4000ae44	; ( 0x4000aabc )
+4000ae67:	81f5ff        	l32r	a8, [0x4000b184]	; 0x4000ae3c
+4000ae6a:	a1f6ff        	l32r	a10, [0x4000aabc]	; 0x4000ae44
 4000ae6d:	826315        	s32i	a8, a3, 84
-4000ae70:	81f4ff        	l32r	a8, 0x4000ae40	; ( 0x4000a9a8 )
+4000ae70:	81f4ff        	l32r	a8, [0x4000a9a8]	; 0x4000ae40
 4000ae73:	42a000        	movi	a4, 0
 4000ae76:	cd03      	mov.n	a12, a3
 4000ae78:	dd02      	mov.n	a13, a2
 4000ae7a:	49b3      	s32i.n	a4, a3, 44
 4000ae7c:	826316        	s32i	a8, a3, 88
 4000ae7f:	a5a900        	call8	0x4000b918	; slc_init_attach
-4000ae82:	8145ff        	l32r	a8, 0x4000ab98	; ( 0x3ffae664 )
+4000ae82:	8145ff        	l32r	a8, [0x3ffae664]	; 0x4000ab98
 4000ae85:	a9c3      	s32i.n	a10, a3, 48
 4000ae87:	8933      	s32i.n	a8, a3, 12
 4000ae89:	4c08      	movi.n	a8, 64
@@ -4571,9 +4571,9 @@
 4000ae8d:	825300        	s16i	a8, a3, 0
 4000ae90:	82c114        	addi	a8, a1, 20
 4000ae93:	8901      	s32i.n	a8, a1, 0
-4000ae95:	a1edff        	l32r	a10, 0x4000ae4c	; ( 0x3ffae5f0 )
+4000ae95:	a1edff        	l32r	a10, [0x3ffae5f0]	; 0x4000ae4c
 4000ae98:	82c110        	addi	a8, a1, 16
-4000ae9b:	c1edff        	l32r	a12, 0x4000ae50	; ( 0x3ffae3f0 )
+4000ae9b:	c1edff        	l32r	a12, [0x3ffae3f0]	; 0x4000ae50
 4000ae9e:	fd04      	mov.n	a15, a4
 4000aea0:	8911      	s32i.n	a8, a1, 4
 4000aea2:	b2a060        	movi	a11, 96
@@ -4581,7 +4581,7 @@
 4000aea8:	4c0e      	movi.n	a14, 64
 4000aeaa:	659aff        	call8	0x4000a850	; lldesc_build_chain
 4000aead:	4851      	l32i.n	a4, a1, 20
-4000aeaf:	81e9ff        	l32r	a8, 0x4000ae54	; ( 0x4000b00c )
+4000aeaf:	81e9ff        	l32r	a8, [0x4000b00c]	; 0x4000ae54
 4000aeb2:	4923      	s32i.n	a4, a3, 8
 4000aeb4:	4841      	l32i.n	a4, a1, 16
 4000aeb6:	8b44      	addi.n	a4, a4, 8
@@ -4589,7 +4589,7 @@
 4000aeba:	48c3      	l32i.n	a4, a3, 48
 4000aebc:	421400        	l16ui	a4, a4, 0
 4000aebf:	425301        	s16i	a4, a3, 2
-4000aec2:	41d3fe        	l32r	a4, 0x4000aa10	; ( 0x3ffae650 )
+4000aec2:	41d3fe        	l32r	a4, [0x3ffae650]	; 0x4000aa10
 4000aec5:	8904      	s32i.n	a8, a4, 0
 4000aec7:	657800        	call8	0x4000b64c	; slc_enable
 4000aeca:	0c14      	movi.n	a4, 1
@@ -4608,22 +4608,22 @@
 
   slc_enable:
 4000b64c:	364100        	entry	a1, 32
-4000b64f:	81effc        	l32r	a8, 0x4000aa0c	; ( 0x3ff58060 )
+4000b64f:	81effc        	l32r	a8, [0x3ff58060]	; 0x4000aa0c
 4000b652:	6cf9      	movi.n	a9, -17
 4000b654:	c02000        	memw
 4000b657:	a808      	l32i.n	a10, a8, 0
-4000b659:	b1f9ff        	l32r	a11, 0x4000b640	; ( 0x4000b568 )
+4000b659:	b1f9ff        	l32r	a11, [0x4000b568]	; 0x4000b640
 4000b65c:	909a10        	and	a9, a10, a9
 4000b65f:	c02000        	memw
 4000b662:	9908      	s32i.n	a9, a8, 0
-4000b664:	81f6ff        	l32r	a8, 0x4000b63c	; ( 0x3ff0012c )
+4000b664:	81f6ff        	l32r	a8, [0x3ff0012c]	; 0x4000b63c
 4000b667:	0c1a      	movi.n	a10, 1
 4000b669:	c02000        	memw
 4000b66c:	a908      	s32i.n	a10, a8, 0
 4000b66e:	c2a000        	movi	a12, 0
 4000b671:	a517fb        	call8	0x400067ec	; ets_isr_attach
-4000b674:	91f5ff        	l32r	a9, 0x4000b648	; ( 0x040a8400 )
-4000b677:	81f3ff        	l32r	a8, 0x4000b644	; ( 0x3ff5800c )
+4000b674:	91f5ff        	l32r	a9, [0x040a8400]	; 0x4000b648
+4000b677:	81f3ff        	l32r	a8, [0x3ff5800c]	; 0x4000b644
 4000b67a:	0c2a      	movi.n	a10, 2
 4000b67c:	c02000        	memw
 4000b67f:	9908      	s32i.n	a9, a8, 0
@@ -4636,8 +4636,8 @@
 
   slc_set_host_io_max_window:
 4000b89c:	364100        	entry	a1, 32
-4000b89f:	81fdff        	l32r	a8, 0x4000b894	; ( 0x3ff58074 )
-4000b8a2:	91fdff        	l32r	a9, 0x4000b898	; ( 0xfffff0c0 )
+4000b89f:	81fdff        	l32r	a8, [0x3ff58074]	; 0x4000b894
+4000b8a2:	91fdff        	l32r	a9, [0xfffff0c0]	; 0x4000b898
 4000b8a5:	c02000        	memw
 4000b8a8:	a808      	l32i.n	a10, a8, 0
 4000b8aa:	909a10        	and	a9, a10, a9
@@ -4674,7 +4674,7 @@
 
   slc_init_attach:
 4000b918:	368100        	entry	a1, 64
-4000b91b:	610eff        	l32r	a6, 0x4000b554	; ( 0x3ffae3b8 )
+4000b91b:	610eff        	l32r	a6, [0x3ffae3b8]	; 0x4000b554
 4000b91e:	a2a009        	movi	a10, 9
 4000b921:	226605        	s32i	a2, a6, 20
 4000b924:	0c02      	movi.n	a2, 0
@@ -4694,7 +4694,7 @@
 4000b944:	e5b3fe        	call8	0x4000a484	; gpio_pad_unhold
 4000b947:	0c8a      	movi.n	a10, 8
 4000b949:	a5b3fe        	call8	0x4000a484	; gpio_pad_unhold
-4000b94c:	21dcff        	l32r	a2, 0x4000b8bc	; ( 0x3ff000d0 )
+4000b94c:	21dcff        	l32r	a2, [0x3ff000d0]	; 0x4000b8bc
 4000b94f:	2c03      	movi.n	a3, 32
 4000b951:	c02000        	memw
 4000b954:	8802      	l32i.n	a8, a2, 0
@@ -4708,29 +4708,29 @@
 4000b969:	c02000        	memw
 4000b96c:	3902      	s32i.n	a3, a2, 0
 4000b96e:	2d06      	mov.n	a2, a6
-4000b970:	31d4ff        	l32r	a3, 0x4000b8c0	; ( 0x3ff4b004 )
-4000b973:	6115df        	l32r	a6, 0x400035c8	; ( 0xf0000000 )
+4000b970:	31d4ff        	l32r	a3, [0x3ff4b004]	; 0x4000b8c0
+4000b973:	6115df        	l32r	a6, [0xf0000000]	; 0x400035c8
 4000b976:	66450e        	bnei	a5, 4, 0x4000b988
 4000b979:	c02000        	memw
 4000b97c:	5803      	l32i.n	a5, a3, 0
 4000b97e:	606510        	and	a6, a5, a6
-4000b981:	51d0ff        	l32r	a5, 0x4000b8c4	; ( 0x01110033 )
+4000b981:	51d0ff        	l32r	a5, [0x01110033]	; 0x4000b8c4
 4000b984:	c60200        	j	0x4000b993
 
 4000b987:	00
 4000b988:	c02000        	memw
 4000b98b:	5803      	l32i.n	a5, a3, 0
 4000b98d:	606510        	and	a6, a5, a6
-4000b990:	51ceff        	l32r	a5, 0x4000b8c8	; ( 0x02320037 )
+4000b990:	51ceff        	l32r	a5, [0x02320037]	; 0x4000b8c8
 4000b993:	506620        	or	a6, a6, a5
 4000b996:	c02000        	memw
 4000b999:	6903      	s32i.n	a6, a3, 0
-4000b99b:	51cdff        	l32r	a5, 0x4000b8d0	; ( 0x11116666 )
-4000b99e:	31cbff        	l32r	a3, 0x4000b8cc	; ( 0x3ff4b000 )
+4000b99b:	51cdff        	l32r	a5, [0x11116666]	; 0x4000b8d0
+4000b99e:	31cbff        	l32r	a3, [0x3ff4b000]	; 0x4000b8cc
 4000b9a1:	c02000        	memw
 4000b9a4:	5903      	s32i.n	a5, a3, 0
 4000b9a6:	65efff        	call8	0x4000b89c	; slc_set_host_io_max_window
-4000b9a9:	31caff        	l32r	a3, 0x4000b8d4	; ( 0x3ff58000 )
+4000b9a9:	31caff        	l32r	a3, [0x3ff58000]	; 0x4000b8d4
 4000b9ac:	0c35      	movi.n	a5, 3
 4000b9ae:	c02000        	memw
 4000b9b1:	6803      	l32i.n	a6, a3, 0
@@ -4752,10 +4752,10 @@
 4000b9db:	5903      	s32i.n	a5, a3, 0
 4000b9dd:	c02000        	memw
 4000b9e0:	6803      	l32i.n	a6, a3, 0
-4000b9e2:	51a2fa        	l32r	a5, 0x4000a46c	; ( 0xffffbfff )
-4000b9e5:	a1c0ff        	l32r	a10, 0x4000b8e8	; ( 0x3ffae3ac )
+4000b9e2:	51a2fa        	l32r	a5, [0xffffbfff]	; 0x4000a46c
+4000b9e5:	a1c0ff        	l32r	a10, [0x3ffae3ac]	; 0x4000b8e8
 4000b9e8:	505610        	and	a5, a6, a5
-4000b9eb:	61bbff        	l32r	a6, 0x4000b8d8	; ( 0x3ff55078 )
+4000b9eb:	61bbff        	l32r	a6, [0x3ff55078]	; 0x4000b8d8
 4000b9ee:	c02000        	memw
 4000b9f1:	5903      	s32i.n	a5, a3, 0
 4000b9f3:	c02000        	memw
@@ -4764,13 +4764,13 @@
 4000b9fb:	505820        	or	a5, a8, a5
 4000b9fe:	c02000        	memw
 4000ba01:	5906      	s32i.n	a5, a6, 0
-4000ba03:	61b6ff        	l32r	a6, 0x4000b8dc	; ( 0x3ff5510c )
-4000ba06:	51b6ff        	l32r	a5, 0x4000b8e0	; ( 0xfffc01ff )
+4000ba03:	61b6ff        	l32r	a6, [0x3ff5510c]	; 0x4000b8dc
+4000ba06:	51b6ff        	l32r	a5, [0xfffc01ff]	; 0x4000b8e0
 4000ba09:	c02000        	memw
 4000ba0c:	8806      	l32i.n	a8, a6, 0
-4000ba0e:	c1b7ff        	l32r	a12, 0x4000b8ec	; ( 0x3ffae2a0 )
+4000ba0e:	c1b7ff        	l32r	a12, [0x3ffae2a0]	; 0x4000b8ec
 4000ba11:	505810        	and	a5, a8, a5
-4000ba14:	81b4ff        	l32r	a8, 0x4000b8e4	; ( 0x0000c800 )
+4000ba14:	81b4ff        	l32r	a8, [0x0000c800]	; 0x4000b8e4
 4000ba17:	0ccb      	movi.n	a11, 12
 4000ba19:	805520        	or	a5, a5, a8
 4000ba1c:	c02000        	memw
@@ -4786,53 +4786,53 @@
 4000ba35:	a5e1fe        	call8	0x4000a850	; lldesc_build_chain
 4000ba38:	c02000        	memw
 4000ba3b:	6803      	l32i.n	a6, a3, 0
-4000ba3d:	51acff        	l32r	a5, 0x4000b8f0	; ( 0x00030003 )
+4000ba3d:	51acff        	l32r	a5, [0x00030003]	; 0x4000b8f0
 4000ba40:	505620        	or	a5, a6, a5
 4000ba43:	c02000        	memw
 4000ba46:	5903      	s32i.n	a5, a3, 0
 4000ba48:	c02000        	memw
 4000ba4b:	6803      	l32i.n	a6, a3, 0
-4000ba4d:	51a9ff        	l32r	a5, 0x4000b8f4	; ( 0xfffcfffc )
+4000ba4d:	51a9ff        	l32r	a5, [0xfffcfffc]	; 0x4000b8f4
 4000ba50:	505610        	and	a5, a6, a5
 4000ba53:	c02000        	memw
 4000ba56:	5903      	s32i.n	a5, a3, 0
 4000ba58:	3851      	l32i.n	a3, a1, 20
-4000ba5a:	51a7ff        	l32r	a5, 0x4000b8f8	; ( 0x3ff580ec )
+4000ba5a:	51a7ff        	l32r	a5, [0x3ff580ec]	; 0x4000b8f8
 4000ba5d:	6841      	l32i.n	a6, a1, 16
 4000ba5f:	c02000        	memw
 4000ba62:	3905      	s32i.n	a3, a5, 0
-4000ba64:	51a6ff        	l32r	a5, 0x4000b8fc	; ( 0x3ff580f0 )
+4000ba64:	51a6ff        	l32r	a5, [0x3ff580f0]	; 0x4000b8fc
 4000ba67:	c02000        	memw
 4000ba6a:	6905      	s32i.n	a6, a5, 0
 4000ba6c:	6932      	s32i.n	a6, a2, 12
-4000ba6e:	5158e0        	l32r	a5, 0x40003bd0	; ( 0x10000000 )
-4000ba71:	61a3ff        	l32r	a6, 0x4000b900	; ( 0x3ff58040 )
+4000ba6e:	5158e0        	l32r	a5, [0x10000000]	; 0x40003bd0
+4000ba71:	61a3ff        	l32r	a6, [0x3ff58040]	; 0x4000b900
 4000ba74:	3912      	s32i.n	a3, a2, 4
 4000ba76:	c02000        	memw
 4000ba79:	526600        	s32i	a5, a6, 0
 4000ba7c:	c02000        	memw
 4000ba7f:	5806      	l32i.n	a5, a6, 0
 4000ba81:	d675ff        	bgez	a5, 0x4000ba7c
-4000ba84:	51f3f2        	l32r	a5, 0x40008650	; ( 0x000fffff )
+4000ba84:	51f3f2        	l32r	a5, [0x000fffff]	; 0x40008650
 4000ba87:	503310        	and	a3, a3, a5
 4000ba8a:	c02000        	memw
 4000ba8d:	3906      	s32i.n	a3, a6, 0
-4000ba8f:	51a1de        	l32r	a5, 0x40003514	; ( 0x00800000 )
-4000ba92:	319cff        	l32r	a3, 0x4000b904	; ( 0x3ff550ec )
+4000ba8f:	51a1de        	l32r	a5, [0x00800000]	; 0x40003514
+4000ba92:	319cff        	l32r	a3, [0x3ff550ec]	; 0x4000b904
 4000ba95:	c02000        	memw
 4000ba98:	5903      	s32i.n	a5, a3, 0
-4000ba9a:	519cff        	l32r	a5, 0x4000b90c	; ( 0x00800040 )
-4000ba9d:	319aff        	l32r	a3, 0x4000b908	; ( 0x3ff550dc )
+4000ba9a:	519cff        	l32r	a5, [0x00800040]	; 0x4000b90c
+4000ba9d:	319aff        	l32r	a3, [0x3ff550dc]	; 0x4000b908
 4000baa0:	c02000        	memw
 4000baa3:	5903      	s32i.n	a5, a3, 0
-4000baa5:	519aff        	l32r	a5, 0x4000b910	; ( 0x3ff550d4 )
+4000baa5:	519aff        	l32r	a5, [0x3ff550d4]	; 0x4000b910
 4000baa8:	7cf3      	movi.n	a3, -1
 4000baaa:	c02000        	memw
 4000baad:	3905      	s32i.n	a3, a5, 0
-4000baaf:	51abfe        	l32r	a5, 0x4000b55c	; ( 0x3ff58010 )
+4000baaf:	51abfe        	l32r	a5, [0x3ff58010]	; 0x4000b55c
 4000bab2:	c02000        	memw
 4000bab5:	3905      	s32i.n	a3, a5, 0
-4000bab7:	3197ff        	l32r	a3, 0x4000b914	; ( 0x3ff58118 )
+4000bab7:	3197ff        	l32r	a3, [0x3ff58118]	; 0x4000b914
 4000baba:	52ac00        	movi	a5, 0xfffffc00
 4000babd:	c02000        	memw
 4000bac0:	6803      	l32i.n	a6, a3, 0
@@ -4849,22 +4849,22 @@
 4000bf34:	364100        	entry	a1, 32
 4000bf37:	1cf8      	movi.n	a8, 31
 4000bf39:	273834        	bltu	a8, a2, 0x4000bf71
-4000bf3c:	91f0d1        	l32r	a9, 0x400006fc	; Xthal_intlevel ( 0x3ff9c2b4 )
+4000bf3c:	91f0d1        	l32r	a9, [Xthal_intlevel]	; [0x3ff9c2b4] 0x400006fc
 4000bf3f:	2a99      	add.n	a9, a9, a2
 4000bf41:	920900        	l8ui	a9, a9, 0
 4000bf44:	f67929        	bgeui	a9, 7, 0x4000bf71
-4000bf47:	9196d1        	l32r	a9, 0x400005a0	; _xtos_interrupt_table ( 0x3ffe0658 )
+4000bf47:	9196d1        	l32r	a9, [_xtos_interrupt_table]	; [0x3ffe0658] 0x400005a0
 4000bf4a:	2088c0        	sub	a8, a8, a2
 4000bf4d:	9088b0        	addx8	a8, a8, a9
 4000bf50:	9808      	l32i.n	a9, a8, 0
 4000bf52:	8ca3      	beqz.n	a3, 0x4000bf60
 4000bf54:	3908      	s32i.n	a3, a8, 0
 4000bf56:	4918      	s32i.n	a4, a8, 4
-4000bf58:	31ead1        	l32r	a3, 0x40000700	; _xtos_unhandled_interrupt ( 0x4000c01c )
+4000bf58:	31ead1        	l32r	a3, [_xtos_unhandled_interrupt]	; [0x4000c01c] 0x40000700
 4000bf5b:	060200        	j	0x4000bf67
 
 4000bf5e:	0000
-4000bf60:	31e8d1        	l32r	a3, 0x40000700	; _xtos_unhandled_interrupt ( 0x4000c01c )
+4000bf60:	31e8d1        	l32r	a3, [_xtos_unhandled_interrupt]	; [0x4000c01c] 0x40000700
 4000bf63:	2918      	s32i.n	a2, a8, 4
 4000bf65:	3908      	s32i.n	a3, a8, 0
 4000bf67:	3039c0        	sub	a3, a9, a3
@@ -4879,7 +4879,7 @@
 
   _xtos_ints_on:
 4000bf88:	362100        	entry	a1, 16
-4000bf8b:	4183d1        	l32r	a4, 0x40000598	; _xtos_intstruct ( 0x3ffe0650 )
+4000bf8b:	4183d1        	l32r	a4, [_xtos_intstruct]	; [0x3ffe0650] 0x40000598
 4000bf8e:	706600        	rsil	a7, 6
 4000bf91:	3804      	l32i.n	a3, a4, 0
 4000bf93:	6814      	l32i.n	a6, a4, 4
@@ -4896,7 +4896,7 @@
 
   _xtos_ints_off:
 4000bfac:	362100        	entry	a1, 16
-4000bfaf:	417ad1        	l32r	a4, 0x40000598	; _xtos_intstruct ( 0x3ffe0650 )
+4000bfaf:	417ad1        	l32r	a4, [_xtos_intstruct]	; [0x3ffe0650] 0x40000598
 4000bfb2:	706600        	rsil	a7, 6
 4000bfb5:	3804      	l32i.n	a3, a4, 0
 4000bfb7:	6814      	l32i.n	a6, a4, 4
@@ -5622,11 +5622,11 @@
 
   start_tb_console:
 4005a980:	364100        	entry	a1, 32
-4005a983:	81f4ff        	l32r	a8, 0x4005a954	; ( 0x40090000 )
-4005a986:	c1f5ff        	l32r	a12, 0x4005a95c	; ( 0x4005acf0 )
-4005a989:	b1f5ff        	l32r	a11, 0x4005a960	; ( 0xbff70000 )
-4005a98c:	a1f6ff        	l32r	a10, 0x4005a964	; ( 0xa5a5a5a5 )
-4005a98f:	21f6ff        	l32r	a2, 0x4005a968	; ( 0x400912f0 )
+4005a983:	81f4ff        	l32r	a8, [0x40090000]	; 0x4005a954
+4005a986:	c1f5ff        	l32r	a12, [0x4005acf0]	; 0x4005a95c
+4005a989:	b1f5ff        	l32r	a11, [0xbff70000]	; 0x4005a960
+4005a98c:	a1f6ff        	l32r	a10, [0xa5a5a5a5]	; 0x4005a964
+4005a98f:	21f6ff        	l32r	a2, [0x400912f0]	; 0x4005a968
 4005a992:	c09880        	add	a9, a8, a12
 4005a995:	b09980        	add	a9, a9, a11
 4005a998:	922900        	l32i	a9, a9, 0
@@ -5634,16 +5634,16 @@
 4005a99e:	9908      	s32i.n	a9, a8, 0
 4005a9a0:	4b88      	addi.n	a8, a8, 4
 4005a9a2:	2798ec        	bne	a8, a2, 0x4005a992
-4005a9a5:	21ecff        	l32r	a2, 0x4005a958	; ( 0x3ffd2000 )
-4005a9a8:	c1f1ff        	l32r	a12, 0x4005a96c	; ( 0x0000e000 )
+4005a9a5:	21ecff        	l32r	a2, [0x3ffd2000]	; 0x4005a958
+4005a9a8:	c1f1ff        	l32r	a12, [0x0000e000]	; 0x4005a96c
 4005a9ab:	ad02      	mov.n	a10, a2
 4005a9ad:	0c0b      	movi.n	a11, 0
 4005a9af:	e5a9b1        	call8	0x4000c44c	; memset
 4005a9b2:	ad02      	mov.n	a10, a2
-4005a9b4:	c1efff        	l32r	a12, 0x4005a970	; ( 0x4005a9e4 )
-4005a9b7:	b1efff        	l32r	a11, 0x4005a974	; ( 0xc002e000 )
-4005a9ba:	91eaff        	l32r	a9, 0x4005a964	; ( 0xa5a5a5a5 )
-4005a9bd:	21eeff        	l32r	a2, 0x4005a978	; ( 0x3ffd230c )
+4005a9b4:	c1efff        	l32r	a12, [0x4005a9e4]	; 0x4005a970
+4005a9b7:	b1efff        	l32r	a11, [0xc002e000]	; 0x4005a974
+4005a9ba:	91eaff        	l32r	a9, [0xa5a5a5a5]	; 0x4005a964
+4005a9bd:	21eeff        	l32r	a2, [0x3ffd230c]	; 0x4005a978
 4005a9c0:	c08a80        	add	a8, a10, a12
 4005a9c3:	b08880        	add	a8, a8, a11
 4005a9c6:	822800        	l32i	a8, a8, 0
@@ -5651,9 +5651,9 @@
 4005a9cc:	890a      	s32i.n	a8, a10, 0
 4005a9ce:	4baa      	addi.n	a10, a10, 4
 4005a9d0:	279aec        	bne	a10, a2, 0x4005a9c0
-4005a9d3:	a1eaff        	l32r	a10, 0x4005a97c	; ( 0x3ff9eeef )
+4005a9d3:	a1eaff        	l32r	a10, [0x3ff9eeef]	; 0x4005a97c
 4005a9d6:	e537ad        	call8	0x40007d54	; ets_printf
-4005a9d9:	21deff        	l32r	a2, 0x4005a954	; ( 0x40090000 )
+4005a9d9:	21deff        	l32r	a2, [0x40090000]	; 0x4005a954
 4005a9dc:	2802      	l32i.n	a2, a2, 0
 4005a9de:	e00200        	callx8	a2
 4005a9e1:	1df0      	retw.n
@@ -5667,26 +5667,26 @@
 
   ets_secure_boot_start:
 4005ca34:	364100        	entry	a1, 32
-4005ca37:	818ffd        	l32r	a8, 0x4005c074	; ( 0x3ff0001c )
+4005ca37:	818ffd        	l32r	a8, [0x3ff0001c]	; 0x4005c074
 4005ca3a:	0c89      	movi.n	a9, 8
 4005ca3c:	c02000        	memw
 4005ca3f:	a808      	l32i.n	a10, a8, 0
 4005ca41:	909a20        	or	a9, a10, a9
 4005ca44:	c02000        	memw
 4005ca47:	9908      	s32i.n	a9, a8, 0
-4005ca49:	818bfd        	l32r	a8, 0x4005c078	; ( 0x3ff00020 )
+4005ca49:	818bfd        	l32r	a8, [0x3ff00020]	; 0x4005c078
 4005ca4c:	7c79      	movi.n	a9, -9
 4005ca4e:	c02000        	memw
 4005ca51:	a22800        	l32i	a10, a8, 0
 4005ca54:	909a10        	and	a9, a10, a9
 4005ca57:	c02000        	memw
 4005ca5a:	926800        	s32i	a9, a8, 0
-4005ca5d:	81f3ff        	l32r	a8, 0x4005ca2c	; ( 0x3ff041d4 )
+4005ca5d:	81f3ff        	l32r	a8, [0x3ff041d4]	; 0x4005ca2c
 4005ca60:	c02000        	memw
 4005ca63:	a808      	l32i.n	a10, a8, 0
 4005ca65:	9d08      	mov.n	a9, a8
 4005ca67:	261af5        	beqi	a10, 1, 0x4005ca60
-4005ca6a:	81f1ff        	l32r	a8, 0x4005ca30	; ( 0x3ff041c0 )
+4005ca6a:	81f1ff        	l32r	a8, [0x3ff041c0]	; 0x4005ca30
 4005ca6d:	0c1a      	movi.n	a10, 1
 4005ca6f:	c02000        	memw
 4005ca72:	a908      	s32i.n	a10, a8, 0
@@ -5700,22 +5700,22 @@
 
   ets_secure_boot_finish:
 4005ca84:	364100        	entry	a1, 32
-4005ca87:	81feff        	l32r	a8, 0x4005ca80	; ( 0x3ff041d0 )
+4005ca87:	81feff        	l32r	a8, [0x3ff041d0]	; 0x4005ca80
 4005ca8a:	0c19      	movi.n	a9, 1
 4005ca8c:	c02000        	memw
 4005ca8f:	9908      	s32i.n	a9, a8, 0
-4005ca91:	91e6ff        	l32r	a9, 0x4005ca2c	; ( 0x3ff041d4 )
+4005ca91:	91e6ff        	l32r	a9, [0x3ff041d4]	; 0x4005ca2c
 4005ca94:	c02000        	memw
 4005ca97:	8809      	l32i.n	a8, a9, 0
 4005ca99:	2618f7        	beqi	a8, 1, 0x4005ca94
-4005ca9c:	8177fd        	l32r	a8, 0x4005c078	; ( 0x3ff00020 )
+4005ca9c:	8177fd        	l32r	a8, [0x3ff00020]	; 0x4005c078
 4005ca9f:	0c89      	movi.n	a9, 8
 4005caa1:	c02000        	memw
 4005caa4:	a808      	l32i.n	a10, a8, 0
 4005caa6:	909a20        	or	a9, a10, a9
 4005caa9:	c02000        	memw
 4005caac:	9908      	s32i.n	a9, a8, 0
-4005caae:	8171fd        	l32r	a8, 0x4005c074	; ( 0x3ff0001c )
+4005caae:	8171fd        	l32r	a8, [0x3ff0001c]	; 0x4005c074
 4005cab1:	7c79      	movi.n	a9, -9
 4005cab3:	c02000        	memw
 4005cab6:	a808      	l32i.n	a10, a8, 0
@@ -5732,15 +5732,15 @@
 
   ets_secure_boot_hash:
 4005cad4:	364100        	entry	a1, 32
-4005cad7:	81fbff        	l32r	a8, 0x4005cac4	; ( 0x3ff04080 )
-4005cada:	b1fcff        	l32r	a11, 0x4005cacc	; ( 0xc00fbf80 )
-4005cadd:	91fcff        	l32r	a9, 0x4005cad0	; ( 0x3ff04100 )
+4005cad7:	81fbff        	l32r	a8, [0x3ff04080]	; 0x4005cac4
+4005cada:	b1fcff        	l32r	a11, [0xc00fbf80]	; 0x4005cacc
+4005cadd:	91fcff        	l32r	a9, [0x3ff04100]	; 0x4005cad0
 4005cae0:	cce2      	bnez.n	a2, 0x4005caf2
-4005cae2:	21f9ff        	l32r	a2, 0x4005cac8	; ( 0x3ff041c4 )
+4005cae2:	21f9ff        	l32r	a2, [0x3ff041c4]	; 0x4005cac8
 4005cae5:	0c18      	movi.n	a8, 1
 4005cae7:	c02000        	memw
 4005caea:	8902      	s32i.n	a8, a2, 0
-4005caec:	81d0ff        	l32r	a8, 0x4005ca2c	; ( 0x3ff041d4 )
+4005caec:	81d0ff        	l32r	a8, [0x3ff041d4]	; 0x4005ca2c
 4005caef:	860400        	j	0x4005cb05
 
 4005caf2:	8aa2      	add.n	a10, a2, a8
@@ -5762,11 +5762,11 @@
 
   ets_secure_boot_obtain:
 4005cb14:	364100        	entry	a1, 32
-4005cb17:	81feff        	l32r	a8, 0x4005cb10	; ( 0x3ff041c8 )
+4005cb17:	81feff        	l32r	a8, [0x3ff041c8]	; 0x4005cb10
 4005cb1a:	0c19      	movi.n	a9, 1
 4005cb1c:	c02000        	memw
 4005cb1f:	9908      	s32i.n	a9, a8, 0
-4005cb21:	91c2ff        	l32r	a9, 0x4005ca2c	; ( 0x3ff041d4 )
+4005cb21:	91c2ff        	l32r	a9, [0x3ff041d4]	; 0x4005ca2c
 4005cb24:	c02000        	memw
 4005cb27:	8809      	l32i.n	a8, a9, 0
 4005cb29:	2618f7        	beqi	a8, 1, 0x4005cb24
@@ -5780,9 +5780,9 @@
 
   ets_secure_boot_check:
 4005cb40:	364100        	entry	a1, 32
-4005cb43:	81fbff        	l32r	a8, 0x4005cb30	; ( 0x3ff04140 )
-4005cb46:	b1fbff        	l32r	a11, 0x4005cb34	; ( 0xc00fbec0 )
-4005cb49:	91fbff        	l32r	a9, 0x4005cb38	; ( 0x3ff04180 )
+4005cb43:	81fbff        	l32r	a8, [0x3ff04140]	; 0x4005cb30
+4005cb46:	b1fbff        	l32r	a11, [0xc00fbec0]	; 0x4005cb34
+4005cb49:	91fbff        	l32r	a9, [0x3ff04180]	; 0x4005cb38
 4005cb4c:	8aa2      	add.n	a10, a2, a8
 4005cb4e:	baaa      	add.n	a10, a10, a11
 4005cb50:	a80a      	l32i.n	a10, a10, 0
@@ -5790,15 +5790,15 @@
 4005cb55:	a908      	s32i.n	a10, a8, 0
 4005cb57:	4b88      	addi.n	a8, a8, 4
 4005cb59:	9798ef        	bne	a8, a9, 0x4005cb4c
-4005cb5c:	21f8ff        	l32r	a2, 0x4005cb3c	; ( 0x3ff041cc )
+4005cb5c:	21f8ff        	l32r	a2, [0x3ff041cc]	; 0x4005cb3c
 4005cb5f:	0c18      	movi.n	a8, 1
 4005cb61:	c02000        	memw
 4005cb64:	8902      	s32i.n	a8, a2, 0
-4005cb66:	81b1ff        	l32r	a8, 0x4005ca2c	; ( 0x3ff041d4 )
+4005cb66:	81b1ff        	l32r	a8, [0x3ff041d4]	; 0x4005ca2c
 4005cb69:	c02000        	memw
 4005cb6c:	2808      	l32i.n	a2, a8, 0
 4005cb6e:	2612f7        	beqi	a2, 1, 0x4005cb69
-4005cb71:	21f1ff        	l32r	a2, 0x4005cb38	; ( 0x3ff04180 )
+4005cb71:	21f1ff        	l32r	a2, [0x3ff04180]	; 0x4005cb38
 4005cb74:	c02000        	memw
 4005cb77:	2802      	l32i.n	a2, a2, 0
 4005cb79:	1df0      	retw.n
@@ -5810,7 +5810,7 @@
 4005cbcc:	364100        	entry	a1, 32
 4005cbcf:	208074        	extui	a8, a2, 0, 8
 4005cbd2:	ccf8      	bnez.n	a8, 0x4005cbe5
-4005cbd4:	21fdff        	l32r	a2, 0x4005cbc8	; ( 0x3ff5a018 )
+4005cbd4:	21fdff        	l32r	a2, [0x3ff5a018]	; 0x4005cbc8
 4005cbd7:	c02000        	memw
 4005cbda:	8802      	l32i.n	a8, a2, 0
 4005cbdc:	1c02      	movi.n	a2, 16
@@ -5820,7 +5820,7 @@
 
 4005cbe5:	0c02      	movi.n	a2, 0
 4005cbe7:	661815        	bnei	a8, 1, 0x4005cc00
-4005cbea:	81f7ff        	l32r	a8, 0x4005cbc8	; ( 0x3ff5a018 )
+4005cbea:	81f7ff        	l32r	a8, [0x3ff5a018]	; 0x4005cbc8
 4005cbed:	c02000        	memw
 4005cbf0:	8808      	l32i.n	a8, a8, 0
 4005cbf2:	57680a        	bbci	a8, 5, 0x4005cc00
@@ -5858,11 +5858,11 @@
 
   sub_61b88:
 40061b88:	364100        	entry	a1, 32
-40061b8b:	b1f4ff        	l32r	a11, 0x40061b5c	; ( 0x01002000 )
-40061b8e:	81f4ff        	l32r	a8, 0x40061b60	; ( 0x3ff4301c )
+40061b8b:	b1f4ff        	l32r	a11, [0x01002000]	; 0x40061b5c
+40061b8e:	81f4ff        	l32r	a8, [0x3ff4301c]	; 0x40061b60
 40061b91:	b0c210        	and	a12, a2, a11
-40061b94:	a1e168        	l32r	a10, 0x4003bf18	; ( 0xf7ffffff )
-40061b97:	91f6ff        	l32r	a9, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+40061b94:	a1e168        	l32r	a10, [0xf7ffffff]	; 0x4003bf18
+40061b97:	91f6ff        	l32r	a9, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 40061b9a:	b79c66        	bne	a12, a11, 0x40061c04
 40061b9d:	c02000        	memw
 40061ba0:	2808      	l32i.n	a2, a8, 0
@@ -5871,16 +5871,16 @@
 40061ba8:	a908      	s32i.n	a10, a8, 0
 40061baa:	c02000        	memw
 40061bad:	a808      	l32i.n	a10, a8, 0
-40061baf:	21edff        	l32r	a2, 0x40061b64	; ( 0x70000000 )
+40061baf:	21edff        	l32r	a2, [0x70000000]	; 0x40061b64
 40061bb2:	202a20        	or	a2, a10, a2
 40061bb5:	c02000        	memw
 40061bb8:	2908      	s32i.n	a2, a8, 0
-40061bba:	21ebff        	l32r	a2, 0x40061b68	; ( 0x3ff43020 )
-40061bbd:	81b237        	l32r	a8, 0x4002fa88	; ( 0x03ffffff )
+40061bba:	21ebff        	l32r	a2, [0x3ff43020]	; 0x40061b68
+40061bbd:	81b237        	l32r	a8, [0x03ffffff]	; 0x4002fa88
 40061bc0:	c02000        	memw
 40061bc3:	a802      	l32i.n	a10, a2, 0
 40061bc5:	808a10        	and	a8, a10, a8
-40061bc8:	a1e9ff        	l32r	a10, 0x40061b6c	; ( 0x7c000000 )
+40061bc8:	a1e9ff        	l32r	a10, [0x7c000000]	; 0x40061b6c
 40061bcb:	a08820        	or	a8, a8, a10
 40061bce:	c02000        	memw
 40061bd1:	8902      	s32i.n	a8, a2, 0
@@ -5894,8 +5894,8 @@
 40061be6:	808920        	or	a8, a9, a8
 40061be9:	c02000        	memw
 40061bec:	8902      	s32i.n	a8, a2, 0
-40061bee:	21e1ff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061bf1:	81c4f4        	l32r	a8, 0x4005ef04	; ( 0xffff0000 )
+40061bee:	21e1ff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061bf1:	81c4f4        	l32r	a8, [0xffff0000]	; 0x4005ef04
 40061bf4:	c02000        	memw
 40061bf7:	9802      	l32i.n	a9, a2, 0
 40061bf9:	808910        	and	a8, a9, a8
@@ -5913,22 +5913,22 @@
 40061c15:	a908      	s32i.n	a10, a8, 0
 40061c17:	c02000        	memw
 40061c1a:	b808      	l32i.n	a11, a8, 0
-40061c1c:	a1d2ff        	l32r	a10, 0x40061b64	; ( 0x70000000 )
+40061c1c:	a1d2ff        	l32r	a10, [0x70000000]	; 0x40061b64
 40061c1f:	a0ab20        	or	a10, a11, a10
 40061c22:	c02000        	memw
 40061c25:	a908      	s32i.n	a10, a8, 0
-40061c27:	81d0ff        	l32r	a8, 0x40061b68	; ( 0x3ff43020 )
-40061c2a:	a19737        	l32r	a10, 0x4002fa88	; ( 0x03ffffff )
+40061c27:	81d0ff        	l32r	a8, [0x3ff43020]	; 0x40061b68
+40061c2a:	a19737        	l32r	a10, [0x03ffffff]	; 0x4002fa88
 40061c2d:	c02000        	memw
 40061c30:	b808      	l32i.n	a11, a8, 0
 40061c32:	a0ab10        	and	a10, a11, a10
-40061c35:	b1d0ff        	l32r	a11, 0x40061b78	; ( 0x5c000000 )
+40061c35:	b1d0ff        	l32r	a11, [0x5c000000]	; 0x40061b78
 40061c38:	b0aa20        	or	a10, a10, a11
 40061c3b:	c02000        	memw
 40061c3e:	a908      	s32i.n	a10, a8, 0
 40061c40:	477235        	bbci	a2, 20, 0x40061c79
-40061c43:	21ccff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061c46:	a1aff4        	l32r	a10, 0x4005ef04	; ( 0xffff0000 )
+40061c43:	21ccff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061c46:	a1aff4        	l32r	a10, [0xffff0000]	; 0x4005ef04
 40061c49:	c02000        	memw
 40061c4c:	b802      	l32i.n	a11, a2, 0
 40061c4e:	a0ab10        	and	a10, a11, a10
@@ -5959,8 +5959,8 @@
 40061c8f:	202920        	or	a2, a9, a2
 40061c92:	c02000        	memw
 40061c95:	2908      	s32i.n	a2, a8, 0
-40061c97:	21b7ff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061c9a:	819af4        	l32r	a8, 0x4005ef04	; ( 0xffff0000 )
+40061c97:	21b7ff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061c9a:	819af4        	l32r	a8, [0xffff0000]	; 0x4005ef04
 40061c9d:	c02000        	memw
 40061ca0:	9802      	l32i.n	a9, a2, 0
 40061ca2:	808910        	and	a8, a9, a8
@@ -5976,8 +5976,8 @@
 40061cba:	202920        	or	a2, a9, a2
 40061cbd:	c02000        	memw
 40061cc0:	2908      	s32i.n	a2, a8, 0
-40061cc2:	21acff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061cc5:	818ff4        	l32r	a8, 0x4005ef04	; ( 0xffff0000 )
+40061cc2:	21acff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061cc5:	818ff4        	l32r	a8, [0xffff0000]	; 0x4005ef04
 40061cc8:	c02000        	memw
 40061ccb:	9802      	l32i.n	a9, a2, 0
 40061ccd:	808910        	and	a8, a9, a8
@@ -5989,8 +5989,8 @@
 40061cdb:	202920        	or	a2, a9, a2
 40061cde:	c02000        	memw
 40061ce1:	2908      	s32i.n	a2, a8, 0
-40061ce3:	21a4ff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061ce6:	8187f4        	l32r	a8, 0x4005ef04	; ( 0xffff0000 )
+40061ce3:	21a4ff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061ce6:	8187f4        	l32r	a8, [0xffff0000]	; 0x4005ef04
 40061ce9:	c02000        	memw
 40061cec:	9802      	l32i.n	a9, a2, 0
 40061cee:	808910        	and	a8, a9, a8
@@ -6007,7 +6007,7 @@
 40061d08:	dc19      	bnez.n	a9, 0x40061d1d
 40061d0a:	c02000        	memw
 40061d0d:	9808      	l32i.n	a9, a8, 0
-40061d0f:	219bff        	l32r	a2, 0x40061b7c	; ( 0xdfffffff )
+40061d0f:	219bff        	l32r	a2, [0xdfffffff]	; 0x40061b7c
 40061d12:	202910        	and	a2, a9, a2
 40061d15:	c02000        	memw
 40061d18:	2908      	s32i.n	a2, a8, 0
@@ -6015,12 +6015,12 @@
 
 40061d1d:	c02000        	memw
 40061d20:	a808      	l32i.n	a10, a8, 0
-40061d22:	2197ff        	l32r	a2, 0x40061b80	; ( 0x20000000 )
+40061d22:	2197ff        	l32r	a2, [0x20000000]	; 0x40061b80
 40061d25:	0b99      	addi.n	a9, a9, -1
 40061d27:	202a20        	or	a2, a10, a2
 40061d2a:	c02000        	memw
 40061d2d:	2908      	s32i.n	a2, a8, 0
-40061d2f:	218eff        	l32r	a2, 0x40061b68	; ( 0x3ff43020 )
+40061d2f:	218eff        	l32r	a2, [0x3ff43020]	; 0x40061b68
 40061d32:	82af00        	movi	a8, 0xffffff00
 40061d35:	c02000        	memw
 40061d38:	a802      	l32i.n	a10, a2, 0
@@ -6028,24 +6028,24 @@
 40061d3d:	809920        	or	a9, a9, a8
 40061d40:	c02000        	memw
 40061d43:	9902      	s32i.n	a9, a2, 0
-40061d45:	2186ff        	l32r	a2, 0x40061b60	; ( 0x3ff4301c )
-40061d48:	818fff        	l32r	a8, 0x40061b84	; ( 0x50000000 )
+40061d45:	2186ff        	l32r	a2, [0x3ff4301c]	; 0x40061b60
+40061d48:	818fff        	l32r	a8, [0x50000000]	; 0x40061b84
 40061d4b:	c02000        	memw
 40061d4e:	9802      	l32i.n	a9, a2, 0
 40061d50:	808920        	or	a8, a9, a8
 40061d53:	c02000        	memw
 40061d56:	8902      	s32i.n	a8, a2, 0
-40061d58:	2184ff        	l32r	a2, 0x40061b68	; ( 0x3ff43020 )
-40061d5b:	814b37        	l32r	a8, 0x4002fa88	; ( 0x03ffffff )
+40061d58:	2184ff        	l32r	a2, [0x3ff43020]	; 0x40061b68
+40061d5b:	814b37        	l32r	a8, [0x03ffffff]	; 0x4002fa88
 40061d5e:	c02000        	memw
 40061d61:	9802      	l32i.n	a9, a2, 0
 40061d63:	808910        	and	a8, a9, a8
-40061d66:	9184ff        	l32r	a9, 0x40061b78	; ( 0x5c000000 )
+40061d66:	9184ff        	l32r	a9, [0x5c000000]	; 0x40061b78
 40061d69:	908820        	or	a8, a8, a9
 40061d6c:	c02000        	memw
 40061d6f:	8902      	s32i.n	a8, a2, 0
-40061d71:	2180ff        	l32r	a2, 0x40061b74	; ( 0x3ff43024 )
-40061d74:	8164f4        	l32r	a8, 0x4005ef04	; ( 0xffff0000 )
+40061d71:	2180ff        	l32r	a2, [0x3ff43024]	; 0x40061b74
+40061d74:	8164f4        	l32r	a8, [0xffff0000]	; 0x4005ef04
 40061d77:	c02000        	memw
 40061d7a:	9802      	l32i.n	a9, a2, 0
 40061d7c:	808910        	and	a8, a9, a8
@@ -6060,10 +6060,10 @@
 
   spi_dummy_len_fix:
 40061d90:	364100        	entry	a1, 32
-40061d93:	81feff        	l32r	a8, 0x40061d8c	; sig_matrix ( 0x3ffae293 )
+40061d93:	81feff        	l32r	a8, [sig_matrix]	; [0x3ffae293] 0x40061d8c
 40061d96:	202074        	extui	a2, a2, 0, 8
 40061d99:	920800        	l8ui	a9, a8, 0
-40061d9c:	8175ff        	l32r	a8, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+40061d9c:	8175ff        	l32r	a8, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 40061d9f:	303074        	extui	a3, a3, 0, 8
 40061da2:	2a28      	add.n	a2, a8, a2
 40061da4:	9c89      	beqz.n	a9, 0x40061dc0
@@ -6095,30 +6095,30 @@
 40061ddc:	364100        	entry	a1, 32
 40061ddf:	202074        	extui	a2, a2, 0, 8
 40061de2:	dce3      	bnez.n	a3, 0x40061e04
-40061de4:	21f9ff        	l32r	a2, 0x40061dc8	; ( 0x3ff49054 )
-40061de7:	81f9ff        	l32r	a8, 0x40061dcc	; ( 0xffff8fff )
+40061de4:	21f9ff        	l32r	a2, [0x3ff49054]	; 0x40061dc8
+40061de7:	81f9ff        	l32r	a8, [0xffff8fff]	; 0x40061dcc
 40061dea:	c02000        	memw
 40061ded:	9802      	l32i.n	a9, a2, 0
-40061def:	31f935        	l32r	a3, 0x4002f5d4	; ( 0x00001000 )
+40061def:	31f935        	l32r	a3, [0x00001000]	; 0x4002f5d4
 40061df2:	809910        	and	a9, a9, a8
 40061df5:	309920        	or	a9, a9, a3
 40061df8:	c02000        	memw
 40061dfb:	9902      	s32i.n	a9, a2, 0
-40061dfd:	21f4ff        	l32r	a2, 0x40061dd0	; ( 0x3ff49058 )
+40061dfd:	21f4ff        	l32r	a2, [0x3ff49058]	; 0x40061dd0
 40061e00:	c60700        	j	0x40061e23
 
 40061e03:	00
 40061e04:	66132e        	bnei	a3, 1, 0x40061e36
-40061e07:	21f3ff        	l32r	a2, 0x40061dd4	; ( 0x3ff49040 )
-40061e0a:	81f0ff        	l32r	a8, 0x40061dcc	; ( 0xffff8fff )
+40061e07:	21f3ff        	l32r	a2, [0x3ff49040]	; 0x40061dd4
+40061e0a:	81f0ff        	l32r	a8, [0xffff8fff]	; 0x40061dcc
 40061e0d:	c02000        	memw
 40061e10:	9802      	l32i.n	a9, a2, 0
-40061e12:	31f035        	l32r	a3, 0x4002f5d4	; ( 0x00001000 )
+40061e12:	31f035        	l32r	a3, [0x00001000]	; 0x4002f5d4
 40061e15:	809910        	and	a9, a9, a8
 40061e18:	309920        	or	a9, a9, a3
 40061e1b:	c02000        	memw
 40061e1e:	9902      	s32i.n	a9, a2, 0
-40061e20:	21eeff        	l32r	a2, 0x40061dd8	; ( 0x3ff49048 )
+40061e20:	21eeff        	l32r	a2, [0x3ff49048]	; 0x40061dd8
 40061e23:	c02000        	memw
 40061e26:	9802      	l32i.n	a9, a2, 0
 40061e28:	808910        	and	a8, a9, a8
@@ -6168,7 +6168,7 @@
 40061e8d:	220402        	l8ui	a2, a4, 2
 40061e90:	608441        	srli	a8, a6, 4
 40061e93:	204441        	srli	a4, a2, 4
-40061e96:	a1f7ff        	l32r	a10, 0x40061e74	; ( 0x3ff9ee69 )
+40061e96:	a1f7ff        	l32r	a10, [0x3ff9ee69]	; 0x40061e74
 40061e99:	e22104        	l32i	a14, a1, 16
 40061e9c:	cd08      	mov.n	a12, a8
 40061e9e:	4901      	s32i.n	a4, a1, 0
@@ -6269,11 +6269,11 @@
 40061f94:	0c1b      	movi.n	a11, 1
 40061f96:	0c6a      	movi.n	a10, 6
 40061f98:	2518a8        	call8	0x4000a11c	; gpio_pad_set_drv
-40061f9b:	81f1ff        	l32r	a8, 0x40061f60	; ( 0x3ff49060 )
-40061f9e:	318bff        	l32r	a3, 0x40061dcc	; ( 0xffff8fff )
+40061f9b:	81f1ff        	l32r	a8, [0x3ff49060]	; 0x40061f60
+40061f9e:	318bff        	l32r	a3, [0xffff8fff]	; 0x40061dcc
 40061fa1:	c02000        	memw
 40061fa4:	9808      	l32i.n	a9, a8, 0
-40061fa6:	218b35        	l32r	a2, 0x4002f5d4	; ( 0x00001000 )
+40061fa6:	218b35        	l32r	a2, [0x00001000]	; 0x4002f5d4
 40061fa9:	309910        	and	a9, a9, a3
 40061fac:	209920        	or	a9, a9, a2
 40061faf:	c02000        	memw
@@ -6282,7 +6282,7 @@
 40061fb6:	e54ca8        	call8	0x4000a484	; gpio_pad_unhold
 40061fb9:	0c7a      	movi.n	a10, 7
 40061fbb:	2527a8        	call8	0x4000a22c	; gpio_pad_pullup
-40061fbe:	81e9ff        	l32r	a8, 0x40061f64	; ( 0x3ff49064 )
+40061fbe:	81e9ff        	l32r	a8, [0x3ff49064]	; 0x40061f64
 40061fc1:	0c8a      	movi.n	a10, 8
 40061fc3:	c02000        	memw
 40061fc6:	9808      	l32i.n	a9, a8, 0
@@ -6293,7 +6293,7 @@
 40061fd3:	254ba8        	call8	0x4000a484	; gpio_pad_unhold
 40061fd6:	0c8a      	movi.n	a10, 8
 40061fd8:	2525a8        	call8	0x4000a22c	; gpio_pad_pullup
-40061fdb:	81e3ff        	l32r	a8, 0x40061f68	; ( 0x3ff49068 )
+40061fdb:	81e3ff        	l32r	a8, [0x3ff49068]	; 0x40061f68
 40061fde:	0c9a      	movi.n	a10, 9
 40061fe0:	c02000        	memw
 40061fe3:	9808      	l32i.n	a9, a8, 0
@@ -6312,15 +6312,15 @@
 40062004:	e547a8        	call8	0x4000a484	; gpio_pad_unhold
 40062007:	0cba      	movi.n	a10, 11
 40062009:	2522a8        	call8	0x4000a22c	; gpio_pad_pullup
-4006200c:	81d8ff        	l32r	a8, 0x40061f6c	; ( 0x3ff4905c )
+4006200c:	81d8ff        	l32r	a8, [0x3ff4905c]	; 0x40061f6c
 4006200f:	c02000        	memw
 40062012:	9808      	l32i.n	a9, a8, 0
 40062014:	303910        	and	a3, a9, a3
 40062017:	202320        	or	a2, a3, a2
 4006201a:	c02000        	memw
 4006201d:	2908      	s32i.n	a2, a8, 0
-4006201f:	21d4ff        	l32r	a2, 0x40061f70	; ( 0x3ff44f24 )
-40062022:	31dfcd        	l32r	a3, 0x400557a0	; ( 0x7fffffff )
+4006201f:	21d4ff        	l32r	a2, [0x3ff44f24]	; 0x40061f70
+40062022:	31dfcd        	l32r	a3, [0x7fffffff]	; 0x400557a0
 40062025:	c02000        	memw
 40062028:	8802      	l32i.n	a8, a2, 0
 4006202a:	303810        	and	a3, a8, a3
@@ -6336,11 +6336,11 @@
 40062040:	bd02      	mov.n	a11, a2
 40062042:	0cea      	movi.n	a10, 14
 40062044:	650da8        	call8	0x4000a11c	; gpio_pad_set_drv
-40062047:	81cbff        	l32r	a8, 0x40061f74	; ( 0x3ff49030 )
-4006204a:	3160ff        	l32r	a3, 0x40061dcc	; ( 0xffff8fff )
+40062047:	81cbff        	l32r	a8, [0x3ff49030]	; 0x40061f74
+4006204a:	3160ff        	l32r	a3, [0xffff8fff]	; 0x40061dcc
 4006204d:	c02000        	memw
 40062050:	9808      	l32i.n	a9, a8, 0
-40062052:	216035        	l32r	a2, 0x4002f5d4	; ( 0x00001000 )
+40062052:	216035        	l32r	a2, [0x00001000]	; 0x4002f5d4
 40062055:	309910        	and	a9, a9, a3
 40062058:	209920        	or	a9, a9, a2
 4006205b:	c02000        	memw
@@ -6349,7 +6349,7 @@
 40062062:	2542a8        	call8	0x4000a484	; gpio_pad_unhold
 40062065:	0cca      	movi.n	a10, 12
 40062067:	651ca8        	call8	0x4000a22c	; gpio_pad_pullup
-4006206a:	81c3ff        	l32r	a8, 0x40061f78	; ( 0x3ff49034 )
+4006206a:	81c3ff        	l32r	a8, [0x3ff49034]	; 0x40061f78
 4006206d:	0cda      	movi.n	a10, 13
 4006206f:	c02000        	memw
 40062072:	9808      	l32i.n	a9, a8, 0
@@ -6360,7 +6360,7 @@
 4006207f:	6540a8        	call8	0x4000a484	; gpio_pad_unhold
 40062082:	0cda      	movi.n	a10, 13
 40062084:	651aa8        	call8	0x4000a22c	; gpio_pad_pullup
-40062087:	81bdff        	l32r	a8, 0x40061f7c	; ( 0x3ff49038 )
+40062087:	81bdff        	l32r	a8, [0x3ff49038]	; 0x40061f7c
 4006208a:	0cfa      	movi.n	a10, 15
 4006208c:	c02000        	memw
 4006208f:	9808      	l32i.n	a9, a8, 0
@@ -6371,7 +6371,7 @@
 4006209d:	653ea8        	call8	0x4000a484	; gpio_pad_unhold
 400620a0:	0cfa      	movi.n	a10, 15
 400620a2:	a518a8        	call8	0x4000a22c	; gpio_pad_pullup
-400620a5:	81b6ff        	l32r	a8, 0x40061f80	; ( 0x3ff4903c )
+400620a5:	81b6ff        	l32r	a8, [0x3ff4903c]	; 0x40061f80
 400620a8:	0c4a      	movi.n	a10, 4
 400620aa:	c02000        	memw
 400620ad:	9808      	l32i.n	a9, a8, 0
@@ -6386,8 +6386,8 @@
 400620c4:	e53ba8        	call8	0x4000a484	; gpio_pad_unhold
 400620c7:	0c2a      	movi.n	a10, 2
 400620c9:	2516a8        	call8	0x4000a22c	; gpio_pad_pullup
-400620cc:	21a9ff        	l32r	a2, 0x40061f70	; ( 0x3ff44f24 )
-400620cf:	31f1b0        	l32r	a3, 0x4004e494	; ( 0x80000000 )
+400620cc:	21a9ff        	l32r	a2, [0x3ff44f24]	; 0x40061f70
+400620cf:	31f1b0        	l32r	a3, [0x80000000]	; 0x4004e494
 400620d2:	c02000        	memw
 400620d5:	8802      	l32i.n	a8, a2, 0
 400620d7:	303820        	or	a3, a8, a3
@@ -6395,7 +6395,7 @@
 400620dd:	3902      	s32i.n	a3, a2, 0
 400620df:	1df0      	retw.n
 
-400620e1:	312aff        	l32r	a3, 0x40061d8c	; sig_matrix ( 0x3ffae293 )
+400620e1:	312aff        	l32r	a3, [sig_matrix]	; [0x3ffae293] 0x40061d8c
 400620e4:	0c18      	movi.n	a8, 1
 400620e6:	824300        	s8i	a8, a3, 0
 400620e9:	203054        	extui	a3, a2, 0, 6
@@ -6479,10 +6479,10 @@
 
   SPI_user_command_read:
 400621b0:	364100        	entry	a1, 32
-400621b3:	a1f6ff        	l32r	a10, 0x4006218c	; ( 0x3ff42008 )
-400621b6:	81f6ff        	l32r	a8, 0x40062190	; ( 0x3ff4201c )
-400621b9:	91f6ff        	l32r	a9, 0x40062194	; ( 0x3ff42020 )
-400621bc:	b1f7ff        	l32r	a11, 0x40062198	; ( 0x3ff42024 )
+400621b3:	a1f6ff        	l32r	a10, [0x3ff42008]	; 0x4006218c
+400621b6:	81f6ff        	l32r	a8, [0x3ff4201c]	; 0x40062190
+400621b9:	91f6ff        	l32r	a9, [0x3ff42020]	; 0x40062194
+400621bc:	b1f7ff        	l32r	a11, [0x3ff42024]	; 0x40062198
 400621bf:	0c0f      	movi.n	a15, 0
 400621c1:	c02000        	memw
 400621c4:	e80a      	l32i.n	a14, a10, 0
@@ -6494,37 +6494,37 @@
 400621d3:	b80b      	l32i.n	a11, a11, 0
 400621d5:	c02000        	memw
 400621d8:	f90a      	s32i.n	a15, a10, 0
-400621da:	a1f0ff        	l32r	a10, 0x4006219c	; ( 0x3ff4202c )
+400621da:	a1f0ff        	l32r	a10, [0x3ff4202c]	; 0x4006219c
 400621dd:	0c7f      	movi.n	a15, 7
 400621df:	c02000        	memw
 400621e2:	f90a      	s32i.n	a15, a10, 0
-400621e4:	a163fe        	l32r	a10, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+400621e4:	a163fe        	l32r	a10, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 400621e7:	303074        	extui	a3, a3, 0, 8
 400621ea:	a20a01        	l8ui	a10, a10, 1
 400621ed:	ccba      	bnez.n	a10, 0x400621fc
-400621ef:	91ecff        	l32r	a9, 0x400621a0	; ( 0x90000000 )
+400621ef:	91ecff        	l32r	a9, [0x90000000]	; 0x400621a0
 400621f2:	c02000        	memw
 400621f5:	9908      	s32i.n	a9, a8, 0
 400621f7:	060400        	j	0x4006220b
 
 400621fa:	0000
-400621fc:	f1eaff        	l32r	a15, 0x400621a4	; ( 0xb0000000 )
+400621fc:	f1eaff        	l32r	a15, [0xb0000000]	; 0x400621a4
 400621ff:	0baa      	addi.n	a10, a10, -1
 40062201:	c02000        	memw
 40062204:	f908      	s32i.n	a15, a8, 0
 40062206:	c02000        	memw
 40062209:	a909      	s32i.n	a10, a9, 0
-4006220b:	8156fe        	l32r	a8, 0x40061b64	; ( 0x70000000 )
-4006220e:	a135ac        	l32r	a10, 0x4004d2e4	; ( 0x00040000 )
+4006220b:	8156fe        	l32r	a8, [0x70000000]	; 0x40061b64
+4006220e:	a135ac        	l32r	a10, [0x00040000]	; 0x4004d2e4
 40062211:	809320        	or	a9, a3, a8
-40062214:	81e1ff        	l32r	a8, 0x40062198	; ( 0x3ff42024 )
+40062214:	81e1ff        	l32r	a8, [0x3ff42024]	; 0x40062198
 40062217:	c02000        	memw
 4006221a:	9908      	s32i.n	a9, a8, 0
-4006221c:	91e3ff        	l32r	a9, 0x400621a8	; ( 0x3ff42080 )
+4006221c:	91e3ff        	l32r	a9, [0x3ff42080]	; 0x400621a8
 4006221f:	0c08      	movi.n	a8, 0
 40062221:	c02000        	memw
 40062224:	8909      	s32i.n	a8, a9, 0
-40062226:	81e1ff        	l32r	a8, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+40062226:	81e1ff        	l32r	a8, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 40062229:	c02000        	memw
 4006222c:	a908      	s32i.n	a10, a8, 0
 4006222e:	ad08      	mov.n	a10, a8
@@ -6535,16 +6535,16 @@
 4006223b:	9809      	l32i.n	a9, a9, 0
 4006223d:	909074        	extui	a9, a9, 0, 8
 40062240:	9902      	s32i.n	a9, a2, 0
-40062242:	21d2ff        	l32r	a2, 0x4006218c	; ( 0x3ff42008 )
+40062242:	21d2ff        	l32r	a2, [0x3ff42008]	; 0x4006218c
 40062245:	c02000        	memw
 40062248:	e902      	s32i.n	a14, a2, 0
-4006224a:	21d1ff        	l32r	a2, 0x40062190	; ( 0x3ff4201c )
+4006224a:	21d1ff        	l32r	a2, [0x3ff4201c]	; 0x40062190
 4006224d:	c02000        	memw
 40062250:	d902      	s32i.n	a13, a2, 0
-40062252:	21d0ff        	l32r	a2, 0x40062194	; ( 0x3ff42020 )
+40062252:	21d0ff        	l32r	a2, [0x3ff42020]	; 0x40062194
 40062255:	c02000        	memw
 40062258:	c902      	s32i.n	a12, a2, 0
-4006225a:	21cfff        	l32r	a2, 0x40062198	; ( 0x3ff42024 )
+4006225a:	21cfff        	l32r	a2, [0x3ff42024]	; 0x40062198
 4006225d:	c02000        	memw
 40062260:	b902      	s32i.n	a11, a2, 0
 40062262:	2d08      	mov.n	a2, a8
@@ -6555,15 +6555,15 @@
 
   SPI_read_status:
 4006226c:	364100        	entry	a1, 32
-4006226f:	8140fe        	l32r	a8, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+4006226f:	8140fe        	l32r	a8, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 40062272:	ad03      	mov.n	a10, a3
 40062274:	b20801        	l8ui	a11, a8, 1
 40062277:	fc3b      	bnez.n	a11, 0x400622ae
 40062279:	cd0b      	mov.n	a12, a11
 4006227b:	0c18      	movi.n	a8, 1
-4006227d:	91faff        	l32r	a9, 0x40062268	; ( 0x3ff42010 )
-40062280:	b1cbff        	l32r	a11, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
-40062283:	d1f062        	l32r	a13, 0x4003ae44	; ( 0x08000000 )
+4006227d:	91faff        	l32r	a9, [0x3ff42010]	; 0x40062268
+40062280:	b1cbff        	l32r	a11, [IO:SPI1]	; [0x3ff42000] 0x400621ac
+40062283:	d1f062        	l32r	a13, [0x08000000]	; 0x4003ae44
 40062286:	060700        	j	0x400622a6
 
 40062289:	c02000        	memw
@@ -6592,12 +6592,12 @@
 
   esp_rom_spiflash_wait_idle:
 400622c0:	366100        	entry	a1, 48
-400622c3:	81fdff        	l32r	a8, 0x400622b8	; ( 0x3ff420f8 )
+400622c3:	81fdff        	l32r	a8, [0x3ff420f8]	; 0x400622b8
 400622c6:	c02000        	memw
 400622c9:	322800        	l32i	a3, a8, 0
 400622cc:	303024        	extui	a3, a3, 0, 3
 400622cf:	5633ff        	bnez	a3, 0x400622c6
-400622d2:	81faff        	l32r	a8, 0x400622bc	; ( 0x3ff430f8 )
+400622d2:	81faff        	l32r	a8, [0x3ff430f8]	; 0x400622bc
 400622d5:	c02000        	memw
 400622d8:	3808      	l32i.n	a3, a8, 0
 400622da:	303024        	extui	a3, a3, 0, 3
@@ -6615,11 +6615,11 @@
 400622f0:	364100        	entry	a1, 32
 400622f3:	ad02      	mov.n	a10, a2
 400622f5:	a5fcff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
-400622f8:	81dcff        	l32r	a8, 0x40062268	; ( 0x3ff42010 )
+400622f8:	81dcff        	l32r	a8, [0x3ff42010]	; 0x40062268
 400622fb:	c02000        	memw
 400622fe:	3908      	s32i.n	a3, a8, 0
-40062300:	31abff        	l32r	a3, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
-40062303:	8111bc        	l32r	a8, 0x40051348	; ( 0x04000000 )
+40062300:	31abff        	l32r	a3, [IO:SPI1]	; [0x3ff42000] 0x400621ac
+40062303:	8111bc        	l32r	a8, [0x04000000]	; 0x40051348
 40062306:	c02000        	memw
 40062309:	8903      	s32i.n	a8, a3, 0
 4006230b:	8d03      	mov.n	a8, a3
@@ -6639,8 +6639,8 @@
 40062325:	ad02      	mov.n	a10, a2
 40062327:	326100        	s32i	a3, a1, 0
 4006232a:	65f9ff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
-4006232d:	819fff        	l32r	a8, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
-40062330:	31f468        	l32r	a3, 0x4003c700	; _WindowOverflow4 ( 0x40000000 )
+4006232d:	819fff        	l32r	a8, [IO:SPI1]	; [0x3ff42000] 0x400621ac
+40062330:	31f468        	l32r	a3, [_WindowOverflow4]	; [0x40000000] 0x4003c700
 40062333:	c02000        	memw
 40062336:	3908      	s32i.n	a3, a8, 0
 40062338:	c02000        	memw
@@ -6667,7 +6667,7 @@
 
   SPI_read_status_high:
 40062448:	364100        	entry	a1, 32
-4006244b:	a1feff        	l32r	a10, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+4006244b:	a1feff        	l32r	a10, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 4006244e:	25e7ff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
 40062451:	ad02      	mov.n	a10, a2
 40062453:	3c5b      	movi.n	a11, 53
@@ -6732,7 +6732,7 @@
 400624d7:	5d06      	mov.n	a5, a6
 400624d9:	3d0a      	mov.n	a3, a10
 400624db:	b2af80        	movi	a11, -128
-400624de:	a1d9ff        	l32r	a10, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+400624de:	a1d9ff        	l32r	a10, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 400624e1:	b0b910        	and	a11, a9, a11
 400624e4:	0c0c      	movi.n	a12, 0
 400624e6:	0c12      	movi.n	a2, 1
@@ -6741,13 +6741,13 @@
 400624ed:	8921      	s32i.n	a8, a1, 8
 400624ef:	c931      	s32i.n	a12, a1, 12
 400624f1:	e5dcff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
-400624f4:	9126ff        	l32r	a9, 0x4006218c	; ( 0x3ff42008 )
-400624f7:	d128ff        	l32r	a13, 0x40062198	; ( 0x3ff42024 )
+400624f4:	9126ff        	l32r	a9, [0x3ff42008]	; 0x4006218c
+400624f7:	d128ff        	l32r	a13, [0x3ff42024]	; 0x40062198
 400624fa:	c02000        	memw
 400624fd:	9809      	l32i.n	a9, a9, 0
-400624ff:	a125ff        	l32r	a10, 0x40062194	; ( 0x3ff42020 )
+400624ff:	a125ff        	l32r	a10, [0x3ff42020]	; 0x40062194
 40062502:	9911      	s32i.n	a9, a1, 4
-40062504:	9123ff        	l32r	a9, 0x40062190	; ( 0x3ff4201c )
+40062504:	9123ff        	l32r	a9, [0x3ff4201c]	; 0x40062190
 40062507:	c831      	l32i.n	a12, a1, 12
 40062509:	c02000        	memw
 4006250c:	e809      	l32i.n	a14, a9, 0
@@ -6755,24 +6755,24 @@
 40062511:	b80a      	l32i.n	a11, a10, 0
 40062513:	c02000        	memw
 40062516:	f80d      	l32i.n	a15, a13, 0
-40062518:	d11dff        	l32r	a13, 0x4006218c	; ( 0x3ff42008 )
+40062518:	d11dff        	l32r	a13, [0x3ff42008]	; 0x4006218c
 4006251b:	2020f4        	extui	a2, a2, 0, 16
 4006251e:	c02000        	memw
 40062521:	c90d      	s32i.n	a12, a13, 0
 40062523:	c21402        	l16ui	a12, a4, 4
 40062526:	8821      	l32i.n	a8, a1, 8
 40062528:	fc0c      	bnez.n	a12, 0x4006255c
-4006252a:	31daaf        	l32r	a3, 0x4004e494	; ( 0x80000000 )
+4006252a:	31daaf        	l32r	a3, [0x80000000]	; 0x4004e494
 4006252d:	c02000        	memw
 40062530:	3909      	s32i.n	a3, a9, 0
 40062532:	420401        	l8ui	a4, a4, 1
-40062535:	318bfd        	l32r	a3, 0x40061b64	; ( 0x70000000 )
+40062535:	318bfd        	l32r	a3, [0x70000000]	; 0x40061b64
 40062538:	303420        	or	a3, a4, a3
-4006253b:	4117ff        	l32r	a4, 0x40062198	; ( 0x3ff42024 )
+4006253b:	4117ff        	l32r	a4, [0x3ff42024]	; 0x40062198
 4006253e:	c02000        	memw
 40062541:	326400        	s32i	a3, a4, 0
-40062544:	311aff        	l32r	a3, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
-40062547:	4167ab        	l32r	a4, 0x4004d2e4	; ( 0x00040000 )
+40062544:	311aff        	l32r	a3, [IO:SPI1]	; [0x3ff42000] 0x400621ac
+40062547:	4167ab        	l32r	a4, [0x00040000]	; 0x4004d2e4
 4006254a:	c02000        	memw
 4006254d:	426300        	s32i	a4, a3, 0
 40062550:	c02000        	memw
@@ -6781,28 +6781,28 @@
 40062558:	464b00        	j	0x40062689
 
 4006255b:	00
-4006255c:	c110ff        	l32r	a12, 0x4006219c	; ( 0x3ff4202c )
+4006255c:	c110ff        	l32r	a12, [0x3ff4202c]	; 0x4006219c
 4006255f:	d0d311        	slli	a13, a3, 3
 40062562:	0bdd      	addi.n	a13, a13, -1
 40062564:	c02000        	memw
 40062567:	d90c      	s32i.n	a13, a12, 0
-40062569:	c181fd        	l32r	a12, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+40062569:	c181fd        	l32r	a12, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 4006256c:	dcd5      	bnez.n	a5, 0x4006258d
 4006256e:	520c01        	l8ui	a5, a12, 1
 40062571:	ccb5      	bnez.n	a5, 0x40062580
-40062573:	510bff        	l32r	a5, 0x400621a0	; ( 0x90000000 )
+40062573:	510bff        	l32r	a5, [0x90000000]	; 0x400621a0
 40062576:	c02000        	memw
 40062579:	5909      	s32i.n	a5, a9, 0
 4006257b:	060800        	j	0x4006259f
 
 4006257e:	0000
-40062580:	c109ff        	l32r	a12, 0x400621a4	; ( 0xb0000000 )
+40062580:	c109ff        	l32r	a12, [0xb0000000]	; 0x400621a4
 40062583:	0b55      	addi.n	a5, a5, -1
 40062585:	c02000        	memw
 40062588:	c909      	s32i.n	a12, a9, 0
 4006258a:	060300        	j	0x4006259a
 
-4006258d:	d105ff        	l32r	a13, 0x400621a4	; ( 0xb0000000 )
+4006258d:	d105ff        	l32r	a13, [0xb0000000]	; 0x400621a4
 40062590:	c02000        	memw
 40062593:	d909      	s32i.n	a13, a9, 0
 40062595:	920c01        	l8ui	a9, a12, 1
@@ -6810,17 +6810,17 @@
 4006259a:	c02000        	memw
 4006259d:	590a      	s32i.n	a5, a10, 0
 4006259f:	920401        	l8ui	a9, a4, 1
-400625a2:	5170fd        	l32r	a5, 0x40061b64	; ( 0x70000000 )
-400625a5:	a14fab        	l32r	a10, 0x4004d2e4	; ( 0x00040000 )
+400625a2:	5170fd        	l32r	a5, [0x70000000]	; 0x40061b64
+400625a5:	a14fab        	l32r	a10, [0x00040000]	; 0x4004d2e4
 400625a8:	509920        	or	a9, a9, a5
-400625ab:	51fbfe        	l32r	a5, 0x40062198	; ( 0x3ff42024 )
+400625ab:	51fbfe        	l32r	a5, [0x3ff42024]	; 0x40062198
 400625ae:	c02000        	memw
 400625b1:	9905      	s32i.n	a9, a5, 0
-400625b3:	51fdfe        	l32r	a5, 0x400621a8	; ( 0x3ff42080 )
+400625b3:	51fdfe        	l32r	a5, [0x3ff42080]	; 0x400621a8
 400625b6:	0c09      	movi.n	a9, 0
 400625b8:	c02000        	memw
 400625bb:	9905      	s32i.n	a9, a5, 0
-400625bd:	91fbfe        	l32r	a9, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+400625bd:	91fbfe        	l32r	a9, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 400625c0:	c02000        	memw
 400625c3:	a909      	s32i.n	a10, a9, 0
 400625c5:	c02000        	memw
@@ -6834,21 +6834,21 @@
 400625da:	305983        	moveqz	a5, a9, a3
 400625dd:	0c03      	movi.n	a3, 0
 400625df:	37173e        	beq	a7, a3, 0x40062621
-400625e2:	91effe        	l32r	a9, 0x400621a0	; ( 0x90000000 )
-400625e5:	71eafe        	l32r	a7, 0x40062190	; ( 0x3ff4201c )
+400625e2:	91effe        	l32r	a9, [0x90000000]	; 0x400621a0
+400625e5:	71eafe        	l32r	a7, [0x3ff4201c]	; 0x40062190
 400625e8:	c02000        	memw
 400625eb:	9907      	s32i.n	a9, a7, 0
 400625ed:	920402        	l8ui	a9, a4, 2
-400625f0:	715dfd        	l32r	a7, 0x40061b64	; ( 0x70000000 )
+400625f0:	715dfd        	l32r	a7, [0x70000000]	; 0x40061b64
 400625f3:	709920        	or	a9, a9, a7
-400625f6:	71e8fe        	l32r	a7, 0x40062198	; ( 0x3ff42024 )
+400625f6:	71e8fe        	l32r	a7, [0x3ff42024]	; 0x40062198
 400625f9:	c02000        	memw
 400625fc:	9907      	s32i.n	a9, a7, 0
-400625fe:	71eafe        	l32r	a7, 0x400621a8	; ( 0x3ff42080 )
-40062601:	9138ab        	l32r	a9, 0x4004d2e4	; ( 0x00040000 )
+400625fe:	71eafe        	l32r	a7, [0x3ff42080]	; 0x400621a8
+40062601:	9138ab        	l32r	a9, [0x00040000]	; 0x4004d2e4
 40062604:	c02000        	memw
 40062607:	3907      	s32i.n	a3, a7, 0
-40062609:	31e8fe        	l32r	a3, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+40062609:	31e8fe        	l32r	a3, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 4006260c:	c02000        	memw
 4006260f:	9903      	s32i.n	a9, a3, 0
 40062611:	c02000        	memw
@@ -6871,42 +6871,42 @@
 4006263c:	621402        	l16ui	a6, a4, 4
 4006263f:	305530        	xor	a5, a5, a3
 40062642:	670543        	bnone	a5, a6, 0x40062689
-40062645:	5187ff        	l32r	a5, 0x40062464	; ( 0x3ff42028 )
+40062645:	5187ff        	l32r	a5, [0x3ff42028]	; 0x40062464
 40062648:	d08811        	slli	a8, a8, 3
 4006264b:	0b88      	addi.n	a8, a8, -1
 4006264d:	c02000        	memw
 40062650:	8905      	s32i.n	a8, a5, 0
-40062652:	6185ff        	l32r	a6, 0x40062468	; ( 0x88000000 )
-40062655:	51cefe        	l32r	a5, 0x40062190	; ( 0x3ff4201c )
+40062652:	6185ff        	l32r	a6, [0x88000000]	; 0x40062468
+40062655:	51cefe        	l32r	a5, [0x3ff4201c]	; 0x40062190
 40062658:	c02000        	memw
 4006265b:	6905      	s32i.n	a6, a5, 0
 4006265d:	520403        	l8ui	a5, a4, 3
-40062660:	4141fd        	l32r	a4, 0x40061b64	; ( 0x70000000 )
+40062660:	4141fd        	l32r	a4, [0x70000000]	; 0x40061b64
 40062663:	405520        	or	a5, a5, a4
-40062666:	41ccfe        	l32r	a4, 0x40062198	; ( 0x3ff42024 )
+40062666:	41ccfe        	l32r	a4, [0x3ff42024]	; 0x40062198
 40062669:	c02000        	memw
 4006266c:	5904      	s32i.n	a5, a4, 0
-4006266e:	41cefe        	l32r	a4, 0x400621a8	; ( 0x3ff42080 )
+4006266e:	41cefe        	l32r	a4, [0x3ff42080]	; 0x400621a8
 40062671:	c02000        	memw
 40062674:	3904      	s32i.n	a3, a4, 0
-40062676:	31cdfe        	l32r	a3, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
-40062679:	411aab        	l32r	a4, 0x4004d2e4	; ( 0x00040000 )
+40062676:	31cdfe        	l32r	a3, [IO:SPI1]	; [0x3ff42000] 0x400621ac
+40062679:	411aab        	l32r	a4, [0x00040000]	; 0x4004d2e4
 4006267c:	c02000        	memw
 4006267f:	4903      	s32i.n	a4, a3, 0
 40062681:	c02000        	memw
 40062684:	4803      	l32i.n	a4, a3, 0
 40062686:	5674ff        	bnez	a4, 0x40062681
 40062689:	9811      	l32i.n	a9, a1, 4
-4006268b:	31c0fe        	l32r	a3, 0x4006218c	; ( 0x3ff42008 )
+4006268b:	31c0fe        	l32r	a3, [0x3ff42008]	; 0x4006218c
 4006268e:	c02000        	memw
 40062691:	9903      	s32i.n	a9, a3, 0
-40062693:	31bffe        	l32r	a3, 0x40062190	; ( 0x3ff4201c )
+40062693:	31bffe        	l32r	a3, [0x3ff4201c]	; 0x40062190
 40062696:	c02000        	memw
 40062699:	e903      	s32i.n	a14, a3, 0
-4006269b:	31befe        	l32r	a3, 0x40062194	; ( 0x3ff42020 )
+4006269b:	31befe        	l32r	a3, [0x3ff42020]	; 0x40062194
 4006269e:	c02000        	memw
 400626a1:	b903      	s32i.n	a11, a3, 0
-400626a3:	31bdfe        	l32r	a3, 0x40062198	; ( 0x3ff42024 )
+400626a3:	31bdfe        	l32r	a3, [0x3ff42024]	; 0x40062198
 400626a6:	c02000        	memw
 400626a9:	f903      	s32i.n	a15, a3, 0
 400626ab:	1df0      	retw.n
@@ -6932,32 +6932,32 @@
 
   SPIReadModeCnfig:
 40062944:	366100        	entry	a1, 48
-40062947:	515cfe        	l32r	a5, 0x400622b8	; ( 0x3ff420f8 )
+40062947:	515cfe        	l32r	a5, [0x3ff420f8]	; 0x400622b8
 4006294a:	303074        	extui	a3, a3, 0, 8
 4006294d:	c02000        	memw
 40062950:	422500        	l32i	a4, a5, 0
 40062953:	404024        	extui	a4, a4, 0, 3
 40062956:	5634ff        	bnez	a4, 0x4006294d
-40062959:	5158fe        	l32r	a5, 0x400622bc	; ( 0x3ff430f8 )
+40062959:	5158fe        	l32r	a5, [0x3ff430f8]	; 0x400622bc
 4006295c:	c02000        	memw
 4006295f:	4805      	l32i.n	a4, a5, 0
 40062961:	404024        	extui	a4, a4, 0, 3
 40062964:	5644ff        	bnez	a4, 0x4006295c
-40062967:	5109fe        	l32r	a5, 0x4006218c	; ( 0x3ff42008 )
-4006296a:	91f2ff        	l32r	a9, 0x40062934	; ( 0xfe6f9fff )
+40062967:	5109fe        	l32r	a5, [0x3ff42008]	; 0x4006218c
+4006296a:	91f2ff        	l32r	a9, [0xfe6f9fff]	; 0x40062934
 4006296d:	c02000        	memw
 40062970:	8805      	l32i.n	a8, a5, 0
 40062972:	908810        	and	a8, a8, a9
 40062975:	c02000        	memw
 40062978:	8905      	s32i.n	a8, a5, 0
-4006297a:	81efff        	l32r	a8, 0x40062938	; ( 0x3ff43008 )
+4006297a:	81efff        	l32r	a8, [0x3ff43008]	; 0x40062938
 4006297d:	c02000        	memw
 40062980:	a808      	l32i.n	a10, a8, 0
 40062982:	909a10        	and	a9, a10, a9
 40062985:	c02000        	memw
 40062988:	9908      	s32i.n	a9, a8, 0
 4006298a:	f66248        	bgeui	a2, 6, 0x400629d6
-4006298d:	41ebff        	l32r	a4, 0x4006293c	; ( 0x3ff9bf24 )
+4006298d:	41ebff        	l32r	a4, [0x3ff9bf24]	; 0x4006293c
 40062990:	4042a0        	addx4	a4, a2, a4
 40062993:	4804      	l32i.n	a4, a4, 0
 40062995:	f6223d        	bgeui	a2, 2, 0x400629d6
@@ -6969,15 +6969,15 @@
 400629a5:	37826b        	bany	a2, a3, 0x40062a14
 400629a8:	c02000        	memw
 400629ab:	8805      	l32i.n	a8, a5, 0
-400629ad:	3104ce        	l32r	a3, 0x400561c0	; ( 0x00400000 )
+400629ad:	3104ce        	l32r	a3, [0x00400000]	; 0x400561c0
 400629b0:	303820        	or	a3, a8, a3
 400629b3:	c02000        	memw
 400629b6:	3905      	s32i.n	a3, a5, 0
-400629b8:	51a3fe        	l32r	a5, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+400629b8:	51a3fe        	l32r	a5, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 400629bb:	50a520        	or	a10, a5, a5
 400629be:	2596ff        	call8	0x40062320	; SPI_write_enable
 400629c1:	56fa04        	bnez	a10, 0x40062a14
-400629c4:	a1dfff        	l32r	a10, 0x40062940	; ( 0x3ffae284 )
+400629c4:	a1dfff        	l32r	a10, [0x3ffae284]	; 0x40062940
 400629c7:	4bb1      	addi.n	a11, a1, 4
 400629c9:	258aff        	call8	0x4006226c	; SPI_read_status
 400629cc:	b811      	l32i.n	a11, a1, 4
@@ -6991,31 +6991,31 @@
 400629de:	fc2a      	bnez.n	a10, 0x40062a14
 400629e0:	2801      	l32i.n	a2, a1, 0
 400629e2:	97622e        	bbci	a2, 9, 0x40062a14
-400629e5:	21e9fd        	l32r	a2, 0x4006218c	; ( 0x3ff42008 )
-400629e8:	51f6cd        	l32r	a5, 0x400561c0	; ( 0x00400000 )
+400629e5:	21e9fd        	l32r	a2, [0x3ff42008]	; 0x4006218c
+400629e8:	51f6cd        	l32r	a5, [0x00400000]	; 0x400561c0
 400629eb:	c02000        	memw
 400629ee:	8802      	l32i.n	a8, a2, 0
 400629f0:	505820        	or	a5, a8, a5
 400629f3:	c02000        	memw
 400629f6:	526200        	s32i	a5, a2, 0
-400629f9:	2192fe        	l32r	a2, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+400629f9:	2192fe        	l32r	a2, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 400629fc:	20a220        	or	a10, a2, a2
 400629ff:	2592ff        	call8	0x40062320	; SPI_write_enable
 40062a02:	ccea      	bnez.n	a10, 0x40062a14
-40062a04:	a1cfff        	l32r	a10, 0x40062940	; ( 0x3ffae284 )
+40062a04:	a1cfff        	l32r	a10, [0x3ffae284]	; 0x40062940
 40062a07:	4bb1      	addi.n	a11, a1, 4
 40062a09:	2586ff        	call8	0x4006226c	; SPI_read_status
 40062a0c:	b20104        	l8ui	a11, a1, 4
 40062a0f:	ad02      	mov.n	a10, a2
 40062a11:	e58dff        	call8	0x400622f0	; SPI_write_status
-40062a14:	21defd        	l32r	a2, 0x4006218c	; ( 0x3ff42008 )
+40062a14:	21defd        	l32r	a2, [0x3ff42008]	; 0x4006218c
 40062a17:	ad04      	mov.n	a10, a4
 40062a19:	c02000        	memw
 40062a1c:	5802      	l32i.n	a5, a2, 0
 40062a1e:	505420        	or	a5, a4, a5
 40062a21:	c02000        	memw
 40062a24:	5902      	s32i.n	a5, a2, 0
-40062a26:	21c4ff        	l32r	a2, 0x40062938	; ( 0x3ff43008 )
+40062a26:	21c4ff        	l32r	a2, [0x3ff43008]	; 0x40062938
 40062a29:	c02000        	memw
 40062a2c:	5802      	l32i.n	a5, a2, 0
 40062a2e:	505420        	or	a5, a4, a5
@@ -7042,7 +7042,7 @@
 40062a6c:	364100        	entry	a1, 32
 40062a6f:	20a220        	or	a10, a2, a2
 40062a72:	2551ff        	call8	0x40061f84	; SelectSpiFunction
-40062a75:	8111ff        	l32r	a8, 0x400626bc	; ( 0x3ff43034 )
+40062a75:	8111ff        	l32r	a8, [0x3ff43034]	; 0x400626bc
 40062a78:	7ce9      	movi.n	a9, -2
 40062a7a:	c02000        	memw
 40062a7d:	a808      	l32i.n	a10, a8, 0
@@ -7061,24 +7061,24 @@
 40062a9e:	0c1a      	movi.n	a10, 1
 40062aa0:	0c4b      	movi.n	a11, 4
 40062aa2:	e52eff        	call8	0x40061d90	; spi_dummy_len_fix
-40062aa5:	81e7ff        	l32r	a8, 0x40062a44	; ( 0x00003043 )
-40062aa8:	91e6ff        	l32r	a9, 0x40062a40	; ( 0x3ff42018 )
-40062aab:	a1d0cd        	l32r	a10, 0x400561ec	; ( 0xff000000 )
+40062aa5:	81e7ff        	l32r	a8, [0x00003043]	; 0x40062a44
+40062aa8:	91e6ff        	l32r	a9, [0x3ff42018]	; 0x40062a40
+40062aab:	a1d0cd        	l32r	a10, [0xff000000]	; 0x400561ec
 40062aae:	c02000        	memw
 40062ab1:	8909      	s32i.n	a8, a9, 0
-40062ab3:	91e5ff        	l32r	a9, 0x40062a48	; ( 0x3ff43018 )
+40062ab3:	91e5ff        	l32r	a9, [0x3ff43018]	; 0x40062a48
 40062ab6:	303074        	extui	a3, a3, 0, 8
 40062ab9:	c02000        	memw
 40062abc:	8909      	s32i.n	a8, a9, 0
-40062abe:	91e3ff        	l32r	a9, 0x40062a4c	; ( 0x00208000 )
-40062ac1:	81b2fd        	l32r	a8, 0x4006218c	; ( 0x3ff42008 )
+40062abe:	91e3ff        	l32r	a9, [0x00208000]	; 0x40062a4c
+40062ac1:	81b2fd        	l32r	a8, [0x3ff42008]	; 0x4006218c
 40062ac4:	c02000        	memw
 40062ac7:	9908      	s32i.n	a9, a8, 0
-40062ac9:	91e1ff        	l32r	a9, 0x40062a50	; ( 0x00200000 )
-40062acc:	819bff        	l32r	a8, 0x40062938	; ( 0x3ff43008 )
+40062ac9:	91e1ff        	l32r	a9, [0x00200000]	; 0x40062a50
+40062acc:	819bff        	l32r	a8, [0x3ff43008]	; 0x40062938
 40062acf:	c02000        	memw
 40062ad2:	9908      	s32i.n	a9, a8, 0
-40062ad4:	81e0ff        	l32r	a8, 0x40062a54	; ( 0x3ff4302c )
+40062ad4:	81e0ff        	l32r	a8, [0x3ff4302c]	; 0x40062a54
 40062ad7:	92a0ff        	movi	a9, 255
 40062ada:	c02000        	memw
 40062add:	b808      	l32i.n	a11, a8, 0
@@ -7086,40 +7086,40 @@
 40062ae2:	90bb20        	or	a11, a11, a9
 40062ae5:	c02000        	memw
 40062ae8:	b908      	s32i.n	a11, a8, 0
-40062aea:	81dbff        	l32r	a8, 0x40062a58	; ( 0x3ff43028 )
+40062aea:	81dbff        	l32r	a8, [0x3ff43028]	; 0x40062a58
 40062aed:	c02000        	memw
 40062af0:	b808      	l32i.n	a11, a8, 0
 40062af2:	a0ab10        	and	a10, a11, a10
 40062af5:	909a20        	or	a9, a10, a9
 40062af8:	c02000        	memw
 40062afb:	9908      	s32i.n	a9, a8, 0
-40062afd:	811dfc        	l32r	a8, 0x40061b74	; ( 0x3ff43024 )
-40062b00:	91f7fe        	l32r	a9, 0x400626dc	; ( 0x0fffffff )
+40062afd:	811dfc        	l32r	a8, [0x3ff43024]	; 0x40061b74
+40062b00:	91f7fe        	l32r	a9, [0x0fffffff]	; 0x400626dc
 40062b03:	c02000        	memw
 40062b06:	a808      	l32i.n	a10, a8, 0
 40062b08:	909a10        	and	a9, a10, a9
-40062b0b:	a116fc        	l32r	a10, 0x40061b64	; ( 0x70000000 )
+40062b0b:	a116fc        	l32r	a10, [0x70000000]	; 0x40061b64
 40062b0e:	a09920        	or	a9, a9, a10
 40062b11:	c02000        	memw
 40062b14:	9908      	s32i.n	a9, a8, 0
 40062b16:	a2a000        	movi	a10, 0
 40062b19:	e506ff        	call8	0x40061b88	; sub_61b88
-40062b1c:	81d0ff        	l32r	a8, 0x40062a5c	; ( 0x3ff430fc )
+40062b1c:	81d0ff        	l32r	a8, [0x3ff430fc]	; 0x40062a5c
 40062b1f:	0c39      	movi.n	a9, 3
 40062b21:	c02000        	memw
 40062b24:	9908      	s32i.n	a9, a8, 0
-40062b26:	81ceff        	l32r	a8, 0x40062a60	; ( 0x3ff43050 )
+40062b26:	81ceff        	l32r	a8, [0x3ff43050]	; 0x40062a60
 40062b29:	0c4a      	movi.n	a10, 4
 40062b2b:	c02000        	memw
 40062b2e:	b808      	l32i.n	a11, a8, 0
 40062b30:	a0ab20        	or	a10, a11, a10
 40062b33:	c02000        	memw
 40062b36:	a908      	s32i.n	a10, a8, 0
-40062b38:	a1cbff        	l32r	a10, 0x40062a64	; ( 0x00100000 )
-40062b3b:	819cfd        	l32r	a8, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+40062b38:	a1cbff        	l32r	a10, [0x00100000]	; 0x40062a64
+40062b3b:	819cfd        	l32r	a8, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 40062b3e:	c02000        	memw
 40062b41:	a26800        	s32i	a10, a8, 0
-40062b44:	a1c9ff        	l32r	a10, 0x40062a68	; ( 0x3ff420fc )
+40062b44:	a1c9ff        	l32r	a10, [0x3ff420fc]	; 0x40062a68
 40062b47:	c02000        	memw
 40062b4a:	926a00        	s32i	a9, a10, 0
 40062b4d:	c02000        	memw
@@ -7135,16 +7135,16 @@
 
   SPIMasterReadModeCnfig:
 40062b64:	364100        	entry	a1, 32
-40062b67:	a137fe        	l32r	a10, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+40062b67:	a137fe        	l32r	a10, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 40062b6a:	6575ff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
-40062b6d:	8187fd        	l32r	a8, 0x4006218c	; ( 0x3ff42008 )
-40062b70:	a171ff        	l32r	a10, 0x40062934	; ( 0xfe6f9fff )
+40062b6d:	8187fd        	l32r	a8, [0x3ff42008]	; 0x4006218c
+40062b70:	a171ff        	l32r	a10, [0xfe6f9fff]	; 0x40062934
 40062b73:	c02000        	memw
 40062b76:	9808      	l32i.n	a9, a8, 0
 40062b78:	a09910        	and	a9, a9, a10
 40062b7b:	c02000        	memw
 40062b7e:	9908      	s32i.n	a9, a8, 0
-40062b80:	916eff        	l32r	a9, 0x40062938	; ( 0x3ff43008 )
+40062b80:	916eff        	l32r	a9, [0x3ff43008]	; 0x40062938
 40062b83:	c02000        	memw
 40062b86:	b809      	l32i.n	a11, a9, 0
 40062b88:	a0ab10        	and	a10, a11, a10
@@ -7152,7 +7152,7 @@
 40062b8e:	a909      	s32i.n	a10, a9, 0
 40062b90:	0c0a      	movi.n	a10, 0
 40062b92:	f66207        	bgeui	a2, 6, 0x40062b9d
-40062b95:	91f2ff        	l32r	a9, 0x40062b60	; ( 0x3ff9bf0c )
+40062b95:	91f2ff        	l32r	a9, [0x3ff9bf0c]	; 0x40062b60
 40062b98:	9022a0        	addx4	a2, a2, a9
 40062b9b:	a802      	l32i.n	a10, a2, 0
 40062b9d:	c02000        	memw
@@ -7160,7 +7160,7 @@
 40062ba2:	202a20        	or	a2, a10, a2
 40062ba5:	c02000        	memw
 40062ba8:	2908      	s32i.n	a2, a8, 0
-40062baa:	2163ff        	l32r	a2, 0x40062938	; ( 0x3ff43008 )
+40062baa:	2163ff        	l32r	a2, [0x3ff43008]	; 0x40062938
 40062bad:	c02000        	memw
 40062bb0:	8802      	l32i.n	a8, a2, 0
 40062bb2:	808a20        	or	a8, a10, a8
@@ -7175,14 +7175,14 @@
 
   SPIClkConfig:
 40062bc8:	364100        	entry	a1, 32
-40062bcb:	a11efe        	l32r	a10, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+40062bcb:	a11efe        	l32r	a10, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 40062bce:	202074        	extui	a2, a2, 0, 8
 40062bd1:	303074        	extui	a3, a3, 0, 8
 40062bd4:	a56eff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
 40062bd7:	f62213        	bgeui	a2, 2, 0x40062bee
-40062bda:	21faff        	l32r	a2, 0x40062bc4	; ( 0x0003ff43 )
+40062bda:	21faff        	l32r	a2, [0x0003ff43]	; 0x40062bc4
 40062bdd:	3032c0        	sub	a3, a2, a3
-40062be0:	212dae        	l32r	a2, 0x4004e494	; ( 0x80000000 )
+40062be0:	212dae        	l32r	a2, [0x80000000]	; 0x4004e494
 40062be3:	403311        	slli	a3, a3, 12
 40062be6:	c02000        	memw
 40062be9:	2963      	s32i.n	a2, a3, 24
@@ -7195,7 +7195,7 @@
 40062bf8:	a02211        	slli	a2, a2, 6
 40062bfb:	808920        	or	a8, a9, a8
 40062bfe:	208820        	or	a8, a8, a2
-40062c01:	21f0ff        	l32r	a2, 0x40062bc4	; ( 0x0003ff43 )
+40062c01:	21f0ff        	l32r	a2, [0x0003ff43]	; 0x40062bc4
 40062c04:	3032c0        	sub	a3, a2, a3
 40062c07:	403311        	slli	a3, a3, 12
 40062c0a:	c02000        	memw
@@ -7214,14 +7214,14 @@
 
   SPIRead:
 40062ed8:	364100        	entry	a1, 32
-40062edb:	51acfc        	l32r	a5, 0x4006218c	; ( 0x3ff42008 )
-40062ede:	a11ffb        	l32r	a10, 0x40061b5c	; ( 0x01002000 )
+40062edb:	51acfc        	l32r	a5, [0x3ff42008]	; 0x4006218c
+40062ede:	a11ffb        	l32r	a10, [0x01002000]	; 0x40061b5c
 40062ee1:	c02000        	memw
 40062ee4:	6805      	l32i.n	a6, a5, 0
-40062ee6:	910c64        	l32r	a9, 0x4003bf18	; ( 0xf7ffffff )
+40062ee6:	910c64        	l32r	a9, [0xf7ffffff]	; 0x4003bf18
 40062ee9:	a0b610        	and	a11, a6, a10
-40062eec:	51a9fc        	l32r	a5, 0x40062190	; ( 0x3ff4201c )
-40062eef:	8120fb        	l32r	a8, 0x40061b70	; dummy_len_plus ( 0x3ffae290 )
+40062eec:	51a9fc        	l32r	a5, [0x3ff4201c]	; 0x40062190
+40062eef:	8120fb        	l32r	a8, [dummy_len_plus]	; [0x3ffae290] 0x40061b70
 40062ef2:	a79b56        	bne	a11, a10, 0x40062f4c
 40062ef5:	c02000        	memw
 40062ef8:	6805      	l32i.n	a6, a5, 0
@@ -7230,16 +7230,16 @@
 40062f00:	9905      	s32i.n	a9, a5, 0
 40062f02:	c02000        	memw
 40062f05:	9805      	l32i.n	a9, a5, 0
-40062f07:	6117fb        	l32r	a6, 0x40061b64	; ( 0x70000000 )
+40062f07:	6117fb        	l32r	a6, [0x70000000]	; 0x40061b64
 40062f0a:	606920        	or	a6, a9, a6
 40062f0d:	c02000        	memw
 40062f10:	6905      	s32i.n	a6, a5, 0
-40062f12:	51a0fc        	l32r	a5, 0x40062194	; ( 0x3ff42020 )
-40062f15:	61dc32        	l32r	a6, 0x4002fa88	; ( 0x03ffffff )
+40062f12:	51a0fc        	l32r	a5, [0x3ff42020]	; 0x40062194
+40062f15:	61dc32        	l32r	a6, [0x03ffffff]	; 0x4002fa88
 40062f18:	c02000        	memw
 40062f1b:	9805      	l32i.n	a9, a5, 0
 40062f1d:	606910        	and	a6, a9, a6
-40062f20:	9113fb        	l32r	a9, 0x40061b6c	; ( 0x7c000000 )
+40062f20:	9113fb        	l32r	a9, [0x7c000000]	; 0x40061b6c
 40062f23:	906620        	or	a6, a6, a9
 40062f26:	c02000        	memw
 40062f29:	6905      	s32i.n	a6, a5, 0
@@ -7253,7 +7253,7 @@
 40062f3e:	606820        	or	a6, a8, a6
 40062f41:	c02000        	memw
 40062f44:	6905      	s32i.n	a6, a5, 0
-40062f46:	61ddff        	l32r	a6, 0x40062ebc	; ( 0x700000eb )
+40062f46:	61ddff        	l32r	a6, [0x700000eb]	; 0x40062ebc
 40062f49:	866100        	j	0x400630d3
 
 40062f4c:	d7e602        	bbsi	a6, 13, 0x40062f52
@@ -7266,7 +7266,7 @@
 40062f5d:	9905      	s32i.n	a9, a5, 0
 40062f5f:	c02000        	memw
 40062f62:	a805      	l32i.n	a10, a5, 0
-40062f64:	9108fb        	l32r	a9, 0x40061b84	; ( 0x50000000 )
+40062f64:	9108fb        	l32r	a9, [0x50000000]	; 0x40061b84
 40062f67:	909a20        	or	a9, a10, a9
 40062f6a:	c02000        	memw
 40062f6d:	9905      	s32i.n	a9, a5, 0
@@ -7274,37 +7274,37 @@
 40062f72:	862000        	j	0x40062ff8
 
 40062f75:	820801        	l8ui	a8, a8, 1
-40062f78:	6187fc        	l32r	a6, 0x40062194	; ( 0x3ff42020 )
+40062f78:	6187fc        	l32r	a6, [0x3ff42020]	; 0x40062194
 40062f7b:	eca8      	bnez.n	a8, 0x40062fa9
 40062f7d:	c02000        	memw
 40062f80:	9805      	l32i.n	a9, a5, 0
-40062f82:	81fefa        	l32r	a8, 0x40061b7c	; ( 0xdfffffff )
+40062f82:	81fefa        	l32r	a8, [0xdfffffff]	; 0x40061b7c
 40062f85:	808910        	and	a8, a9, a8
 40062f88:	c02000        	memw
 40062f8b:	8905      	s32i.n	a8, a5, 0
 40062f8d:	c02000        	memw
 40062f90:	8806      	l32i.n	a8, a6, 0
-40062f92:	51bd32        	l32r	a5, 0x4002fa88	; ( 0x03ffffff )
+40062f92:	51bd32        	l32r	a5, [0x03ffffff]	; 0x4002fa88
 40062f95:	505810        	and	a5, a8, a5
-40062f98:	81f5fa        	l32r	a8, 0x40061b6c	; ( 0x7c000000 )
+40062f98:	81f5fa        	l32r	a8, [0x7c000000]	; 0x40061b6c
 40062f9b:	805520        	or	a5, a5, a8
 40062f9e:	c02000        	memw
 40062fa1:	5906      	s32i.n	a5, a6, 0
-40062fa3:	61c7ff        	l32r	a6, 0x40062ec0	; ( 0x700000bb )
+40062fa3:	61c7ff        	l32r	a6, [0x700000bb]	; 0x40062ec0
 40062fa6:	464a00        	j	0x400630d3
 
 40062fa9:	c02000        	memw
 40062fac:	a805      	l32i.n	a10, a5, 0
-40062fae:	91f4fa        	l32r	a9, 0x40061b80	; ( 0x20000000 )
+40062fae:	91f4fa        	l32r	a9, [0x20000000]	; 0x40061b80
 40062fb1:	0b88      	addi.n	a8, a8, -1
 40062fb3:	909a20        	or	a9, a10, a9
 40062fb6:	c02000        	memw
 40062fb9:	9905      	s32i.n	a9, a5, 0
 40062fbb:	c02000        	memw
 40062fbe:	9806      	l32i.n	a9, a6, 0
-40062fc0:	51b232        	l32r	a5, 0x4002fa88	; ( 0x03ffffff )
+40062fc0:	51b232        	l32r	a5, [0x03ffffff]	; 0x4002fa88
 40062fc3:	505910        	and	a5, a9, a5
-40062fc6:	91e9fa        	l32r	a9, 0x40061b6c	; ( 0x7c000000 )
+40062fc6:	91e9fa        	l32r	a9, [0x7c000000]	; 0x40061b6c
 40062fc9:	905520        	or	a5, a5, a9
 40062fcc:	c02000        	memw
 40062fcf:	5906      	s32i.n	a5, a6, 0
@@ -7313,41 +7313,41 @@
 40062fd6:	52af00        	movi	a5, 0xffffff00
 40062fd9:	505910        	and	a5, a9, a5
 40062fdc:	508820        	or	a8, a8, a5
-40062fdf:	516efc        	l32r	a5, 0x40062198	; ( 0x3ff42024 )
+40062fdf:	516efc        	l32r	a5, [0x3ff42024]	; 0x40062198
 40062fe2:	c02000        	memw
 40062fe5:	8906      	s32i.n	a8, a6, 0
 40062fe7:	c02000        	memw
 40062fea:	8805      	l32i.n	a8, a5, 0
-40062fec:	61c6ef        	l32r	a6, 0x4005ef04	; ( 0xffff0000 )
+40062fec:	61c6ef        	l32r	a6, [0xffff0000]	; 0x4005ef04
 40062fef:	606810        	and	a6, a8, a6
 40062ff2:	82a0bb        	movi	a8, 187
 40062ff5:	c61600        	j	0x40063054
 
-40062ff8:	5168fc        	l32r	a5, 0x40062198	; ( 0x3ff42024 )
+40062ff8:	5168fc        	l32r	a5, [0x3ff42024]	; 0x40062198
 40062ffb:	477605        	bbci	a6, 20, 0x40063004
-40062ffe:	61b1ff        	l32r	a6, 0x40062ec4	; ( 0x7000006b )
+40062ffe:	61b1ff        	l32r	a6, [0x7000006b]	; 0x40062ec4
 40063001:	c60200        	j	0x40063010
 
 40063004:	e76605        	bbci	a6, 14, 0x4006300d
-40063007:	61b0ff        	l32r	a6, 0x40062ec8	; ( 0x7000003b )
+40063007:	61b0ff        	l32r	a6, [0x7000003b]	; 0x40062ec8
 4006300a:	860000        	j	0x40063010
 
-4006300d:	61afff        	l32r	a6, 0x40062ecc	; ( 0x7000000b )
+4006300d:	61afff        	l32r	a6, [0x7000000b]	; 0x40062ecc
 40063010:	c02000        	memw
 40063013:	6905      	s32i.n	a6, a5, 0
-40063015:	515efc        	l32r	a5, 0x40062190	; ( 0x3ff4201c )
-40063018:	61dafa        	l32r	a6, 0x40061b80	; ( 0x20000000 )
+40063015:	515efc        	l32r	a5, [0x3ff4201c]	; 0x40062190
+40063018:	61dafa        	l32r	a6, [0x20000000]	; 0x40061b80
 4006301b:	c02000        	memw
 4006301e:	9805      	l32i.n	a9, a5, 0
 40063020:	606920        	or	a6, a9, a6
 40063023:	c02000        	memw
 40063026:	6905      	s32i.n	a6, a5, 0
-40063028:	515bfc        	l32r	a5, 0x40062194	; ( 0x3ff42020 )
-4006302b:	619732        	l32r	a6, 0x4002fa88	; ( 0x03ffffff )
+40063028:	515bfc        	l32r	a5, [0x3ff42020]	; 0x40062194
+4006302b:	619732        	l32r	a6, [0x03ffffff]	; 0x4002fa88
 4006302e:	c02000        	memw
 40063031:	9805      	l32i.n	a9, a5, 0
 40063033:	606910        	and	a6, a9, a6
-40063036:	91d0fa        	l32r	a9, 0x40061b78	; ( 0x5c000000 )
+40063036:	91d0fa        	l32r	a9, [0x5c000000]	; 0x40061b78
 40063039:	906620        	or	a6, a6, a9
 4006303c:	c02000        	memw
 4006303f:	6905      	s32i.n	a6, a5, 0
@@ -7371,18 +7371,18 @@
 4006306c:	ccc6      	bnez.n	a6, 0x4006307c
 4006306e:	c02000        	memw
 40063071:	8805      	l32i.n	a8, a5, 0
-40063073:	61c2fa        	l32r	a6, 0x40061b7c	; ( 0xdfffffff )
+40063073:	61c2fa        	l32r	a6, [0xdfffffff]	; 0x40061b7c
 40063076:	606810        	and	a6, a8, a6
 40063079:	860800        	j	0x4006309f
 
 4006307c:	c02000        	memw
 4006307f:	9805      	l32i.n	a9, a5, 0
-40063081:	81bffa        	l32r	a8, 0x40061b80	; ( 0x20000000 )
+40063081:	81bffa        	l32r	a8, [0x20000000]	; 0x40061b80
 40063084:	0b66      	addi.n	a6, a6, -1
 40063086:	808920        	or	a8, a9, a8
 40063089:	c02000        	memw
 4006308c:	8905      	s32i.n	a8, a5, 0
-4006308e:	5141fc        	l32r	a5, 0x40062194	; ( 0x3ff42020 )
+4006308e:	5141fc        	l32r	a5, [0x3ff42020]	; 0x40062194
 40063091:	82af00        	movi	a8, 0xffffff00
 40063094:	c02000        	memw
 40063097:	9805      	l32i.n	a9, a5, 0
@@ -7390,25 +7390,25 @@
 4006309c:	806620        	or	a6, a6, a8
 4006309f:	c02000        	memw
 400630a2:	6905      	s32i.n	a6, a5, 0
-400630a4:	513bfc        	l32r	a5, 0x40062190	; ( 0x3ff4201c )
-400630a7:	61b7fa        	l32r	a6, 0x40061b84	; ( 0x50000000 )
+400630a4:	513bfc        	l32r	a5, [0x3ff4201c]	; 0x40062190
+400630a7:	61b7fa        	l32r	a6, [0x50000000]	; 0x40061b84
 400630aa:	c02000        	memw
 400630ad:	8805      	l32i.n	a8, a5, 0
 400630af:	606820        	or	a6, a8, a6
 400630b2:	c02000        	memw
 400630b5:	6905      	s32i.n	a6, a5, 0
-400630b7:	5137fc        	l32r	a5, 0x40062194	; ( 0x3ff42020 )
-400630ba:	617332        	l32r	a6, 0x4002fa88	; ( 0x03ffffff )
+400630b7:	5137fc        	l32r	a5, [0x3ff42020]	; 0x40062194
+400630ba:	617332        	l32r	a6, [0x03ffffff]	; 0x4002fa88
 400630bd:	c02000        	memw
 400630c0:	8805      	l32i.n	a8, a5, 0
 400630c2:	606810        	and	a6, a8, a6
-400630c5:	81acfa        	l32r	a8, 0x40061b78	; ( 0x5c000000 )
+400630c5:	81acfa        	l32r	a8, [0x5c000000]	; 0x40061b78
 400630c8:	806620        	or	a6, a6, a8
 400630cb:	c02000        	memw
 400630ce:	6905      	s32i.n	a6, a5, 0
-400630d0:	6180ff        	l32r	a6, 0x40062ed0	; ( 0x70000003 )
-400630d3:	5131fc        	l32r	a5, 0x40062198	; ( 0x3ff42024 )
-400630d6:	a1dbfc        	l32r	a10, 0x40062444	; SPI_flashchip_data ( 0x3ffae270 )
+400630d0:	6180ff        	l32r	a6, [0x70000003]	; 0x40062ed0
+400630d3:	5131fc        	l32r	a5, [0x3ff42024]	; 0x40062198
+400630d6:	a1dbfc        	l32r	a10, [SPI_flashchip_data]	; [0x3ffae270] 0x40062444
 400630d9:	c02000        	memw
 400630dc:	6905      	s32i.n	a6, a5, 0
 400630de:	881a      	l32i.n	a8, a10, 4
@@ -7419,10 +7419,10 @@
 
 400630ea:	651dff        	call8	0x400622c0	; esp_rom_spiflash_wait_idle
 400630ed:	3cfd      	movi.n	a13, 63
-400630ef:	912bfc        	l32r	a9, 0x4006219c	; ( 0x3ff4202c )
-400630f2:	a199fc        	l32r	a10, 0x40062358	; ( 0x3ff42004 )
+400630ef:	912bfc        	l32r	a9, [0x3ff4202c]	; 0x4006219c
+400630f2:	a199fc        	l32r	a10, [0x3ff42004]	; 0x40062358
 400630f5:	b2a1ff        	movi	a11, 0x1ff
-400630f8:	c12dfc        	l32r	a12, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+400630f8:	c12dfc        	l32r	a12, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 400630fb:	862700        	j	0x4006319d
 
 400630fe:	000000
@@ -7432,16 +7432,16 @@
 4006310a:	b909      	s32i.n	a11, a9, 0
 4006310c:	c02000        	memw
 4006310f:	590a      	s32i.n	a5, a10, 0
-40063111:	6174a8        	l32r	a6, 0x4004d2e4	; ( 0x00040000 )
-40063114:	5126fc        	l32r	a5, 0x400621ac	; IO:SPI1 ( 0x3ff42000 )
+40063111:	6174a8        	l32r	a6, [0x00040000]	; 0x4004d2e4
+40063114:	5126fc        	l32r	a5, [IO:SPI1]	; [0x3ff42000] 0x400621ac
 40063117:	c02000        	memw
 4006311a:	6905      	s32i.n	a6, a5, 0
 4006311c:	c02000        	memw
 4006311f:	6805      	l32i.n	a6, a5, 0
 40063121:	5676ff        	bnez	a6, 0x4006311c
-40063124:	8121fc        	l32r	a8, 0x400621a8	; ( 0x3ff42080 )
-40063127:	f16bff        	l32r	a15, 0x40062ed4	; ( 0x3ff420c0 )
-4006312a:	e18cfc        	l32r	a14, 0x4006235c	; ( 0xc00bdf80 )
+40063124:	8121fc        	l32r	a8, [0x3ff42080]	; 0x400621a8
+40063127:	f16bff        	l32r	a15, [0x3ff420c0]	; 0x40062ed4
+4006312a:	e18cfc        	l32r	a14, [0xc00bdf80]	; 0x4006235c
 4006312d:	c02000        	memw
 40063130:	6808      	l32i.n	a6, a8, 0
 40063132:	8a53      	add.n	a5, a3, a8
@@ -7456,7 +7456,7 @@
 
 40063149:	c02000        	memw
 4006314c:	590a      	s32i.n	a5, a10, 0
-4006314e:	2165a8        	l32r	a2, 0x4004d2e4	; ( 0x00040000 )
+4006314e:	2165a8        	l32r	a2, [0x00040000]	; 0x4004d2e4
 40063151:	c02000        	memw
 40063154:	b909      	s32i.n	a11, a9, 0
 40063156:	c02000        	memw
@@ -7476,8 +7476,8 @@
 40063177:	460600        	j	0x40063194
 
 4006317a:	0000
-4006317c:	617afc        	l32r	a6, 0x40062364	; ( 0x0ffd0820 )
-4006317f:	8177fc        	l32r	a8, 0x4006235c	; ( 0xc00bdf80 )
+4006317c:	617afc        	l32r	a6, [0x0ffd0820]	; 0x40062364
+4006317f:	8177fc        	l32r	a8, [0xc00bdf80]	; 0x4006235c
 40063182:	6a52      	add.n	a5, a2, a6
 40063184:	e05511        	slli	a5, a5, 2
 40063187:	c02000        	memw

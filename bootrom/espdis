@@ -437,6 +437,33 @@ class Dumper
 	@new_addr << addr
     end
 
+    def print_l32r_OLD ( i )
+	val = @image.fetch_long ( i.target.hex )
+	sym = @call.sym_lookup val
+	if sym
+	    puts i.line + "\t; #{sym} ( " + val.xhex + " )"
+	else
+	    puts i.line + "\t; ( " + val.xhex + " )"
+	end
+    end
+
+    # To make the l32r disassembly more "readable" I decided to use
+    # this square bracket notation -- and put the more or less
+    # irrelevant address of the l32r value in the comment field
+    def print_l32r ( i )
+	a, b = i.line.split ", "
+
+	val = @image.fetch_long ( i.target.hex )
+	sym = @call.sym_lookup val
+	if sym
+	    #puts a + ", " + b + "\t; #{sym} ( " + val.xhex + " )"
+	    puts a + ", [" + sym + "]\t; [" + val.xhex + "] " + b
+	else
+	    #puts a + ", " + b + "\t; ( " + val.xhex + " )"
+	    puts a + ", [" + val.xhex + "]\t; " + b
+	end
+    end
+
     def print_instr ( i )
 
 	    # print a nice label before known subroutines
@@ -466,13 +493,7 @@ class Dumper
 	    end
 
 	    if i.is_l32r
-		val = @image.fetch_long ( i.target.hex )
-		sym = @call.sym_lookup val
-		if sym
-		    puts i.line + "\t; #{sym} ( " + val.xhex + " )"
-		else
-		    puts i.line + "\t; ( " + val.xhex + " )"
-		end
+		print_l32r i
 		return
 	    end
 
