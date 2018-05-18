@@ -69,6 +69,7 @@ end
 
 
 # Information for a single instruction
+# Sort of acts like a C structure might.
 class Instr
     attr_reader :addr
     attr_reader :line
@@ -143,6 +144,25 @@ class Instr
 	end
     end
 end
+
+# This is the interface to Gnu objdump
+class Code
+    def initialize
+	@elf = $elf_file
+	# This should be on the search path, if not prefix
+	# with something like /opt/esp32/xtensa-esp32-elf/bin
+#	@cmd = "xtensa-lx106-elf-objdump -mxtensa -d -z"
+	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
+
+    end
+    def one_inst ( addr )
+	eaddr = addr + 3
+	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
+	cmd = @cmd + " " + range + " #{@elf}"
+	return Instr.new addr, `#{cmd}`	; note backticks here
+    end
+end
+
 
 # The purpose of this is to hide the map and the way we represent it
 # We also hide indexing, all external access is via addresses
@@ -390,7 +410,6 @@ end
 
 class Dumper
     def initialize
-	@elf = $elf_file
 	@size = $rom_size
 	@base = $rom_base
 	@limit = @base + @size -1
@@ -400,24 +419,14 @@ class Dumper
 	@debug_pass2 = $debug_pass2
 	@show_pass1 = true if $debug_pass1
 
-	# This should be on the search path, if not prefix
-	# with something like /opt/esp32/xtensa-esp32-elf/bin
-#	@cmd = "xtensa-lx106-elf-objdump -mxtensa -d -z"
-	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
-
 	@cur_addr = Array.new
 	@old_addr = Array.new
 
+	@code = Code.new
 	@call = Calls.new
 	@map = Map.new $rom_base, $rom_size
 	@map.load_hints @call
 	@image = Image.new
-    end
-    def one_inst ( addr )
-	eaddr = addr + 3
-	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
-	cmd = @cmd + " " + range + " #{@elf}"
-	return Instr.new addr, `#{cmd}`	; note backticks here
     end
 
     def add_addr ( target )
@@ -504,7 +513,7 @@ class Dumper
 	loop {
 	    break unless @map.is_avail addr
 
-	    i = one_inst addr
+	    i = @code.one_inst addr
 
 	    if i.is_call8
 		@call.add i.target.hex
@@ -588,7 +597,7 @@ class Dumper
 	    # but we have seen it happen in cases where
 	    # only a hint would set things right.
 	    break unless @map.is_ok addr
-	    i = one_inst addr
+	    i = @code.one_inst addr
 	    print_instr i
 	    puts "" if i.is_term
 
