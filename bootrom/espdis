@@ -135,6 +135,14 @@ class Instr
 end
 
 # This is the interface to Gnu objdump
+# The cache was introduced after the program was all but finished.
+# It reduced runtime from 21 seconds to 1.7 seconds.
+#
+# I had some concern that it might contain some instructions that
+# were misaligned and badly disassembled, but on further reflection
+# this is of no concern.  This program will only ask for
+# instructions on valid addresses and will never ask for
+# bad instructions at strange addresses tha might be in the cache.
 class Code
     def initialize
 	@elf = $elf_file
