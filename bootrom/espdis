@@ -83,7 +83,7 @@ class Instr
     attr_reader :is_term
     attr_reader :illegal
 
-    def initialize ( addr, stuff )
+    def initialize ( addr, line )
 	@is_branch = false
 	@is_call = false
 	@is_call8 = false
@@ -94,19 +94,8 @@ class Instr
 	@target = nil
 
 	@addr = addr
-
-	info = stuff.split "\n"
-#	puts stuff
-#	puts info.size
-	line = nil
-	match = Regexp.new "^" + addr.hex + ":"
-	info.each { |l|
-	    line = l if match =~ l
-	}
-
-	error addr, stuff unless line
-
 	@line = line
+
 	w = line.split
 	if w.size < 3
 	    error addr, stuff
@@ -153,13 +142,61 @@ class Code
 	# with something like /opt/esp32/xtensa-esp32-elf/bin
 #	@cmd = "xtensa-lx106-elf-objdump -mxtensa -d -z"
 	@cmd = "xtensa-esp32-elf-objdump -mxtensa -d -z"
+	@cache = nil
 
     end
-    def one_inst ( addr )
+    def one_inst_ORIG ( addr )
 	eaddr = addr + 3
 	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
 	cmd = @cmd + " " + range + " #{@elf}"
-	return Instr.new addr, `#{cmd}`	; note backticks here
+
+	stuff = `#{cmd}`	# note backticks
+
+	info = stuff.split "\n"
+#	puts stuff
+#	puts info.size
+	line = nil
+	match = Regexp.new "^" + addr.hex + ":"
+	info.each { |l|
+	    line = l if match =~ l
+	}
+
+	error addr, stuff unless line
+
+	return Instr.new addr, line
+    end
+
+    def load_cache ( addr )
+	eaddr = addr + 300
+	range = "--start-address=#{addr.xhex} --stop-address=#{eaddr.xhex}"
+	cmd = @cmd + " " + range + " #{@elf}"
+
+	stuff = `#{cmd}`	# note backticks
+	lines = stuff.split "\n"
+	@cache = Hash.new
+
+	lines.each { |line|
+	    next unless line =~ /^400.....:/
+	    tag = line.sub /:.*/, ""
+	    @cache[tag] = line
+	    #puts tag + " " + line
+	}
+
+	error addr, stuff unless @cache[addr.hex]
+    end
+
+    def one_inst ( addr )
+
+	load_cache addr unless @cache 
+	line = @cache[addr.hex]
+	unless line
+	    load_cache addr
+	    line = @cache[addr.hex]
+	end
+
+	#puts line
+
+	return Instr.new addr, line
     end
 end
 
