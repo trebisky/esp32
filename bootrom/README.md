@@ -4,4 +4,9 @@ In particular, espdis is a ruby program that is a frontend
 for objdump that I use to generate a much more civilized
 listing than naive use of objdump will produce.
 
-startup.dis -- only disassemble what the startup can reach.
+Also you will find the current disassembly output here.
+There are two listings.  
+
+startup.dis -- 7500 lines - only code reached by startup reset
+everything.dis -- 112,000 lines - what can be reached from
+    every entry point I am aware of at this time.
