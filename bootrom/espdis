@@ -108,6 +108,14 @@ class Instr
 
 	@is_term = true if op =~ /^ret/
 	@is_term = true if op =~ /^j/
+
+	# There are a host of rf = "return from"
+	# as in rfi = return from interrupt
+	# but rfr is an exception
+	@is_term = true if op =~ /^rf/
+	@is_term = false if op =~ /^rfr/
+
+
 	@is_jump = true if op =~ /^j/
 	@is_jump = false if op =~ /^jx/
 	@is_branch = true if op =~ /^loopnez/
@@ -712,9 +720,8 @@ class Dumper
 
     def everything
 	#pass1 0x40000400
-	pass1 0x400649c4
-	# XXX
-	return
+	#pass1 0x400649c4
+	#return
 
 	@call.syms.each { |addr,_|
 	    next if addr < @base or addr > @limit
@@ -757,6 +764,12 @@ d = Dumper.new
 #d.show_map
 #exit
 
+if name and name == "all"
+    d.everything
+    d.pass2
+    exit
+end
+
 if name
     d.one_symbol name
     d.pass2
@@ -765,7 +778,6 @@ end
 
 puts "Begin Pass 1" if $debug
 d.startup_only
-#d.everything
 puts "End of Pass 1" if $debug
 #d.show_map
 d.pass2

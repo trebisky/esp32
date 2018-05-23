@@ -26,6 +26,9 @@ OBJDUMP = xtensa-esp32-elf-objdump -mxtensa -d -z
 dis:
 	time ./espdis >espdis.out
 
+disall:
+	time ./espdis all >all.out
+
 info:
 	$(ESPTOOL) read_mac
 	$(ESPTOOL) flash_id
