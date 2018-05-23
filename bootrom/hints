@@ -8,5 +8,7 @@ data1 0x4000055d
 data1 0x400657d3
 # The following is the vector table
 #data4 0x40000000:0x400003ff
+# Big block of data.
+data 0x4000d4f4:0x4000ffff
 sym 0x40000400 rom_START
 sym 0x40000450 rom_START2

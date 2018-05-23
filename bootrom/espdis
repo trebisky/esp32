@@ -22,6 +22,10 @@
 # 0x40000400, we have disassembled 19234 bytes of 458752
 # (approximately 4 percent!)
 
+# Using our symbol list as entry points, we are
+#  disassembling well over 50 percent of the ROM:
+# disassembled 268236 bytes of 458752
+
 # DONE:
 # 1 - find out why my "Twice" messages don't run in a continuous
 #       flow thru areas where I am sure they must.  DONE
@@ -32,11 +36,12 @@
 # 7 - add call table and generate "sub_xxx" sort of labels DONE
 #     for all call targets not in the ld file.
 # 8 arrange for hints file DONE
+# -- chase all the entry points in the sym table. DONE
 #
 # TODO:
-# -- chase all the entry points in the sym table.
 # -- strings
 # -- dump the "gaps" in some nice way. sorta DONE
+# -- figure out what to do with the no yet disassembled sections.
 
 $bin_file = "esp32.bin"
 $elf_file = "esp32.elf"
@@ -247,12 +252,24 @@ class Map
 	cmd = words[0].downcase
 	# mark a single byte
 
-	if cmd == "data1" or cmd == "data"
+	if cmd == "data"
+	    a = words[1].split ":"
+	    a1 = a[0].hex
+	    a2 = a[1].hex
+	    if a2 >= a1 and good_addr a1 and good_addr a2
+		claim a1-@base, a2-a1+1, "E"
+		#puts "D " + a1.hex + " " + a2.hex
+	    end
+	end
+
+	# single data byte "poison" marker
+	if cmd == "data1"
 	    addr = words[1].hex
 	    if good_addr addr
 		@map[addr-@base] = "D"
 	    end
 	end
+
 	# mark a range
 	if cmd == "data4"
 	    a = words[1].split ":"
@@ -663,6 +680,26 @@ class Dumper
 	}
 	return addr
     end
+
+    # dump a data range, 4 longs per line
+    def dump_data ( addr, xaddr )
+	baddr = addr & ~0xf
+	eaddr = baddr + 16
+	print "#{baddr.hex}:	"
+	loop {
+	    hval = @image.fetch_long(addr).hex
+	    print hval + " "
+	    addr += 4
+	    break if addr >= xaddr
+	    if addr == eaddr
+		print "\n"
+		print "#{addr.hex}:	"
+		eaddr = addr + 16
+	    end
+	}
+	print "\n"
+    end
+
     def pass2
 	addr = @base
 	loop {
@@ -691,7 +728,11 @@ class Dumper
 
 		    addr = naddr
 		}
-	    else
+	    # Handle a block of data
+	    elsif type == "E"
+		dump_data addr, xaddr
+	    # Handle an unknown block
+	    else	# "X"
 		len = xaddr - addr;
 		if ( len > 16 )
 		    eaddr = xaddr - 1 - @base
@@ -726,7 +767,7 @@ class Dumper
 	@call.syms.each { |addr,_|
 	    next if addr < @base or addr > @limit
 	    next unless @map.is_avail addr
-	    puts "Everything, run: " + addr.hex
+	    # puts "Everything, run: " + addr.hex
 	    pass1 addr
 	}
     end
@@ -767,6 +808,7 @@ d = Dumper.new
 if name and name == "all"
     d.everything
     d.pass2
+    d.summary
     exit
 end
 
