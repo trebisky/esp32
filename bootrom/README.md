@@ -8,5 +8,8 @@ Also you will find the current disassembly output here.
 There are two listings.  
 
 startup.dis -- 7500 lines - only code reached by startup reset
+    About 4 percent of the ROM
+
 everything.dis -- 112,000 lines - what can be reached from
     every entry point I am aware of at this time.
+    Over 50 percent of the ROM
